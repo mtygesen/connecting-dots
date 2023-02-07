@@ -1,14 +1,14 @@
 # LaTex
+latex/master.aux
+latex/master.bbl
+latex/master.blg
+latex/master.blx-bib
 latex/master.fdb_latexmk
 latex/master.fls
 latex/master.log
+latex/master.out
+latex/master.run.xml
 latex/master.tdo
 latex/master.thm
 latex/master.toc
-latex/master.bbl
-latex/master.blx-bib
-latex/master.out
-latex/master.aux
 latex/synctex.gz
-latex/master.blg
-latex/master.run.xml
