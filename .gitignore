@@ -1,3 +1,6 @@
 # LaTex
 latex/master.fdb_latexmk
 latex/master.fls
+latex/master.log
+latex/master.tdo
+latex/master.thm
