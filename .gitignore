@@ -12,3 +12,6 @@ latex/master.tdo
 latex/master.thm
 latex/master.toc
 latex/synctex.gz
+
+# VS Code
+**/.vscode
