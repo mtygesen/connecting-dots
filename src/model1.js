@@ -10,6 +10,7 @@ const testSet = dataset.testdata;
 
 let stats = TrainNetwork(net, trainingSet, 10);
 
-TestNetwork(net, testSet);
+let accuracy = TestNetwork(net, testSet);
 
 console.log(stats);
+console.log(`Accuracy: ${accuracy}%`);
