@@ -17,4 +17,4 @@ console.log(`Accuracy: ${accuracy}%`);
 
 let model = { 'net': net, 'stats': stats, 'accuracy': accuracy};
 
-fs.writeFileSync('model1.json', JSON.stringify(model));
+fs.writeFileSync('model1.json', JSON.stringify(model, null, 4));
