@@ -28,12 +28,12 @@ function SetupNetwork(activation = 'relu') {
  * 
  * @param net object
  * @param trainingSet to train the network
- * @param method of training string
  * @param epochs number
+ * @param method of training string
  * 
  * @returns stats array
  */
-function TrainNetwork(net, trainingSet, method = 'adadelta', epochs = 1) {
+function TrainNetwork(net, trainingSet, epochs = 1, method = 'adadelta') {
     let trainer = new convnetjs.SGDTrainer(net, { method: `${method}`, batch_size: 1, l2_decay: 0.001 });
     
     let stats = [];

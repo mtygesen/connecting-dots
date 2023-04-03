@@ -3,12 +3,12 @@ import { SetupNetwork, TrainNetwork, TestNetwork } from './trainer.js';
 
 let net = SetupNetwork();
 
-const dataset = mnist.makeData(100, 1000);
+const dataset = mnist.makeData(60000, 10000);
 
 const trainingSet = dataset.traindata;
 const testSet = dataset.testdata;
 
-let stats = TrainNetwork(net, trainingSet);
+let stats = TrainNetwork(net, trainingSet, 10);
 
 TestNetwork(net, testSet);
 
