@@ -1,5 +1,5 @@
 import mnist from 'easy-mnist';
-import { SetupNetwork, TrainNetwork, TestNetwork } from './trainer.js';
+import { SetupNetwork, TrainNetwork, TestNetwork } from '../trainer.js';
 
 let net = SetupNetwork();
 
