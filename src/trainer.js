@@ -47,7 +47,7 @@ function TrainNetwork(net, trainingSet, epochs = 1, method = 'adadelta') {
         
             stats.push([trainer.train(digit, trainingSet[j].label.indexOf(1))]);
         
-            PrintStatus(j, 50, trainingSet, startTimer);
+            PrintStatus(j, 50, trainingSet, epochs, startTimer);
         }
 
         console.log('Training done.');
@@ -62,13 +62,14 @@ function TrainNetwork(net, trainingSet, epochs = 1, method = 'adadelta') {
  * @param i number
  * @param interval number
  * @param trainingSet to calculate the percentage
+ * @param epochs
  * @param startTimer to calculate the time left
  * 
  * @returns void
  */
-function PrintStatus(i, interval, trainingSet, startTimer) {
+function PrintStatus(i, interval, trainingSet, epochs, startTimer) {
     if (i > 0 && i % interval === 0) {
-        let percentage = i / trainingSet.length * 100;
+        let percentage = i / (trainingSet.length * epochs) * 100;
 
         let endTimer = process.hrtime(startTimer);
 
