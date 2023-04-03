@@ -5,12 +5,11 @@ let net = SetupNetwork();
 
 const dataset = mnist.makeData(10000, 10000);
 
-const trainingSet = dataset.traindata;
-const testSet = dataset.testdata;
+let startTimer = process.hrtime(); 
 
-let stats = TrainNetwork(net, trainingSet, 2);
+let stats = TrainNetwork(net, dataset.traindata, startTimer, 1);
 
-let accuracy = TestNetwork(net, testSet);
+let accuracy = TestNetwork(net, dataset.testdata);
 
 console.log(stats);
 console.log(`Accuracy: ${accuracy}%`);

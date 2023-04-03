@@ -28,17 +28,16 @@ function SetupNetwork(activation = 'relu') {
  * 
  * @param net object
  * @param trainingSet to train the network
+ * @param startTimer to calculate the time left
  * @param epochs number
  * @param method of training string
  * 
  * @returns stats array
  */
-function TrainNetwork(net, trainingSet, epochs = 1, method = 'adadelta') {
+function TrainNetwork(net, trainingSet, startTimer, epochs = 1, method = 'adadelta') {
     let trainer = new convnetjs.SGDTrainer(net, { method: `${method}`, batch_size: 1, l2_decay: 0.001 });
     
     let stats = [];
-
-    let startTimer = process.hrtime(); 
 
     for (let i = 0; i < epochs; ++i) {
         for (let j = 0; j < trainingSet.length; ++j) {
