@@ -21,11 +21,14 @@ body {
 }
 
 #header {
-    /*font-family: 'Oxygen', monospace, Courier;*/
+    font-family: 'Oxygen', monospace, Courier;
     color: #ffffff;
     padding-right: 15px;
     margin-right: 20%;
-    margin-top: 36vh;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+     text-align: center;
 }
 
 
@@ -52,3 +55,4 @@ body {
     max-width: 850px;
     position: relative;
 }
+
