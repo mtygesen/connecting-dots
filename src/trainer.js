@@ -56,7 +56,7 @@ function TrainNetwork(net, trainingSet, startTimer, epochs = 1, method = 'adadel
 }
 
 /**
- * Prints the training status
+ * Prints the time left before training is done
  * 
  * @param i number
  * @param interval number
