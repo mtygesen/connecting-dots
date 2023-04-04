@@ -117,4 +117,12 @@ function TestNetwork(net, testSet) {
     return accuracy;
 }
 
-export { SetupNetwork, TrainNetwork, TestNetwork };
+function PrintDone(modelName, accuracy) {
+    console.clear();
+
+    console.log('Training complete!\n');
+    console.log(`Model accuracy: ${accuracy}%`);
+    console.log(`Saved as ${modelName}.json in models/`);
+}
+
+export { SetupNetwork, TrainNetwork, TestNetwork, PrintDone };
