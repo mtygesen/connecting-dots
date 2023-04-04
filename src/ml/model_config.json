@@ -1,0 +1,9 @@
+{
+    "modelName": "model1",
+    "activation": "relu",
+    "trainingMethod": "adadelta",
+    "trainingSize": 1000,
+    "testSize": 100,
+    "batchSize": 10,
+    "epochs": 1
+}
