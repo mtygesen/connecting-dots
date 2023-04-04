@@ -31,7 +31,7 @@ function SetupNetwork(activation = 'relu') {
  * @param trainingSet to train the network
  * @param startTimer to calculate the time left
  * 
- * @returns stats array
+ * @returns stats object
  */
 function TrainNetwork(net, trainingSet, startTimer, config) {
     let trainingMethod = config.trainingMethod,
