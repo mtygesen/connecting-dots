@@ -117,6 +117,13 @@ function TestNetwork(net, testSet) {
     return accuracy;
 }
 
+
+/**
+ * Prints a message to the console, when the program is done
+ * 
+ * @param modelName name of the model trained
+ * @param accuracy accuracy of the model trained
+ */
 function PrintDone(modelName, accuracy) {
     console.clear();
 
