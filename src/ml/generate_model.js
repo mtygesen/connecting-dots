@@ -1,7 +1,7 @@
 import fs from 'fs'; // Filesystem
 import mnist from 'easy-mnist'; // MNIST dataset
 
-import { SetupNetwork, TrainNetwork, TestNetwork, PrintDone } from './trainer.js'; // Training functions
+import { SetupNetwork, TrainNetwork, TestNetwork } from './trainer.js'; // Training functions
 import config from './model_config.json' assert { type: 'json' }; // Model configuration
 
 let modelName = config.modelName,
@@ -24,3 +24,21 @@ let model = { 'net': net, 'stats': stats, 'accuracy': accuracy, 'config': config
 fs.writeFileSync(`models/${modelName}.json`, JSON.stringify(model)); // Save model
 
 PrintDone(modelName, accuracy); // Print done message
+
+/**
+ * Prints a message to the console, when the program is done
+ * 
+ * @param modelName name of the model trained
+ * @param accuracy accuracy of the model trained
+ * 
+ * @returns void
+ */
+function PrintDone(modelName, accuracy) {
+    console.clear();
+
+    console.log('Training complete!\n');
+    console.log(`Model accuracy: ${accuracy}%`);
+    console.log(`Saved as ${modelName}.json in models/`);
+    
+    return;
+}

@@ -27,11 +27,9 @@ function SetupNetwork(activation = 'relu') {
 /**
  * Trains the neural network
  * 
- * @param net object
+ * @param net network object
  * @param trainingSet to train the network
  * @param startTimer to calculate the time left
- * @param epochs number
- * @param method of training string
  * 
  * @returns stats array
  */
@@ -64,9 +62,8 @@ function TrainNetwork(net, trainingSet, startTimer, config) {
 /**
  * Prints the time left before training is done
  * 
- * @param j number
+ * @param j iteration number
  * @param trainingSet to calculate the percentage
- * @param epochs
  * @param startTimer to calculate the time left
  * 
  * @returns void
@@ -118,23 +115,4 @@ function TestNetwork(net, testSet) {
     return accuracy;
 }
 
-
-/**
- * Prints a message to the console, when the program is done
- * 
- * @param modelName name of the model trained
- * @param accuracy accuracy of the model trained
- * 
- * @returns void
- */
-function PrintDone(modelName, accuracy) {
-    console.clear();
-
-    console.log('Training complete!\n');
-    console.log(`Model accuracy: ${accuracy}%`);
-    console.log(`Saved as ${modelName}.json in models/`);
-    
-    return;
-}
-
-export { SetupNetwork, TrainNetwork, TestNetwork, PrintDone };
+export { SetupNetwork, TrainNetwork, TestNetwork };
