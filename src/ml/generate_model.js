@@ -4,10 +4,10 @@ import mnist from 'easy-mnist';
 import { SetupNetwork, TrainNetwork, TestNetwork } from './trainer.js';
 import config from './model_config.json' assert { type: 'json' };
 
-let modelName = config.modelName;
-let activation = config.activation;
-let trainingSize = config.trainingSize;
-let testSize = config.testSize;
+let modelName = config.modelName,
+    activation = config.activation,
+    trainingSize = config.trainingSize,
+    testSize = config.testSize;
 
 let net = SetupNetwork(activation);
 
