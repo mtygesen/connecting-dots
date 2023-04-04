@@ -4,6 +4,7 @@ import convnetjs from 'convnetjs';
  * Sets up the neural network
  * 
  * @param activation function string
+ * 
  * @returns net object
  */
 function SetupNetwork(activation = 'relu') {
@@ -123,6 +124,8 @@ function TestNetwork(net, testSet) {
  * 
  * @param modelName name of the model trained
  * @param accuracy accuracy of the model trained
+ * 
+ * @returns void
  */
 function PrintDone(modelName, accuracy) {
     console.clear();
