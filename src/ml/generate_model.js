@@ -4,10 +4,13 @@ import mnist from 'easy-mnist'; // MNIST dataset
 import { SetupNetwork, TrainNetwork, TestNetwork } from './trainer.js'; // Training functions
 import config from './model_config.json' assert { type: 'json' }; // Model configuration
 
-let modelName = config.modelName,
-    activation = config.activation,
-    trainingSize = config.trainingSize,
-    testSize = config.testSize;
+let network = config.network,
+    other = config.other;
+
+let modelName = network.modelName,
+    activation = network.activation,
+    trainingSize = network.trainingSize,
+    testSize = network.testSize;
 
 let net = SetupNetwork(activation); // Setup the network
 
@@ -19,9 +22,10 @@ let stats = TrainNetwork(net, dataset.traindata, startTimer, config); // Train t
 
 let accuracy = TestNetwork(net, dataset.testdata); // Test the network and return accuracy
 
-let model = { 'net': net, 'stats': stats, 'accuracy': accuracy, 'config': config }; // Format model object
+let model = { 'net': net, 'stats': stats, 'accuracy': accuracy, 'config': network }; // Format model object
+let modelStr = other.formattedOutput ? JSON.stringify(model, null, 4) : JSON.stringify(model); // Format model string
 
-fs.writeFileSync(`models/${modelName}.json`, JSON.stringify(model)); // Save model
+fs.writeFileSync(`models/${modelName}.json`, modelStr); // Save model
 
 PrintDone(modelName, accuracy); // Print done message
 
@@ -38,7 +42,7 @@ function PrintDone(modelName, accuracy) {
 
     console.log('Training complete!\n');
     console.log(`Model accuracy: ${accuracy}%`);
-    console.log(`Saved as ${modelName}.json in models/`);
+    console.log(`Saved as ${modelName}.json in models/\n`);
     
     return;
 }

@@ -30,16 +30,21 @@ function SetupNetwork(activation = 'relu') {
  * @param net network object
  * @param trainingSet to train the network
  * @param startTimer to calculate the time left
+ * @param config object
  * 
  * @returns stats object
  */
 function TrainNetwork(net, trainingSet, startTimer, config) {
-    let trainingMethod = config.trainingMethod,
-        batchSize = config.batchSize,
-        epochs = config.epochs,
-        printInterval = config.printInterval;
+    let network = config.network,
+        other = config.other;
 
-    let trainer = new convnetjs.SGDTrainer(net, { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: 0.001 });
+    let trainingMethod = network.trainingMethod,
+        batchSize = network.batchSize,
+        epochs = network.epochs;
+
+    let printInterval = other.printInterval;
+
+    let trainer = new convnetjs.SGDTrainer(net, { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: `${l2Decay}` });
     
     let stats = [];
 
@@ -64,6 +69,7 @@ function TrainNetwork(net, trainingSet, startTimer, config) {
  * 
  * @param j iteration number
  * @param trainingSet to calculate the percentage
+ * @param epochs to calculate the overall percentage
  * @param startTimer to calculate the time left
  * 
  * @returns void
