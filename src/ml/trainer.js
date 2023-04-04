@@ -130,6 +130,8 @@ function PrintDone(modelName, accuracy) {
     console.log('Training complete!\n');
     console.log(`Model accuracy: ${accuracy}%`);
     console.log(`Saved as ${modelName}.json in models/`);
+    
+    return;
 }
 
 export { SetupNetwork, TrainNetwork, TestNetwork, PrintDone };
