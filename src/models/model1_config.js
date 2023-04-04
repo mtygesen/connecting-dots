@@ -15,6 +15,6 @@ let accuracy = TestNetwork(net, dataset.testdata);
 console.log(stats);
 console.log(`Accuracy: ${accuracy}%`);
 
-let model = { 'net': net, 'stats': stats, 'accuracy': accuracy};
+let model = { 'net': net, 'stats': stats, 'accuracy': accuracy };
 
-fs.writeFileSync('model1.json', JSON.stringify(model, null, 4));
+fs.writeFileSync('model2.json', JSON.stringify(model));
