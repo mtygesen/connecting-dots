@@ -35,9 +35,10 @@ function SetupNetwork(activation = 'relu') {
  * @returns stats array
  */
 function TrainNetwork(net, trainingSet, startTimer, config) {
-    let trainingMethod = config.trainingMethod;
-    let batchSize = config.batchSize;
-    let epochs = config.epochs;
+    let trainingMethod = config.trainingMethod,
+        batchSize = config.batchSize,
+        epochs = config.epochs,
+        printInterval = config.printInterval;
 
     let trainer = new convnetjs.SGDTrainer(net, { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: 0.001 });
     
@@ -50,10 +51,10 @@ function TrainNetwork(net, trainingSet, startTimer, config) {
         
             stats.push([trainer.train(digit, trainingSet[j].label.indexOf(1))]);
         
-            PrintStatus(j, 50, trainingSet, epochs, startTimer);
+            if (j > 0 && j % printInterval === 0) {
+                PrintStatus(j, trainingSet, epochs, startTimer);
+            }
         }
-
-        console.log('Training done.');
     }
 
     return stats;
@@ -62,31 +63,27 @@ function TrainNetwork(net, trainingSet, startTimer, config) {
 /**
  * Prints the time left before training is done
  * 
- * @param i number
- * @param interval number
+ * @param j number
  * @param trainingSet to calculate the percentage
  * @param epochs
  * @param startTimer to calculate the time left
  * 
  * @returns void
  */
-function PrintStatus(i, interval, trainingSet, epochs, startTimer) {
-    if (i > 0 && i % interval === 0) {
-        let percentage = i / (trainingSet.length * epochs) * 100;
+function PrintStatus(j, trainingSet, epochs, startTimer) {
+    let percentage = j / (trainingSet.length * epochs) * 100;
 
-        let endTimer = process.hrtime(startTimer);
+    let endTimer = process.hrtime(startTimer);
 
-        let time = endTimer[0] + endTimer[1] / 1000000000;
+    let time = endTimer[0] + endTimer[1] / 1000000000;
 
-        let timeLeft = Math.round(time / percentage * (100 - percentage));
+    let timeLeft = Math.round(time / percentage * (100 - percentage)),
+        minutesLeft = Math.floor(timeLeft / 60),
+        secondsLeft = timeLeft % 60;
 
-        let minutesLeft = Math.floor(timeLeft / 60); 
-        let secondsLeft = timeLeft % 60;
-
-        console.clear();
-        console.log(`Training time left: ${minutesLeft}m ${secondsLeft}s`);
-    }
-
+    console.clear();
+    console.log(`Training time left: ${minutesLeft}m ${secondsLeft}s`);
+    
     return;
 }
 

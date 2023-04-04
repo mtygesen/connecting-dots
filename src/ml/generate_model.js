@@ -19,9 +19,12 @@ let stats = TrainNetwork(net, dataset.traindata, startTimer, config);
 
 let accuracy = TestNetwork(net, dataset.testdata);
 
-console.log(stats);
-console.log(`Accuracy: ${accuracy}%`);
-
 let model = { 'net': net, 'stats': stats, 'accuracy': accuracy, 'config': config };
 
 fs.writeFileSync(`models/${modelName}.json`, JSON.stringify(model));
+
+console.clear();
+
+console.log('Training complete!\n');
+console.log(`Model accuracy: ${accuracy}%`);
+console.log(`Saved as ${modelName}.json in models/`);
