@@ -2,7 +2,7 @@ import fs from 'fs'; // Filesystem
 import mnist from 'easy-mnist'; // MNIST dataset
 
 import { SetupNetwork, TrainNetwork, TestNetwork, PrintDone } from './setup_model.js'; // Import helper functions
-import config from './configure_model.json' assert { type: 'json' }; // Model configuration
+import config from './model_settings.json' assert { type: 'json' }; // Model configuration
 
 let network = config.network,
     other = config.other;
