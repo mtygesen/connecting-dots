@@ -1,5 +1,5 @@
 /**
- * Script that setups, trains and tests a convolutional neural network on the mnist dataset, and saves the model as a json file.
+ * Script that sets up, trains and tests a convolutional neural network on the mnist dataset, and saves the model as a json file.
  * The configuration can be changed in model_settings.json
  */
 
