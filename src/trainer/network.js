@@ -85,7 +85,6 @@ function PrintStatus(j, trainingSet, epochs, startTimer) {
         secondsLeft = timeLeft % 60;
     
     console.clear();
-    console.log(time);
     console.log(`Training time left: ${minutesLeft}m ${secondsLeft}s`);
     
     return;

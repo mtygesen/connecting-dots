@@ -22,7 +22,7 @@ let stats = TrainNetwork(net, trainingSet, network); // Train the network and re
 
 let accuracy = TestNetwork(net, testSet); // Test the network and return accuracy
 
-let model = { 'net': net, 'stats': stats, 'accuracy': accuracy, 'config': network }; // Format model object
+let model = { 'net': net, stats, 'accuracy': accuracy, 'config': network }; // Format model object
 let modelStr = other.formattedOutput ? JSON.stringify(model, null, 4) : JSON.stringify(model); // Format model string
 
 fs.writeFileSync(`models/${modelName}.json`, modelStr); // Save model
