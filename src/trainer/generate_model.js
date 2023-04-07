@@ -15,6 +15,7 @@ let modelName = network.modelName,
 let net = SetupNetwork(activation); // Setup the network
 
 const dataset = mnist.makeData(trainingSize, testSize);
+
 let trainingSet = dataset.traindata,
     testSet = dataset.testdata;
 
