@@ -1,0 +1,15 @@
+{
+    "network": {
+        "modelName": "model1",
+        "activation": "relu",
+        "trainingMethod": "adadelta",
+        "trainingSize": 1000,
+        "testSize": 100,
+        "batchSize": 10,
+        "l2Decay": 0.0001,
+        "epochs": 1
+    },
+    "other": {
+        "formattedOutput": true
+    }
+}
