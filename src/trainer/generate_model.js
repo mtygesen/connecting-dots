@@ -13,11 +13,10 @@ const network = config.network,
       other = config.other;
 
 const modelName = network.modelName,
-      activation = network.activation,
       trainingSize = network.trainingSize,
       testSize = network.testSize;
 
-const net = SetupNetwork(activation); // Setup the network
+const net = SetupNetwork(network); // Setup the network
 
 const dataset = mnist.makeData(trainingSize, testSize);
 
@@ -28,7 +27,7 @@ const stats = TrainNetwork(net, trainingSet, network); // Train the network and 
 
 const accuracy = TestNetwork(net, testSet); // Test the network and return accuracy
 
-const model = { 'net': net, stats, 'accuracy': accuracy, 'config': network }; // Format model object
+const model = { 'net': net, 'stats': stats, 'accuracy': accuracy, 'config': network }; // Format model object
 
 const modelStr = other.formattedOutput ? JSON.stringify(model, null, 4) : JSON.stringify(model); // Format model string
 

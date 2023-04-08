@@ -3,13 +3,16 @@ import convnetjs from 'convnetjs';
 /**
  * Sets up the neural network
  * 
- * @param activation function string
+ * @param network object
  * 
  * @returns net object
  */
-function SetupNetwork(activation) {
+function SetupNetwork(network) {
     const net = new convnetjs.Net();
     const layers = [];
+
+    const activation = network.activation;
+    const hiddenLayers = network.hiddenLayers;
 
     layers.push({ type: 'input', out_sx: 28, out_sy: 28, out_depth: 1 });
     layers.push({ type: 'conv', sx: 5, filters: 8, stride: 1, pad: 2, activation: `${activation}` });
@@ -17,6 +20,11 @@ function SetupNetwork(activation) {
     layers.push({ type: 'conv', sx: 5, filters: 16, stride: 1, pad: 2, activation: `${activation}` });
     layers.push({ type: 'pool', sx: 3, stride: 3 });
     layers.push({ type: 'fc', num_neurons: 256, activation: `${activation}`});
+
+    for (let i = 0; i < hiddenLayers.length; ++i) {
+        layers.push({ type: 'fc', num_neurons: hiddenLayers[i], activation: `${activation}` });
+    }
+
     layers.push({ type: 'softmax', num_classes: 10 });
     
     net.makeLayers(layers);
