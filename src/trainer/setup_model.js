@@ -17,9 +17,7 @@ function SetupNetwork(network) {
     try {
         switch (activation) {
             case 'relu':
-                break;
             case 'sigmoid':
-                break;
             case 'tanh':
                 break;
             default:
