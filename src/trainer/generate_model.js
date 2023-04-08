@@ -34,3 +34,5 @@ const modelStr = other.formattedOutput ? JSON.stringify(model, null, 4) : JSON.s
 fs.writeFileSync(`models/${modelName}.json`, modelStr); // Save model
 
 PrintDone(modelName, accuracy); // Print done message
+
+process.exit(0);

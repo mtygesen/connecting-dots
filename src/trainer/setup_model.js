@@ -14,6 +14,23 @@ function SetupNetwork(network) {
     const activation = network.activation;
     const hiddenLayers = network.hiddenLayers;
 
+    try {
+        switch (activation) {
+            case 'relu':
+                break;
+            case 'sigmoid':
+                break;
+            case 'tanh':
+                break;
+            default:
+                throw new Error('Invalid activation function!');
+        }
+    }
+    catch (err) {
+        console.log(err);
+        process.exit(1);
+    }
+
     layers.push({ type: 'input', out_sx: 28, out_sy: 28, out_depth: 1 });
     layers.push({ type: 'conv', sx: 5, filters: 8, stride: 1, pad: 2, activation: `${activation}` });
     layers.push({ type: 'pool', sx: 2, stride: 2 });
