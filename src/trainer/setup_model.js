@@ -51,7 +51,7 @@ function TrainNetwork(net, trainingSet, network) {
 
     const trainer = new convnetjs.SGDTrainer(net, { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: `${l2Decay}` });
     
-    const stats = []
+    const stats = [];
 
     const startTimer = process.hrtime(); 
 
