@@ -8,8 +8,8 @@ import convnetjs from 'convnetjs';
  * @returns net object
  */
 function SetupNetwork(activation) {
-    let net = new convnetjs.Net();
-    let layers = [];
+    const net = new convnetjs.Net();
+    const layers = [];
 
     layers.push({ type: 'input', out_sx: 28, out_sy: 28, out_depth: 1 });
     layers.push({ type: 'conv', sx: 5, filters: 8, stride: 1, pad: 2, activation: `${activation}` });
@@ -36,20 +36,20 @@ function SetupNetwork(activation) {
 function TrainNetwork(net, trainingSet, network) {
     const printInterval = 100;
 
-    let trainingMethod = network.trainingMethod,
-        batchSize = network.batchSize,
-        l2Decay = network.l2Decay,
-        epochs = network.epochs;
+    const trainingMethod = network.trainingMethod,
+          batchSize = network.batchSize,
+          l2Decay = network.l2Decay,
+          epochs = network.epochs;
 
-    let trainer = new convnetjs.SGDTrainer(net, { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: `${l2Decay}` });
+    const trainer = new convnetjs.SGDTrainer(net, { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: `${l2Decay}` });
     
-    let stats = []
+    const stats = []
 
-    let startTimer = process.hrtime(); 
+    const startTimer = process.hrtime(); 
 
     for (let i = 0; i < epochs; ++i) {
         for (let j = 0; j < trainingSet.length; ++j) {
-            let digit = new convnetjs.Vol(28, 28, 1, 0.0);
+            const digit = new convnetjs.Vol(28, 28, 1, 0.0);
             digit.w = trainingSet[j].image;
         
             stats.push([trainer.train(digit, trainingSet[j].label.indexOf(1))]);
@@ -74,15 +74,15 @@ function TrainNetwork(net, trainingSet, network) {
  * @returns void
  */
 function PrintStatus(j, trainingSet, epochs, startTimer) {
-    let percentage = j / (trainingSet.length * epochs) * 100;
+    const percentage = j / (trainingSet.length * epochs) * 100;
 
-    let endTimer = process.hrtime(startTimer);
+    const endTimer = process.hrtime(startTimer);
 
-    let time = endTimer[0] + endTimer[1] / Math.pow(10, 9); // Time passed in seconds with 9 decimal places precision
+    const time = endTimer[0] + endTimer[1] / Math.pow(10, 9); // Time passed in seconds with 9 decimal places precision
     
-    let timeLeft = Math.round(time / percentage * (100 - percentage)),
-        minutesLeft = Math.floor(timeLeft / 60),
-        secondsLeft = timeLeft % 60;
+    const timeLeft = Math.round(time / percentage * (100 - percentage)),
+          minutesLeft = Math.floor(timeLeft / 60),
+          secondsLeft = timeLeft % 60;
     
     console.clear();
     console.log(`Training time left: ${minutesLeft}m ${secondsLeft}s`);
@@ -102,20 +102,20 @@ function TestNetwork(net, testSet) {
     let correct = 0;
 
     for (let i = 0; i < testSet.length; ++i) {
-        let digit = new convnetjs.Vol(28, 28, 1, 0.0);
+        const digit = new convnetjs.Vol(28, 28, 1, 0.0);
         digit.w = testSet[i].image;
 
-        let prediction = net.forward(digit);
-        let predictionMax = Math.max(...prediction.w);
+        const prediction = net.forward(digit);
+        const predictionMax = Math.max(...prediction.w);
 
-        let guess = prediction.w.indexOf(predictionMax);
+        const guess = prediction.w.indexOf(predictionMax);
 
-        let answer = testSet[i].label.indexOf(1);
+        const answer = testSet[i].label.indexOf(1);
 
         if (guess === answer) ++correct;
     }
 
-    let accuracy = (correct / testSet.length) * 100;
+    const accuracy = (correct / testSet.length) * 100;
 
     return accuracy;
 }
