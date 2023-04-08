@@ -47,9 +47,35 @@ function TrainNetwork(net, trainingSet, network) {
     const trainingMethod = network.trainingMethod,
           batchSize = network.batchSize,
           l2Decay = network.l2Decay,
+          l1Decay = network.l1Decay,
+          learningRate = network.learning_rate,
+          momentum = network.momentum,
           epochs = network.epochs;
 
-    const trainer = new convnetjs.SGDTrainer(net, { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: `${l2Decay}` });
+    const settings = { method: `${trainingMethod}`, batch_size: `${batchSize}`, l2_decay: `${l2Decay}` };
+
+    try {
+        switch (trainingMethod) {
+            case 'adadelta':
+                break;
+            case 'adagrad':
+                settings.l1_decay = l1Decay;
+                break;
+            case 'sgd':
+                settings.l1_decay = l1Decay;
+                settings.learning_rate = learningRate;
+                settings.momentum = momentum;
+                break;
+            default:
+                throw new Error('Invalid training method!');
+        }
+    }
+    catch (err) {
+        console.log(err);
+        process.exit(1);
+    }
+
+    const trainer = new convnetjs.SGDTrainer(net, settings);
     
     const stats = [];
 
