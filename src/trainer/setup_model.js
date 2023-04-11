@@ -163,10 +163,8 @@ function TestNetwork(net, testSet) {
 
         if (guess === answer) ++correct;
     }
-
-    const accuracy = (correct / testSet.length) * 100;
-
-    return accuracy;
+    
+    return (correct / testSet.length) * 100;
 }
 
 /**
