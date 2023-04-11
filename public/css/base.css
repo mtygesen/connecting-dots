@@ -1,5 +1,3 @@
-
-
 /* NAVBAR STYLING */
 .navbar {
     display: flex;
@@ -31,7 +29,7 @@
 .menu li:hover {
     background-color: rgb(118, 30, 30);
     border-radius: 5px;
-    transition: 0.3s ease;
+    transition: 0.8s ease;
 }
 
 .menu li {
@@ -45,7 +43,7 @@
 
 .dropdown {
 
-    background-color: rgb(118, 30, 30);
+    background-color: rgb(59, 59, 59);
     padding: 1em 0;
     position: absolute;
     /*WITH RESPECT TO PARENT*/
@@ -59,7 +57,7 @@
 }
 
 .dropdown li {
-    padding: 0.5em 1em;
+    padding: 0.3em;
     width: 8em;
     text-align: center;
 }
@@ -79,7 +77,7 @@
 .menu li:hover {
     display: inline-block;
     background-color: rgb(118, 30, 30);
-    transition: 0.10s ease;
+    transition: 0.30s ease;
 }
 
 input[type=checkbox]:checked~.menu {
@@ -131,7 +129,7 @@ input[type=checkbox]:checked~.menu {
 }
 
 .footer-title {
-    color: #3fd150;
+    color: #ffffff;
     font-size: 25px;
 
 }
