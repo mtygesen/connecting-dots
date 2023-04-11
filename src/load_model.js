@@ -5,8 +5,8 @@
  * 
  * @returns a promise with the model object 
  */
-async function GetModel(modelName) {
+async function LoadModel(modelName) {
     return await import(`./trainer/models/${modelName}.json`, { assert: { type: 'json' }});
 }
 
-export { GetModel };
+export { LoadModel };
