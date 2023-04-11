@@ -50,7 +50,7 @@ function SetupNetwork(network) {
 /**
  * Trains the neural network
  * 
- * @param net network object
+ * @param net object
  * @param trainingSet to train the network
  * @param network object
  * 
