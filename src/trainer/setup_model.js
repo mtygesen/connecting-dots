@@ -103,7 +103,7 @@ function TrainNetwork(net, trainingSet, network) {
             digit.w = trainingSet[j].image;
             
             if (j > 0 && j % logInterval === 0) {
-                stats.push([trainer.train(digit, trainingSet[j].label.indexOf(1))]);
+                stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
             }
             else {
                 trainer.train(digit, trainingSet[j].label.indexOf(1));
