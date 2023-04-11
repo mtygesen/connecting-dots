@@ -1,6 +1,6 @@
 {
     "network": {
-        "modelName": "model-test",
+        "modelName": "model2",
         "activation": "relu",
         "trainingMethod": "adadelta",
         "trainingSize": 1000,
