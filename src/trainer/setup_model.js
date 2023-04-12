@@ -102,7 +102,7 @@ function TrainNetwork(net, trainingSet, network) {
             const digit = new convnetjs.Vol(28, 28, 1, 0.0);
             digit.w = trainingSet[j].image;
             
-            if (j > 0 && j % logInterval === 0) {
+            if (j % logInterval === 0) {
                 stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
             }
             else {
