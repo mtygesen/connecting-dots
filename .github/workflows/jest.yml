@@ -1,4 +1,4 @@
-name: Jest unit test on clean install
+name: Jest test
 
 on:
   push:
