@@ -7,7 +7,7 @@ import { LoadModel } from './load_model.js';
  * @param modelName name of the model to evaluate
  * @param input image to evaluate
  * 
- * @returns a promise with an array of probabilities
+ * @returns a promise with a prediction object
  */
 async function EvaluateModel(modelName, input) {
     const model = (await LoadModel(modelName)).default;
@@ -20,9 +20,7 @@ async function EvaluateModel(modelName, input) {
 
     net.fromJSON(model.net);
 
-    const result = net.forward(digit);
-
-    return result.w;
+    return net.forward(digit);
 }
 
 export { EvaluateModel };
