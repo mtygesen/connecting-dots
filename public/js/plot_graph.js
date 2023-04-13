@@ -5,7 +5,8 @@
  * 
  * @returns void
  */
-function PlotGraph() {
+function PlotGraph(model) {
+
     // Find and initialize the canvas
     const canvas = document.getElementById("LossChart")
     const ctx  = canvas.getContext("2d")
@@ -17,7 +18,7 @@ function PlotGraph() {
     ctx.lineWidth = 2 * scale
 
     // Find the max value of the loss from the samples which will be the peak of the Y-coordinates
-    const max = Math.max(...model.stats.map((stat) => stat.loss));
+    const max = Math.max(...model.stats.map((stats) => stats.loss));
     
 
     // initialize values for the grid
@@ -35,7 +36,6 @@ function PlotGraph() {
     grid.top = yDivide * (maxRows - rows) / 2
     grid.right = canvas.width - grid.left
     grid.bottom = canvas.height - grid.top
-
 
     
     // Grid background
@@ -63,8 +63,8 @@ function PlotGraph() {
     // Write labels
     ctx.beginPath()
     ctx.fillStyle = "#000";
-    const fontsize = Math.min(0.5 * yDivide, xDivide / 3) // Find correct fontsize
-    ctx.font = `${fontsize}px Arial`
+    const labelSize = Math.min(0.5 * yDivide, xDivide / 3) // Find correct fontsize
+    ctx.font = `${labelSize}px Arial`
     ctx.textAlign = "right"
     for (let i = 0; i <= rows; i++) { // Y
         let x = grid.left * 0.9
@@ -78,6 +78,25 @@ function PlotGraph() {
         let y = grid.bottom + grid.top * 0.25
         ctx.fillText(10 * i, x, y);
     }
+    // Titles of lables
+    ctx.beginPath()
+    const titleSize = Math.min(grid.left / 4, grid.height / 4)
+    const rotation = Math.PI / 2 //90 degrees
+    ctx.font = `${titleSize}px Arial`
+    ctx.textAlign = "center"
+    ctx.rotate(-rotation) //rotate left
+
+    let x = - canvas.height / 2
+    let y = grid.left / 4
+    ctx.fillText("Loss", x, y) // Y-axis
+
+    ctx.rotate(rotation) //rotate back
+
+    x = canvas.width / 2
+    y = grid.bottom + grid.top * 2/3
+    ctx.fillText("Iterations", x, y) // X-axis
+    
+
 
     // Draw the actual graph
     const points = model.stats.length
