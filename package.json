@@ -2,8 +2,12 @@
   "type": "module",
   "dependencies": {
     "convnetjs": "^0.3.0",
-    "easy-mnist": "^1.1.1",
-    "latest": "^0.2.0",
-    "n": "^9.0.1"
+    "easy-mnist": "^1.1.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  },
+  "scripts": {
+    "test": "jest --verbose --passWithNoTests"
   }
 }

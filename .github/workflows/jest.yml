@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Jest test
 
 on:
   push:
@@ -23,8 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           
-      - name: install modules
-      - run: npm ci
-      
-      - name: Build project
-      - run: npm run build --if-present
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test

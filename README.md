@@ -1,2 +1,10 @@
+
+![Jest test](https://github.com/icecoldgold773/p2-project/actions/workflows/jest.yml/badge.svg?event=push) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # P2 project
+
 This is a repository for our P2 project
+
+## Dependencies
+
+## Install
