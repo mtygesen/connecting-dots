@@ -17,14 +17,17 @@ Files should be named with all lowercase, and should be seperated with '_'
 ### Functions
 
 Function names should be using PascalCase:
+
 ```js
 function MyFunction() {
-  // Code
+    // Code
 }
 ```
+
 ### Variables
 
 Variable names should be using camelCase, and should be a const unless the variable is changed:
+
 ```js
 const myVar = 10;
 
@@ -36,4 +39,36 @@ let myDynamicVar = 10;
 
 ### If else
 
+Consecutive related if-else statements are written directly below the previous statement
+
+```js
+if (condition) {
+    // do something
+}
+else if (anotherCondition) {
+    // do something
+}
+else {
+    // do something
+}
+```
+
 ### Switch case
+
+Procedures inside a case are indented once more than it's "case x:"
+
+Default should always be at the bottom and contain a "break;" at the end
+
+```js
+switch (variable) {
+    case x:
+        // do something
+        // no break;
+    case y:
+        // do something
+        break;
+    default
+        // do something
+        break;
+}
+```
