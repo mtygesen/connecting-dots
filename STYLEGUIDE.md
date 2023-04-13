@@ -1,8 +1,8 @@
-# Styleguide for project
+# Styleguide for Project
 
 This is the styleguide used to set the programming standards for this project.
 
-## Source files
+## Source Files
 
 ### Folders
 
@@ -53,7 +53,7 @@ else {
 }
 ```
 
-### Switch case
+### Switch Case
 
 Procedures inside a case are indented once more than it's "case x:"
 
