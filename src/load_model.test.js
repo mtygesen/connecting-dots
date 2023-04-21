@@ -4,7 +4,7 @@ import { LoadModel } from "./load_model";
 test('Load model from file system and verify top level properties', async () => {
     // Get the name of the first model in the models folder without file extenstion
     const modelName = fs.readdirSync('./src/trainer/models/')[0].split('.')[0];
-    const model1 = await LoadModel(`${modelName}`);
+    const model1 = await LoadModel(modelName);
 
     expect(model1).toHaveProperty('net');
     expect(model1).toHaveProperty('stats');
