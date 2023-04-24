@@ -1,0 +1,41 @@
+/*FOOT STYLING*/
+.footer {
+	width: 100%;
+	font-family: "Monaco", monospace, Courier;
+	padding-top: 30px;
+	padding-bottom: 50px;
+	position: relative;
+	background-color: rgb(22, 22, 22);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.footer-container {
+	position: relative;
+	left: 50%;
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+	display: inline-block;
+}
+
+.footer-content {
+	float: left;
+	margin-left: 6vw;
+	margin-bottom: 15px;
+	vertical-align: top;
+	text-decoration: none;
+    font-size: 25px;
+    color: white;
+}
+
+.footer-title{
+    font-weight: bold;
+}
+
+.footer-content img {
+	padding: 5px;
+	width: 32px;
+	height: 32px;
+}
