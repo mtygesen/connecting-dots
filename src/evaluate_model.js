@@ -10,7 +10,7 @@ import { LoadModel } from './load_model.js';
  * @returns a promise with a prediction object
  */
 async function EvaluateModel(modelName, input) {
-    const model = (await LoadModel(modelName)).default;
+    const model = await LoadModel(modelName);
 
     const digit = new convnetjs.Vol(28, 28, 1, 0.0);
 
