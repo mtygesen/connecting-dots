@@ -22,7 +22,7 @@ function RouteRequest(req,res) {
                     // For later
                     break;
                 default:
-                    ErrorResponse(res, 404, 'Resource not found');
+                    FileResponse(res, req.url);
                     break;
             }
             break;
