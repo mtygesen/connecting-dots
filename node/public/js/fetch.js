@@ -1,8 +1,11 @@
-// Input er en string svarende til modellen man vil hente
-// Output er modellen i JSON format
-function GetModel(modelNumber) {
+/**
+ * @param modelName string som svarer til modelnavn
+ * 
+ * @returns model svarende til modelnavn
+ */
+function GetModel(modelName) {
     // Muligvis skift url når server er sat op
-    fetch(`localhost:3000/${modelNumber}`, {
+    fetch(`localhost:3000/get-model/${modelName}`, {
         method: "GET"
     })
     .then(response => {
@@ -15,12 +18,14 @@ function GetModel(modelNumber) {
     .catch(error => console.error(error))
 }
 
-// variablen input er et billede konverteret til en vektor
-// variablen modelNumber er en string som svarer til modelnummeret
-// output er en prediction i JSON format
-// (Er ikke sikker på hvorvidt dette virker, men kan ikke teste det inden vores serverarkitektur er sat op)
-function getPrediction(input, modelNumber) {
-    fetch(`localhost:3000/${modelNumber}`, {
+/**
+ * @param input matrice som svarer til billedet der skal evalueres
+ * @param modelNavn string som svarer til modelnavn
+ * 
+ * @returns prediction til billedet som blev inputtet
+ */
+function getPrediction(input, modelNavn) {
+    fetch(`localhost:3000/get-prediction/${modelNavn}`, {
         method: "POST",
         headers: {
             "content-type": "picture/json"

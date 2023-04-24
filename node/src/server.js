@@ -111,7 +111,7 @@ function HTMLResponse(res, htmlString) {
 function ErrorResponse(res, code, reason) {
     res.statusCode = code;
     res.setHeader('Content-Type', 'text/txt');
-    res.write(reason);
+    res.write(`Error ${code}: ${reason}`);
     res.end("\n");
 
     return;
@@ -125,7 +125,7 @@ function ErrorResponse(res, code, reason) {
  * 
  * @returns void
  */
-function JSONResponse(res, obj){
+function JSONResponse(res, obj) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.write(JSON.stringify(obj));

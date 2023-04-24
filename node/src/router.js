@@ -1,6 +1,16 @@
 import { FileResponse, HTMLResponse, JSONResponse, ErrorResponse } from "./server.js";
+import { LoadModel } from "./load_model.js";
+import { EvaluateModel } from "./evaluate_model.js";
 
-function RouteRequest(req,res) {
+/**
+ * Routes a request
+ *
+ * @param req Request object
+ * @param res Response object
+ * 
+ * @returns void 
+ */
+async function RouteRequest(req, res) {
     console.log(`${req.method}: ${req.url}`);
   
     const baseURL = `http:\\${req.headers.host}/`; // See https://github.com/nodejs/node/issues/12682
@@ -15,17 +25,35 @@ function RouteRequest(req,res) {
                 case '':
                     FileResponse(res, '/html/index.html');
                     break;
-                case 'get-model': 
-                    // For later
-                    break;
-                case 'get-prediction':
-                    // For later
+                case 'get-model':
+                    try {
+                        JSONResponse(res, await LoadModel(pathElements[2]));
+                    }
+                    catch {
+                        ErrorResponse(res, 404, 'Model not found');
+                    }
+            
                     break;
                 default:
                     FileResponse(res, req.url);
                     break;
             }
             break;
+        case 'POST':
+            switch (pathElements[1]) {
+                case 'get-prediction':
+                    try {
+                        const model = await EvaluateModel(pathElements[2], res.body)
+                        JSONResponse(res, model);
+                    }
+                    catch {
+                        ErrorResponse(res, 404, 'model not found')
+                    }
+                    break;
+                default:
+                    ErrorResponse(res, 405, 'Wrong URL');
+                    break;
+            }
         default:
             ErrorResponse(res, 405, 'Method not allowed');
             break;
