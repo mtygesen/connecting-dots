@@ -4,7 +4,7 @@ import { EvaluateModel } from "./evaluate_model";
 
 test("Test a model on some input matrix", async () => {
     // Get the name of the first model in the models folder without file extenstion
-    const modelName = fs.readdirSync('./src/trainer/models/')[0].split('.')[0];
+    const modelName = fs.readdirSync('./node/src/trainer/models/')[0].split('.')[0];
 
     // Get a random input matrix from the MNIST dataset
     const input = mnist.makeData(1).traindata[0].image;
@@ -22,6 +22,7 @@ test("Test a model on some input matrix", async () => {
     // Test for nonexistent model with valid input
     try {
         const prediction2 = await EvaluateModel('nonexistent', input)
+        expect(prediction2).toBeUndefined();
     }
     catch (err) {
         expect(err.code).toBe('MODULE_NOT_FOUND');
