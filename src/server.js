@@ -1,239 +1,179 @@
-/* *****************************************************************
-  DISCLAIMER: This code is developed to support education and demo 
-  purposes and certain simplifications have been made to keep the code
-  short and comprehensible.
-  ****************************************************************** */
-
-//THIS APP USES ES6 MODULES  
 import http from 'http';
 import fs from "fs";
 import path  from "path";
 import process from "process";
 
-//import contentType from "content-type";
-//import url from "url";
-//import qs from "querystring";
-/* ****************************************************************************
- * Application code for the yatzy application 
- ***************************************************************************** */
-import {processReq,ValidationError, NoResourceError} from "./router.js";
-export {startServer,extractJSON, extractForm, fileResponse, htmlResponse,jsonResponse,errorResponse,reportError};
+import { RouteRequest } from "./router.js";
 
-const hostname = '127.0.0.1';
-const port = 3000;
-//const serverName="http://localhost:3000";
+/**
+ * Secures the path to prevent directory traversal attacks
+ * 
+ * @param userPath Path to secure
+ * @param publicFolder Public folder
+ * @returns Secured path or undefined if null byte found
+ */
+function SecurePath(userPath) {
+    if (userPath.indexOf('\0') !== -1) return undefined; // Return undefined if null byte found
 
+    const publicFolder = '../public'; // Public folder
+    const rootPath = process.cwd(); // Root path
 
-/* ***************************************************************************  
-  First a number of generic helper functions to serve basic files and documents 
- ***************************************************************************** */ 
-
-
-/* ***                 Setup Serving of files ***                  */ 
-
-const publicResources="../public/";
-//secture file system access as described on 
-//https://nodejs.org/en/knowledge/file-system/security/introduction/
-const rootFileSystem=process.cwd();
-function securePath(userPath){
-  if (userPath.indexOf('\0') !== -1) {
-    // could also test for illegal chars: if (!/^[a-z0-9]+$/.test(filename)) {return undefined;}
-    return undefined;
-
-  }
-  userPath = path.normalize(userPath).replace(/^(\.\.(\/|\\|$))+/, '');
-  userPath = publicResources+userPath;
-
-  let p= path.join(rootFileSystem,path.normalize(userPath)); 
-  //console.log("The path is:"+p);
-  return p;
+    userPath = path.normalize(userPath).replace(/^(\.\.(\/|\\|$))+/, ''); // Remove double backslashes and dots
+    userPath = publicFolder + userPath; // Concatenate with public folder
+  
+    return path.join(rootPath, path.normalize(userPath)); // Return path
 }
 
+/**
+ * Sends a file to the client
+ * 
+ * @param res Response object 
+ * @param fileName The name of the file to send
+ * 
+ * @returns void
+ */
+function FileResponse(res, fileName) {
+    const securePath = SecurePath(fileName);
 
-/* send contents as file as response */
-function fileResponse(res, filename){
-  const sPath=securePath(filename);
-  console.log("Reading:"+sPath);
-  fs.readFile(sPath, (err, data) => {
-    if (err) {
-      console.error(err);
-      errorResponse(res,404,String(err));
-    }else {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', guessMimeType(filename));
-      res.write(data);
-      res.end('\n');
-    }
-  })
-}
+    console.log(`Reading: ${securePath}`);
 
-//A helper function that converts filename suffix to the corresponding HTTP content type
-//better alternative: use require('mmmagic') library
-function guessMimeType(fileName){
-  const fileExtension=fileName.split('.').pop().toLowerCase();
-  console.log(fileExtension);
-  const ext2Mime ={ //Aught to check with IANA spec
-    "txt": "text/txt",
-    "html": "text/html",
-    "ico": "image/ico", // CHECK x-icon vs image/vnd.microsoft.icon
-    "js": "text/javascript",
-    "json": "application/json", 
-    "css": 'text/css',
-    "png": 'image/png',
-    "jpg": 'image/jpeg',
-    "wav": 'audio/wav',
-    "mp3": 'audio/mpeg',
-    "svg": 'image/svg+xml',
-    "pdf": 'application/pdf',
-    "doc": 'application/msword',
-    "docx": 'application/msword'
-   };
-    //incomplete
-  return (ext2Mime[fileExtension]||"text/plain");
-}
-
-/* Helper functions to retrieve request objects and send response objects    */  
-const InternalError ="Internal Error";
-
-/* send a response with htmlString as html page */
-function htmlResponse(res, htmlString){
-  res.statusCode = 200;
-  res.setHeader('Content-Type', "text/html");
-  res.write(htmlString);
-  res.end('\n');
-}
-
-/* send a response with a given HTTP error code, and reason string */ 
-function errorResponse(res, code, reason){
-  res.statusCode=code;
-  res.setHeader('Content-Type', 'text/txt');
-  res.write(reason);
-  res.end("\n");
-}
-/* send 'obj' object as JSON as response */
-function jsonResponse(res,obj){
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.write(JSON.stringify(obj));
-  res.end('\n');
-}
-
-/* As the body of a POST may be long the HTTP modules streams chunks of data
-   that must first be collected and appended before the data can be operated on. 
-   This function collects the body and returns a promise for the body data
-*/
-
-/* protect againts DOS attack from malicious user sending an very very large post body.
-if (body.length > 1e7) { 
-  // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
-  request.connection.destroy();
-}
-*/
-const MessageTooLongError="MsgTooLong";
-function collectPostBody(req){
-  //the "executor" function
- function collectPostBodyExecutor(resolve,reject){
-    let bodyData = [];
-    let length=0;
-    req.on('data', (chunk) => {
-      bodyData.push(chunk);
-      length+=chunk.length; 
- 
-      if(length>10000000) { //10 MB limit!
-        req.connection.destroy(); //we would need the response object to send an error code
-        reject(new Error(MessageTooLongError));
-      }
-    }).on('end', () => {
-    bodyData = Buffer.concat(bodyData).toString(); //By default, Buffers use UTF8
-    console.log(bodyData);
-    resolve(bodyData); 
+    fs.readFile(securePath, (err, data) => {
+        if (err) {
+            console.error(err);
+            ErrorResponse(res, 404, String(err));
+        }
+        else {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', GuessType(fileName));
+            res.write(data);
+            res.end('\n');
+        }
     });
-    //Exceptions raised will reject the promise
-  }
-  return new Promise(collectPostBodyExecutor);
+
+    return;
 }
 
+/**
+ * Guesses the type of a file based on its extension
+ * 
+ * @param fileName The name of the file to guess the type of
+ * @returns The type of the file
+ */
+function GuessType(fileName) {
+    const fileExtension = fileName.split('.')[1].toLowerCase();
 
-
-/* extract the enclosed JSON object in body of a POST to JavaScript Object */ 
-/* Aught also to check that Content-Type is application/json before parsing*/
-function extractJSON(req){
-  if(isJsonEncoded(req.headers['content-type']))
-   return collectPostBody(req).then(body=> {
-     let x= JSON.parse(body);
-     //console.log(x);
-     return x;
-  });
-  else
-    return Promise.reject(new Error(ValidationError)); //create a rejected promise
+    const ext2Mime = {
+        'txt': 'text/txt',
+        'html': 'text/html',
+        'ico': 'image/ico', // CHECK x-icon vs image/vnd.microsoft.icon
+        'js': 'text/javascript',
+        'json': 'application/json', 
+        'css': 'text/css',
+        'png': 'image/png',
+        'jpg': 'image/jpeg',
+        'wav': 'audio/wav',
+        'mp3': 'audio/mpeg',
+        'svg': 'image/svg+xml',
+        'pdf': 'application/pdf',
+        'doc': 'application/msword',
+        'docx': 'application/msword'
+    };
+    
+    return (ext2Mime[fileExtension] || 'text/plain'); // default is text/plain
 }
 
+/**
+ * Responds with an HTML string
+ * 
+ * @param res Response object
+ * @param htmlString The HTML string to send
+ * 
+ * @returns void
+ */
+function HTMLResponse(res, htmlString) {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+    res.write(htmlString);
+    res.end('\n');
 
-/* extract the enclosed forms data in the pody of POST */
-/* Returns a promise */
-function extractForm(req){
-  if(isFormEncoded(req.headers['content-type']))
-    return collectPostBody(req).then(body=> {
-      //const data = qs.parse(body);//LEGACY
-       //console.log(data);
-       let data=new URLSearchParams(body);
-      return data;
-      });
-  else
-    return Promise.reject(new Error(ValidationError));  //create a rejected promise
+    return;
 }
 
-function isFormEncoded(contentType){
-  //Format 
-  //Content-Type: text/html; charset=UTF-8
-  let ctType=contentType.split(";")[0];
-  ctType=ctType.trim();
-  return (ctType==="application/x-www-form-urlencoded"); 
-//would be more robust to use the content-type module and  contentType.parse(..)
-//Fine for demo purposes
+/**
+ * Responds with an error message
+ * 
+ * @param res Response object
+ * @param code Error code
+ * @param reason Reason for error
+ * 
+ * @returns void
+ */
+function ErrorResponse(res, code, reason) {
+    res.statusCode = code;
+    res.setHeader('Content-Type', 'text/txt');
+    res.write(reason);
+    res.end("\n");
+
+    return;
 }
 
-function isJsonEncoded(contentType){
-  //Format 
-  //Content-Type: application/json; encoding
-  let ctType=contentType.split(";")[0];
-  ctType=ctType.trim();
-  return (ctType==="application/json"); 
-//would be more robust to use the content-type module and  contentType.parse(..)
+/**
+ * Responds with a JSON object
+ * 
+ * @param res Response object 
+ * @param obj Object to send
+ * 
+ * @returns void
+ */
+function JSONResponse(res, obj){
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.write(JSON.stringify(obj));
+    res.end('\n');
+
+    return;
+}
+  
+/**
+ * Handles a request
+ * 
+ * @param req Request object 
+ * @param res Response object
+ * 
+ * @returns void
+ */
+function RequestHandler(req, res) {
+    try {
+        RouteRequest(req, res);
+    }
+    catch(err) {
+        console.log(`Internal Error: ${err}`);
+        ErrorResponse(res, 500, 'Internal Error');
+    }
+
+    return;
 }
 
+/**
+ * Start the server
+ * 
+ * @param port Port to listen on 
+ * @param hostname Hostname of the server
+ * 
+ * @returns void
+ */
+function StartServer(port, hostname) {
+    server.listen(port, hostname, () => {
+        console.log(`Server running at http:\\${hostname}:${port}/`);
+    });
 
-function reportError(res,error){
-  if(error.message===ValidationError){
-    return errorResponse(res,400,error.message);
-  }
-  if(error.message===NoResourceError){
-    return errorResponse(res,404,error.message);
-  }
-  else {
-    console.log(InternalError + ": " +error);
-    return errorResponse(res,500,"");
-  }
+    return;
 }
 
+const server = http.createServer(RequestHandler);
 
-/* *********************************************************************
-   Setup HTTP server and route handling 
-   ******************************************************************** */
-const server = http.createServer(requestHandler);
-function requestHandler(req,res){
-  try{
-   processReq(req,res);
-  }catch(e){
-    console.log(InternalError +"!!: " +e);
-   errorResponse(res,500,"");
-  }
-}
+const port = 3000;
+const hostname = 'localhost';
+StartServer(port, hostname);
 
-function startServer(){
- /* start the server */
- server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-  fs.writeFileSync('message.txt', `Server running at http://${hostname}:${port}/`);
- });
-}
+export { StartServer, FileResponse, HTMLResponse, JSONResponse, ErrorResponse };
