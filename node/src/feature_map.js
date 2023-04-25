@@ -7,18 +7,22 @@ function CalculateFeatures(model, input) {
 
     const features = [];
 
-    for (let i = 0; i < filters.length; ++i) {
-        for (let j = 0; j < filters[i].length; ++j) {
-            features.push(Convolution(input, filters[i]));
-        }
-    }
+    // Convolution()
+
+    return features;
 }
 
 function Convolution(input, filter) {
-    return filter
-    // To be made
+
 }
 
+/**
+ * Gets the filters from a model
+ * 
+ * @param layers property of a model object
+ * 
+ * @returns a 2d array of filters where the first dimension is the layer and the second dimension is the filter
+ */
 function GetFilters(layers) {
     const filterArr = new Array(layers.length).fill(0).map(() => new Array(GetMaxFilterSize(layers)).fill(0));
     
@@ -41,6 +45,13 @@ function GetFilters(layers) {
     return filterArr;
 }
 
+/**
+ * Finds the maximum filter size in a model
+ * 
+ * @param layers property of a model object
+ * 
+ * @returns the maximum filter size
+ */
 function GetMaxFilterSize(layers) {
     let maxFilterSize = 0;
 
