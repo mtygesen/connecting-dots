@@ -1,0 +1,61 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    background-color: #333333;
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#header {
+    font-family: 'Oxygen', monospace, Courier;
+    color: #ffffff;
+    padding-right: 15px;
+    margin-right: 20%;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+
+
+#cover {
+    font-family: 'Ubuntu', monospace, Courier;
+    position: relative;
+    width: 100%;
+    margin-top: 30vh;
+    padding-top: 5vh;
+    min-height: 130vh;
+    display: block;
+    overflow: auto;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(20, 14, 8, 0.944) 0%, rgba(22, 22, 22, 1) 70%);
+    word-wrap: normal;
+}
+
+#description-box {
+    margin: auto;
+    padding-right: 5vw;
+    padding-left: 5vw;
+    font-size: 25px;
+    max-width: 850px;
+    position: relative;
+}
+
+#infodropdown {
+    margin-top: 0px;
+    margin-left: -25px;
+}
