@@ -28,7 +28,7 @@ function SetupNetwork(network) {
     const layers = [];
     const inputSize = network.inputSize;
         
-    layers.push({ type: 'input', out_sx: `${inputSize}`, out_sy: `${inputSize}`, out_depth: 1 });
+    layers.push({ type: 'input', out_sx: inputSize, out_sy: inputSize, out_depth: 1 });
     layers.push({ type: 'conv', sx: 5, filters: 8, stride: 1, pad: 2, activation: `${activation}` });
     layers.push({ type: 'pool', sx: 2, stride: 2 });
     layers.push({ type: 'conv', sx: 5, filters: 16, stride: 1, pad: 2, activation: `${activation}` });
@@ -37,7 +37,7 @@ function SetupNetwork(network) {
     const hiddenLayers = network.hiddenLayers;
     
     for (let i = 0; i < hiddenLayers.length; ++i) {
-        layers.push({ type: 'fc', num_neurons: `${hiddenLayers[i]}`, activation: `${activation}` });
+        layers.push({ type: 'fc', num_neurons: hiddenLayers[i], activation: `${activation}` });
     }
 
     layers.push({ type: 'softmax', num_classes: 10 });
