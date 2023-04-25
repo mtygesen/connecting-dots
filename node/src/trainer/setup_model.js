@@ -7,13 +7,9 @@ import convnetjs from 'convnetjs';
  * 
  * @returns net object
  */
-function SetupNetwork(network) {
-    const net = new convnetjs.Net();
-    const layers = [];
-
+function SetupNetwork(network) {    
     const activation = network.activation;
-    const hiddenLayers = network.hiddenLayers;
-
+    
     try {
         switch (activation) {
             case 'relu':
@@ -22,26 +18,32 @@ function SetupNetwork(network) {
                 break;
             default:
                 throw new Error('Invalid activation function!');
+            }
         }
-    }
     catch (err) {
         console.log(err);
         process.exit(1);
     }
-
-    layers.push({ type: 'input', out_sx: 28, out_sy: 28, out_depth: 1 });
+         
+    const layers = [];
+    const inputSize = network.inputSize;
+        
+    layers.push({ type: 'input', out_sx: `${inputSize}`, out_sy: `${inputSize}`, out_depth: 1 });
     layers.push({ type: 'conv', sx: 5, filters: 8, stride: 1, pad: 2, activation: `${activation}` });
     layers.push({ type: 'pool', sx: 2, stride: 2 });
     layers.push({ type: 'conv', sx: 5, filters: 16, stride: 1, pad: 2, activation: `${activation}` });
     layers.push({ type: 'pool', sx: 3, stride: 3 });
-    layers.push({ type: 'fc', num_neurons: 256, activation: `${activation}`});
 
+    const hiddenLayers = network.hiddenLayers;
+    
     for (let i = 0; i < hiddenLayers.length; ++i) {
-        layers.push({ type: 'fc', num_neurons: hiddenLayers[i], activation: `${activation}` });
+        layers.push({ type: 'fc', num_neurons: `${hiddenLayers[i]}`, activation: `${activation}` });
     }
 
     layers.push({ type: 'softmax', num_classes: 10 });
     
+    const net = new convnetjs.Net();   
+
     net.makeLayers(layers);
 
     return net;
@@ -109,7 +111,7 @@ function TrainNetwork(net, trainingSet, network) {
                 trainer.train(digit, trainingSet[j].label.indexOf(1));
             }
 
-            if (j > 0 && j %  printInterval === 0) {
+            if (j > 0 && j % printInterval === 0) {
                 PrintStatus(j, trainingSet, epochs, startTimer);
             }
         }
