@@ -83,23 +83,6 @@ function GuessType(fileName) {
 }
 
 /**
- * Responds with an HTML string
- * 
- * @param res Response object
- * @param htmlString The HTML string to send
- * 
- * @returns void
- */
-function HTMLResponse(res, htmlString) {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.write(htmlString);
-    res.end('\n');
-
-    return;
-}
-
-/**
  * Responds with an error message
  * 
  * @param res Response object
@@ -176,4 +159,4 @@ const port = 3000;
 const hostname = 'localhost';
 StartServer(port, hostname);
 
-export { StartServer, FileResponse, HTMLResponse, JSONResponse, ErrorResponse };
+export { StartServer, FileResponse, JSONResponse, ErrorResponse };

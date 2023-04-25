@@ -1,4 +1,4 @@
-import { FileResponse, HTMLResponse, JSONResponse, ErrorResponse } from "./server.js";
+import { FileResponse, JSONResponse, ErrorResponse } from "./server.js";
 import { LoadModel } from "./load_model.js";
 import { EvaluateModel } from "./evaluate_model.js";
 
@@ -27,7 +27,7 @@ async function RouteRequest(req, res) {
                     break;
                 case 'get-model':
                     try {
-                        JSONResponse(res, await LoadModel(pathElements[2]));
+                        JSONResponse(res, await LoadModel(pathElements[2])); // Get model object
                     }
                     catch {
                         ErrorResponse(res, 404, 'Model not found');
@@ -43,15 +43,14 @@ async function RouteRequest(req, res) {
             switch (pathElements[1]) {
                 case 'get-prediction':
                     try {
-                        const model = await EvaluateModel(pathElements[2], res.body)
-                        JSONResponse(res, model);
+                        JSONResponse(res, await EvaluateModel(pathElements[2], res.body)); // Get prediction object
                     }
                     catch {
-                        ErrorResponse(res, 404, 'model not found')
+                        ErrorResponse(res, 404, 'Model not found')
                     }
                     break;
                 default:
-                    ErrorResponse(res, 405, 'Wrong URL');
+                    ErrorResponse(res, 404, 'Invalid URL');
                     break;
             }
         default:
