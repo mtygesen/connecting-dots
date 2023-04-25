@@ -1,121 +1,166 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<title>Visualization of machine learning</title>
+		<!--Fav-icon:-->
+		<link
+			rel="shortcut icon"
+			href="../img/logo/title-bar-logo.ico"
+			sizes="256x256" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--languages-->
+		<meta name="language" content="English" />
+		<!--CSS Stylesheets -->
+		<link rel="stylesheet" type="text/css" href="../css/header.css" />
+		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<!-- if no script:-->
+		<noscript
+			>JavaScript is required for this website. Please allow JavaScript and
+			refresh the page.</noscript
+		>
+		<!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
+		<link href="https://css.gg/css" rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<!-- UNPKG -->
+		<link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
+		<!-- JSDelivr -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css"
+			rel="stylesheet" />
+		<!--JS Scripts-->
+		<script src="../js/plot_graph.js"></script>
+		<script type="text/javascript" src="PLACERHOLDER"></script>
+		<script>
+			function myFunction() {
+				var x = document.getElementById("myTopnav");
+				if (x.className === "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<!--HEADER-->
+		<div class="topnav" id="myTopnav">
+			<img
+				href="#home"
+				class="logo"
+				src="../img/logo/group-title-logo-white.png" />
+			<div class="dropdown">
+				<button class="dropbtn">
+					Models
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="#">Model 1</a>
+					<a href="#">model 2</a>
+					<a href="#">model 3</a>
+				</div>
+			</div>
+			<div class="dropdown">
+				<button class="dropbtn">
+					About
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="#">Neural Networks</a>
+					<a href="#">Multi-layer perceptron</a>
+					<a href="#">Activation Functions</a>
+					<a href="#">Gradient Descent</a>
+					<a href="#">Backpropagation</a>
+				</div>
+			</div>
+			<a
+				href="javascript:void(0);"
+				style="font-size: 15px"
+				class="icon"
+				onclick="myFunction()"
+				>&#9776;</a
+			>
+		</div>
+		<!--MAIN CONTENT-->
+		<div class="main-content">
+			<div>
+				<canvas
+					id="LossChart"
+					style="
+						width: 1000px;
+						height: 500px;
+						border: 1px solid #ffffff;
+					"></canvas>
+			</div>
 
-<head>
-    <title>Visualization of machine learning</title>
-    <!--Fav-icon:-->
-    <link rel="shortcut icon" href="../img/logo/title-bar-logo.ico" sizes="16x16">
-    <!--Insert keywords - not really necessary -->
-    <meta name="keywords" content="PLACEHOLDER">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--languages-->
-    <meta name="language" content="English">
-    <!--CSS Style-->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!--CSS Static-->
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <!-- if no script:-->
-    <noscript>JavaScript is required for this website. Please allow JavaScript and refresh the page.</noscript>
-    <!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
-    <link href="https://css.gg/css" rel="stylesheet">
-    <!-- UNPKG -->
-    <link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet">
-    <!-- JSDelivr -->
-    <link href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css" rel="stylesheet">
-</head>
+			<div id="Information">
+				<div id="description-box">
+					<h2 style="font-family: 'Electrolize', Courier, monospace">
+						Machine Learning
+					</h2>
+					<div class="description-content">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+							laborum excepturi minima suscipit libero quas eveniet deleniti
+							sint illum, necessitatibus ex rerum non obcaecati itaque quos
+							repellat accusantium adipisci beatae!
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
+							nostrum quos corporis libero eos nesciunt, accusamus
+							necessitatibus tempore quis suscipit non neque? Aliquam nobis
+							deserunt voluptas reprehenderit facere libero eligendi.
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+							modi sequi fuga fugiat suscipit quo voluptatibus quam adipisci
+							assumenda sed nobis, amet in nam nostrum neque iusto nisi eius
+							autem..
+						</p>
+						<br />
+					</div>
+				</div>
+			</div>
+		</div>
 
-<body>
-    <script src="../js/plot_graph.js"></script>
-    <script type="text/javascript" src="PLACERHOLDER"></script>
-
-    <nav class="navbar">
-        <!-- LOGO -->
-        <div>
-            <img id="navbar_logo" src="../img/logo/group-title-logo-white.png" style="width: 100px">
-        </div>
-        <!-- NAVIGATION MENU -->
-        <ul class="nav-links">
-            <!-- NAVIGATION MENUS -->
-            <div class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li class="services">
-                    <a>Models</a>
-                    <!-- DROPDOWN MENU -->
-                    <ul class="dropdown">
-                        <li><a href="models/model_1.html">Model 1</a></li>
-                        <li><a href="models/model_2.html">Model 2</a></li>
-                        <li><a href="models/model_3.html">Model 3</a></li>
-                    </ul>
-                </li>
-                <li class="services">
-                    <a>Info</a>
-                    <!-- DROPDOWN MENU -->
-                    <ul id="infodropdown" class="dropdown">
-                        <li><a href="theory/activation_functions.html">Activation Functions</a></li>
-                        <li><a href="theory/backpropagation.html">Backpropagation</a></li>
-                        <li><a href="theory/convolutional_neural_network.html">Convolutional Neural Networks</a></li>
-                        <li><a href="theory/cost_functions.html">Cost Functions</a></li>
-                        <li><a href="theory/neural_network.html">Neural Networks</a></li>
-                    </ul>
-                </li>
-            </div>
-        </ul>
-    </nav>
-
-    <div id="header">
-        <canvas id="LossChart" style="width: 1000px; height: 500px; border:1px solid #ffffff"></canvas>
-    </div>
-    <div id="cover">
-        <div id="description-box">
-            <h2 style="font-family: 'Electrolize', Courier, monospace;">
-                Machine Learning</h2>
-            <div class="description-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam laborum excepturi
-                    minima suscipit libero quas eveniet deleniti sint illum, necessitatibus ex rerum non
-                    obcaecati itaque quos repellat accusantium adipisci beatae!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam nostrum quos corporis
-                    libero eos nesciunt, accusamus necessitatibus tempore quis suscipit non neque? Aliquam
-                    nobis deserunt voluptas reprehenderit facere libero eligendi..</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni modi sequi fuga fugiat
-                    suscipit quo voluptatibus quam adipisci assumenda sed nobis, amet in nam nostrum neque
-                    iusto nisi eius autem..<br>
-            </div>
-        </div>
-    </div>
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content" style="margin-left:0;">
-                <span class="footer-title" style="font-family: 'Jura', Courier, monospace;">Group Members
-                </span><br>
-                Oliver Viller Nielsen<br>
-                Sandra Norre Rosenbeck<br>
-                Rasmus Præstegård Pedersen<br>
-                Mikkel Tygesen<br>
-                Magnus Lindholm Rennekamp<br>
-                Mads Rohde Guldbæk<br>
-                Bjarke Thonsgaard Koldsø
-            </div>
-            <div class="footer-content">
-                <span class="footer-title">Emails:</span><br>
-                ovni22@student.aau.dk<br>
-                snro22@student.aau.dk<br>
-                rpeder22@student.aau.dk<br>
-                mtyges22@student.aau.dk<br>
-                mrenne22@student.aau.dk<br>
-                mguldb22@student.aau.dk<br>
-                bkolds20@student.aau.dk<br>
-            </div>
-            <div class="footer-content">
-                <span class="footer-title">Reference:</span><br>
-                <a style="display: flex; align-items:center; text-decoration: none; color: #ffffff;"
-                    href="https://github.com/icecoldgold773/p2-project" target="_blank"><img
-                        src="../img/logo/Github-logo.png" ¨ title="GitHub" alt="github">
-                    <span style="padding-left: 5px;">GitHub</span></a>
-            </div>
-        </div>
-
-    </footer>
-</body>
-
+		<!--FOOTER-->
+		<footer class="footer">
+			<div class="footer-container">
+				<div class="footer-content">
+					<span>Group Members </span><br />
+					Oliver Viller Nielsen<br />
+					Sandra Norre Rosenbeck<br />
+					Rasmus Præstegård Pedersen<br />
+					Mikkel Tygesen<br />
+					Magnus Lindholm Rennekamp<br />
+					Mads Rohde Guldbæk<br />
+					Bjarke Thonsgaard Koldsø
+				</div>
+				<div class="footer-content">
+					<span class="footer-title">Emails</span><br />
+					ovni22@student.aau.dk<br />
+					snro22@student.aau.dk<br />
+					rpeder22@student.aau.dk<br />
+					mtyges22@student.aau.dk<br />
+					mrenne22@student.aau.dk<br />
+					mguldb22@student.aau.dk<br />
+					bkolds20@student.aau.dk<br />
+				</div>
+				<div class="footer-content">
+					<span class="footer-title">Reference:</span><br />
+					<a href="https://github.com/icecoldgold773/p2-project" target="_blank"
+						><img
+							src="../img/logo/Github-logo.png"
+							title="GitHub"
+							alt="github" />
+						<span style="padding-left: 5px">GitHub</span></a
+					>
+				</div>
+			</div>
+		</footer>
+	</body>
 </html>
