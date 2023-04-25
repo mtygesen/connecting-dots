@@ -1,21 +1,16 @@
 /**
- * @param modelName string som svarer til modelnavn
+ * Gets a specific model from the server
  * 
- * @returns model svarende til modelnavn
+ * @param modelName model to fetch from server
+ * 
+ * @returns model object promise or throws error
  */
-function GetModel(modelName) {
-    // Muligvis skift url når server er sat op
-    fetch(`localhost:3000/get-model/${modelName}`, {
-        method: "GET"
-    })
-    .then(response => {
-        if(response.ok) {
-            return response.json()
-        } else {
-            throw new Error (`Unexpected response status ${response.status}`)
-        }
-    })
-    .catch(error => console.error(error))
+async function GetModel(modelName) {
+    const response = await fetch(`/get-model/${modelName}`);
+
+    if (response.ok) return response.json()
+    
+    throw new Error (`Unexpected response status ${response.status}`);
 }
 
 /**
@@ -24,7 +19,7 @@ function GetModel(modelName) {
  * 
  * @returns prediction til billedet som blev inputtet
  */
-function getPrediction(input, modelNavn) {
+function GetPrediction(input, modelNavn) {
     fetch(`localhost:3000/get-prediction/${modelNavn}`, {
         method: "POST",
         headers: {
