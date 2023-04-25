@@ -14,25 +14,23 @@ async function GetModel(modelName) {
 }
 
 /**
- * @param input matrice som svarer til billedet der skal evalueres
- * @param modelNavn string som svarer til modelnavn
+ * Gets a prediction from the server given an input matrix and a model name
  * 
- * @returns prediction til billedet som blev inputtet
+ * @param modelName name of the model to evaluate
+ * @param input matrix of pixels to be evaluated
+ * 
+ * @returns a promise with a prediction object or throws error
  */
-function GetPrediction(input, modelNavn) {
-    fetch(`localhost:3000/get-prediction/${modelNavn}`, {
+async function GetPrediction(modelName, input) {
+    const response = await fetch(`/get-prediction/${modelName}`, {
         method: "POST",
         headers: {
             "content-type": "picture/json"
         },
         body: JSON.stringify(input)
     })
-    .then (response => {
-        if (response.ok) {
-            return response.json()
-        } else {
-            throw new Error (`Unexpected response status ${response.status}`)
-        }
-    })
-    .catch(error => console.error(error))
+
+    if (response.ok) return response.json();
+
+    throw new Error (`Unexpected response status ${response.status}`);
 }
