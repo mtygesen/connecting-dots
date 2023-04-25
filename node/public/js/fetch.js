@@ -1,7 +1,9 @@
 /**
- * @param modelName string som svarer til modelnavn
+ * Gets a specific model from the server
  * 
- * @returns model som svarer til modelnavn som promise eller fejl
+ * @param modelName model to fetch from server
+ * 
+ * @returns model object promise or throws error
  */
 async function GetModel(modelName) {
     const response = await fetch(`/get-model/${modelName}`);
@@ -17,7 +19,7 @@ async function GetModel(modelName) {
  * 
  * @returns prediction til billedet som blev inputtet
  */
-function getPrediction(input, modelNavn) {
+function GetPrediction(input, modelNavn) {
     fetch(`localhost:3000/get-prediction/${modelNavn}`, {
         method: "POST",
         headers: {
