@@ -1,21 +1,14 @@
 /**
  * @param modelName string som svarer til modelnavn
  * 
- * @returns model svarende til modelnavn
+ * @returns model som svarer til modelnavn som promise eller fejl
  */
-function GetModel(modelName) {
-    // Muligvis skift url når server er sat op
-    fetch(`localhost:3000/get-model/${modelName}`, {
-        method: "GET"
-    })
-    .then(response => {
-        if(response.ok) {
-            return response.json()
-        } else {
-            throw new Error (`Unexpected response status ${response.status}`)
-        }
-    })
-    .catch(error => console.error(error))
+async function GetModel(modelName) {
+    const response = await fetch(`/get-model/${modelName}`);
+
+    if (response.ok) return response.json()
+    
+    throw new Error (`Unexpected response status ${response.status}`);
 }
 
 /**
