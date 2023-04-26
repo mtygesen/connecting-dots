@@ -1,155 +1,254 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<title>Visualization of machine learning</title>
-	<!--Fav-icon:-->
-	<link rel="shortcut icon" href="../img/logo/title-bar-logo.ico" sizes="256x256" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!--languages-->
-	<meta name="language" content="English" />
-	<!--CSS Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="../css/header.css" />
-	<link rel="stylesheet" type="text/css" href="../css/footer.css" />
-	<link rel="stylesheet" type="text/css" href="../css/main.css" />
-	<link rel="stylesheet" type="text/css" href="../css/base.css" />
-	<!-- if no script:-->
-	<noscript>JavaScript is required for this website. Please allow JavaScript and
-		refresh the page.</noscript>
-	<!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
-	<link href="https://css.gg/css" rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<!-- UNPKG -->
-	<link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
-	<!-- JSDelivr -->
-	<link href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css" rel="stylesheet" />
-	<!--JS Scripts-->
-	<script src="../js/plot_graph.js"></script>
-	<script type="text/javascript" src="PLACERHOLDER"></script>
-	<script>
-		function topNavbar() {
-			var x = document.getElementById("myTopnav");
-			if (x.className === "topnav") {
-				x.className += " responsive";
-			} else {
-				x.className = "topnav";
+	<head>
+		<title>Visualization of machine learning</title>
+		<!--Fav-icon:-->
+		<link
+			rel="shortcut icon"
+			href="../img/logo/title-bar-logo.ico"
+			sizes="256x256" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--languages-->
+		<meta name="language" content="English" />
+		<!--CSS Stylesheets -->
+		<link rel="stylesheet" type="text/css" href="../css/header.css" />
+		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<!-- if no script:-->
+		<noscript
+			>JavaScript is required for this website. Please allow JavaScript and
+			refresh the page.</noscript
+		>
+		<!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
+		<link href="https://css.gg/css" rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<!-- UNPKG -->
+		<link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
+		<!-- JSDelivr -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css"
+			rel="stylesheet" />
+		<!--JS Scripts-->
+		<script src="../js/plot_graph.js"></script>
+		<script type="text/javascript" src="PLACERHOLDER"></script>
+		<script>
+			function topNavbar() {
+				var x = document.getElementById("myTopnav");
+				if (x.className === "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
 			}
-		}
-	</script>
-</head>
+		</script>
+		<script>
+			src = "../js/fetch.js";
+		</script>
+	</head>
 
-<body>
-	<!--HEADER-->
-	<div class="topnav" id="myTopnav">
-		<img href="#home" class="logo" src="../img/logo/group-title-logo-white.png" />
-		<div class="dropdown">
-			<button class="dropbtn">
-				Models
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-content">
-				<a href="#">Model 1</a>
-				<a href="#">model 2</a>
-				<a href="#">model 3</a>
+	<body>
+		<!--HEADER-->
+		<div class="topnav" id="myTopnav">
+			<img
+				href="#home"
+				class="logo"
+				src="../img/logo/group-title-logo-white.png" />
+			<div class="dropdown">
+				<button class="dropbtn">
+					Models
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="#">Model 1</a>
+					<a href="#">model 2</a>
+					<a href="#">model 3</a>
+				</div>
 			</div>
+			<div class="dropdown">
+				<button class="dropbtn">
+					About
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="#">Neural Networks</a>
+					<a href="#">Multi-layer perceptron</a>
+					<a href="#">Activation Functions</a>
+					<a href="#">Gradient Descent</a>
+					<a href="#">Backpropagation</a>
+				</div>
+			</div>
+			<a
+				href="javascript:void(0);"
+				style="font-size: 15px"
+				class="icon"
+				onclick="topNavbar()"
+				>&#9776;</a
+			>
 		</div>
-		<div class="dropdown">
-			<button class="dropbtn">
-				About
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-content">
-				<a href="#">Neural Networks</a>
-				<a href="#">Multi-layer perceptron</a>
-				<a href="#">Activation Functions</a>
-				<a href="#">Gradient Descent</a>
-				<a href="#">Backpropagation</a>
-			</div>
-		</div>
-		<a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="topNavbar()">&#9776;</a>
-	</div>
-	<!--MAIN CONTENT-->
-	<div class="main-content">
-		<div class="visualization">
-			<div class="verticalModel">
-				<a href="#">Model 1</a>
-				<a href="#">model 2</a>
-				<a href="#">model 3</a>
-			</div>
-			<div class="models">
-				<canvas id="featureMap"></canvas>
-				<canvas id="LossChart">
+		<!--MAIN CONTENT-->
+		<div class="main-content">
+			<div class="visualization">
+				<div class="verticalModel">
+					<button onclick="" class="" style="--clr: #39ff14">
+						<span>Model 1</span><i></i>
+					</button>
+					<button onclick="" class="" style="--clr: #a020f0">
+						<span>Model 2</span><i></i>
+					</button>
+					<button onclick="" class="" style="--clr: #ff0000">
+						<span>Model 3</span><i></i>
+					</button>
+				</div>
+				<div class="models">
+					<canvas id="featureMap"></canvas>
+					<canvas id="LossChart"> </canvas>
+				</div>
+				<div class="dialpad">
+					<div class="allrows">
+						<div class="row">
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>1</span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>2</span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>3</span>
+							</button>
+						</div>
+						<div class="row">
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>4</span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>5</span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>6</span>
+							</button>
+						</div>
+						<div class="row">
+							<button onclick="" class="" style="--clr:#ffffff">
+								<span>7</span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>8</span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>9</span>
+							</button>
+						</div>
+						<div class="row" id="row0">
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span>0</span>
+							</button>
+						</div>
 
-				</canvas>
+						<div class="row">
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span class="gg-pen" title="Sketch your own"></span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span class="gg-info" title="info"></span>
+							</button>
+							<button onclick="" class="" style="--clr: #ffffff">
+								<span class="gg-backspace" title="reset input"></span>
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<div class="verticalModel">
-				input
-			</div>
-		</div>
-
-
-		<div id="Information">
-			<div id="description-box">
-				<h2 style="font-family: 'Electrolize', Courier, monospace">
-					Machine Learning
-				</h2>
-				<div class="description-content">
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-						laborum excepturi minima suscipit libero quas eveniet deleniti
-						sint illum, necessitatibus ex rerum non obcaecati itaque quos
-						repellat accusantium adipisci beatae!
-					</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-						nostrum quos corporis libero eos nesciunt, accusamus
-						necessitatibus tempore quis suscipit non neque? Aliquam nobis
-						deserunt voluptas reprehenderit facere libero eligendi.
-					</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-						modi sequi fuga fugiat suscipit quo voluptatibus quam adipisci
-						assumenda sed nobis, amet in nam nostrum neque iusto nisi eius
-						autem..
-					</p>
-					<br />
+			<div id="Information">
+				<div id="description-box">
+					<h2 style="font-family: 'Electrolize', Courier, monospace">
+						Machine Learning
+					</h2>
+					<div class="description-content">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+							laborum excepturi minima suscipit libero quas eveniet deleniti
+							sint illum, necessitatibus ex rerum non obcaecati itaque quos
+							repellat accusantium adipisci beatae!
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
+							nostrum quos corporis libero eos nesciunt, accusamus
+							necessitatibus tempore quis suscipit non neque? Aliquam nobis
+							deserunt voluptas reprehenderit facere libero eligendi.
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+							modi sequi fuga fugiat suscipit quo voluptatibus quam adipisci
+							assumenda sed nobis, amet in nam nostrum neque iusto nisi eius
+							autem.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+							eius autem.
+						</p>
+						<br />
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<!--FOOTER-->
-	<footer class="footer">
-		<div class="footer-container">
-			<div class="footer-content">
-				<span>Group Members </span><br />
-				Oliver Viller Nielsen<br />
-				Sandra Norre Rosenbeck<br />
-				Rasmus Præstegård Pedersen<br />
-				Mikkel Tygesen<br />
-				Magnus Lindholm Rennekamp<br />
-				Mads Rohde Guldbæk<br />
-				Bjarke Thonsgaard Koldsø
+		<!--BACK TO TOP-->
+		<a id="back-to-top" href="#"><i class="gg-arrow-up-r"></i></a>
+		<!--FOOTER-->
+		<footer class="footer">
+			<div class="footer-container">
+				<div class="footer-content">
+					<span>Group Members </span><br />
+					Oliver Viller Nielsen<br />
+					Sandra Norre Rosenbeck<br />
+					Rasmus Præstegård Pedersen<br />
+					Mikkel Tygesen<br />
+					Magnus Lindholm Rennekamp<br />
+					Mads Rohde Guldbæk<br />
+					Bjarke Thonsgaard Koldsø
+				</div>
+				<div class="footer-content">
+					<span class="footer-title">Emails</span><br />
+					ovni22@student.aau.dk<br />
+					snro22@student.aau.dk<br />
+					rpeder22@student.aau.dk<br />
+					mtyges22@student.aau.dk<br />
+					mrenne22@student.aau.dk<br />
+					mguldb22@student.aau.dk<br />
+					bkolds20@student.aau.dk<br />
+				</div>
+				<div class="footer-content">
+					<span class="footer-title">Reference:</span><br />
+					<a href="https://github.com/icecoldgold773/p2-project" target="_blank"
+						><img
+							src="../img/logo/Github-logo.png"
+							title="GitHub"
+							alt="github" />
+						<span style="padding-left: 5px">GitHub</span></a
+					>
+				</div>
 			</div>
-			<div class="footer-content">
-				<span class="footer-title">Emails</span><br />
-				ovni22@student.aau.dk<br />
-				snro22@student.aau.dk<br />
-				rpeder22@student.aau.dk<br />
-				mtyges22@student.aau.dk<br />
-				mrenne22@student.aau.dk<br />
-				mguldb22@student.aau.dk<br />
-				bkolds20@student.aau.dk<br />
-			</div>
-			<div class="footer-content">
-				<span class="footer-title">Reference:</span><br />
-				<a href="https://github.com/icecoldgold773/p2-project" target="_blank"><img
-						src="../img/logo/Github-logo.png" title="GitHub" alt="github" />
-					<span style="padding-left: 5px">GitHub</span></a>
-			</div>
-		</div>
-	</footer>
-</body>
+		</footer>
+	</body>
 </html>

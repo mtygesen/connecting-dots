@@ -16,8 +16,11 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    scroll-behavior: smooth;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 
 
 
@@ -29,4 +32,15 @@ body {
     font-size: 25px;
     max-width: 850px;
     position: relative;
+    background-color: antiquewhite;
+}
+
+#back-to-top {
+	place-self: end;
+	position: sticky;
+	margin-top: calc(100vh + var(--back-to-top-offset));
+	bottom: 2.7em;
+	right: 2em;
+  float: right;
+  background-color: #39ff14;
 }
