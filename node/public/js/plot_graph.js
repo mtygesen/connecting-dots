@@ -39,9 +39,9 @@ function PlotGraph(model) {
 
     
     // Grid background
-    ctx.beginPath()
+    /*ctx.beginPath()
     ctx.fillStyle = "#FFF";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);*/
 
     // The grid will be centered on the canvas
     ctx.beginPath()
