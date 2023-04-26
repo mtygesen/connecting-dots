@@ -58,7 +58,7 @@ function SetupNetwork(network) {
  * 
  * @returns stats object
  */
-function TrainNetwork(net, trainingSet, network) {
+function TrainNetwork(net, trainingSet, testSet, network) {
     const logInterval = network.logInterval,
           printInterval = 100;
 
@@ -106,6 +106,7 @@ function TrainNetwork(net, trainingSet, network) {
             
             if (j % logInterval === 0) {
                 stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
+                stats[j / logInterval].acc = TestNetwork(net, testSet);
             }
             else {
                 trainer.train(digit, trainingSet[j].label.indexOf(1));
