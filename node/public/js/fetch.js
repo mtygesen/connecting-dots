@@ -21,8 +21,8 @@ async function GetModel(modelName) {
  * 
  * @returns a promise with a prediction object or throws error
  */
-async function GetPrediction(modelName, input) {
-    const response = await fetch(`/get-prediction/${modelName}`, {
+function GetPrediction(input, modelNavn) {
+    fetch(`localhost:3000/get-prediction/${modelNavn}`, {
         method: "POST",
         headers: {
             "content-type": "picture/json"
@@ -34,3 +34,5 @@ async function GetPrediction(modelName, input) {
 
     throw new Error (`Unexpected response status ${response.status}`);
 }
+
+export { GetModel };

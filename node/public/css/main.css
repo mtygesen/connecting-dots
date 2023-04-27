@@ -3,15 +3,6 @@
     padding-bottom: 20px;
 }
 
-#LossChart {
-    border: 1px solid #f71212;
-    width: 45%;
-}
-
-#featureMap {
-    border: 1px solid #553087;
-    width: 45%;
-}
 
 .visualization{
     display: flex;
@@ -19,23 +10,91 @@
     width: 100%;
     height: 400px;
     padding-bottom: 20px;
-    border:1px solid #47d12c;
     align-items: center;
-  
 }
+/* MODEL BUTTONS */
 .verticalModel{
     display: flex;
+    width: 10%;
+    margin-left: 2%;
     flex-direction: column;
-    justify-content: space-evenly;
-    border: 1px solid white;
+    justify-content: center;
     height: 100%;
 }
-
-.models{
-    border: 1px solid white;
+.verticalModel button {
+    display: flex;
+    background: #444;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: none;
+    padding: auto;
     width: 100%;
+    transition: 0.2s;
+    margin-top: 5px;
+  }
+  
+  
+  
+.models{
+    width: 78%;
+    margin: 2%;
     display: flex;
     justify-content: space-between;
-    position: relative;
-    flex: 0.5;
+        
+}
+#LossChart {
+    border: 1px solid #198d3a;
+    width:49%;
+    position: sticky;
+}
+
+#featureMap {
+    border: 1px solid #553087;
+    width: 49%;
+    position: sticky;
+}
+
+/*DIAL PAD - INPUT*/
+
+.dialpad{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 12%;
+  height: 100%;
+  align-items: center;
+  margin-right: 2%;
+}
+
+.dialpad button{
+  background:  #272822;
+  text-decoration: none;
+  border: 1px solid #444;
+  color: white;
+  width: 25%;
+  height: 30px;
+  font-size: 16px;
+}
+
+.dialpad button i{
+  margin: auto;
+}
+
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 2px;
+}
+
+.allrows{
+  justify-content: space-between;
+  width: 100%;
+}
+
+.displayNumber{
+  border: 1px solid blue;
+  width: 100%;
 }
