@@ -20,7 +20,7 @@ function Convolution(input, filter) {
     const filterSize = Math.sqrt(filter.length);
     const inputSize = Math.sqrt(input.length);
 
-    let input2d = [];
+    const input2d = [];
 
     for (let i = 0; i < input.length; ++i) input2d.push(input.splice(0, inputSize));
 
@@ -29,6 +29,8 @@ function Convolution(input, filter) {
     const paddedInput = PadInput(input2d, padSize);
 
     const output = [];
+
+    
 }
 
 /**
