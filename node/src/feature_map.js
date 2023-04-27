@@ -23,14 +23,17 @@ function Convolution(input, filter) {
     const input2d = [];
 
     for (let i = 0; i < input.length; ++i) input2d.push(input.splice(0, inputSize));
-
     const padSize = Math.floor((filterSize - 1) / 2);
-    
+
     const paddedInput = PadInput(input2d, padSize);
 
+    console.log(paddedInput);
+    
     const output = [];
 
-    
+    // Perform convolution
+
+    return output;
 }
 
 /**
