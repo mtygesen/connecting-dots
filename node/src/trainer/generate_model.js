@@ -23,7 +23,7 @@ const dataset = mnist.makeData(trainingSize, testSize);
 const trainingSet = dataset.traindata,
       testSet = dataset.testdata;
 
-const stats = TrainNetwork(net, trainingSet, network); // Train the network and return stats
+const stats = TrainNetwork(net, trainingSet, testSet, network); // Train the network and return stats
 
 const accuracy = TestNetwork(net, testSet); // Test the network and return accuracy
 
