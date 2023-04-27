@@ -29,20 +29,11 @@ function PlotGraph(model, scale = 4) {
           maxAcc = Math.max(...model.stats.map((stats) => stats.acc));
 
     // initialize values for the grid
-    const coloumns = 10,
-          maxColoumns = 12,
-          xDivide = canvas.width / maxColoumns,
-          rows = 10,
-          maxRows = 15,
-          yDivide = canvas.height / maxRows;
-
     const grid = {};
     grid.maxRows = 15;
     grid.rows = 10;
     grid.maxColoumns = 12;
     grid.coloumns = 10;
-    grid.length = (canvas.width / grid.maxColoumns) * grid.coloumns;
-    grid.height = (canvas.height / grid.maxRows) * grid.rows;
     grid.left = (canvas.width / grid.maxColoumns) * (maxColoumns - coloumns) / 2;
     grid.top = (canvas.height / maxRows) * (maxRows - rows) / 2;
     grid.right = canvas.width - grid.left;
@@ -58,24 +49,11 @@ function PlotGraph(model, scale = 4) {
     
     WriteValues(canvas, grid, "#000", maxLoss, model.stats.length, maxAcc);
 
-    // Draw the actual graph
-    
-    const points = model.stats.length
-    const pxlDlta = grid.length / (points - 1) // There are points - 1 lines
+    let loss = (model.stats.map((stats) => stats.loss));
+    DrawGraph(canvas, grid, loss, "#AA0038");
 
-    ctx.beginPath()
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "#AA0000"; // Color of the lines
-    for (let i = 0; i < points - 1; i++) {
-        grid.x1 = grid.left + pxlDlta * i
-        grid.x2 = grid.x1 + pxlDlta
-        grid.y1 = grid.top + (1 - model.stats[i].loss / maxLoss) * grid.height
-        grid.y2 = grid.top + (1 - model.stats[i + 1].loss / maxLoss) * grid.height
-
-        ctx.moveTo(grid.x1, grid.y1)
-        ctx.lineTo(grid.x2, grid.y2)
-        ctx.stroke()
-    }
+    let acc  = (model.stats.map((stats) => stats.acc));
+    DrawGraph(canvas, grid, acc, "#1978C8");
 
     return;
 }
@@ -224,4 +202,41 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
         let value = (1 - i / grid.rows) * maxY2;
         ctx.fillText(value.toFixed(2), x, y);
     }
+    
+}
+
+/**
+ * Draws the lines of a graph
+ * 
+ * @param canvas the canvas to be drawn upon
+ * @param grid object containing information about the grid.
+ * @param values array of values to be plotted
+ * @param color represented as a Hex-code in a string
+ * 
+ * @returns void
+ */
+function DrawGraph(canvas, grid, values, color) {
+    // Draw the actual graph
+    const ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.lineCap = "round";
+    ctx.strokeStyle = color;
+    const Δx = (canvas.width - 2 * grid.left) / values.length;
+    const max = Math.max(...values);
+    
+
+    // Starting point
+    let x = grid.left;
+    let y = grid.bottom - values[0] / max * (grid.bottom - grid.top);
+    ctx.moveTo(x, y);
+
+    for (let i = 1; i < values.length; i++) {
+        x = grid.left + Δx * i;
+        y = grid.bottom - values[i]/ max * (grid.bottom - grid.top);
+        
+        console.log(x,y);
+
+        ctx.lineTo(x, y);
+    }
+    ctx.stroke();
 }
