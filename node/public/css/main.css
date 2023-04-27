@@ -11,117 +11,34 @@
     height: 400px;
     padding-bottom: 20px;
     align-items: center;
-  
 }
 /* MODEL BUTTONS */
 .verticalModel{
     display: flex;
+    width: 10%;
+    margin-left: 2%;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     height: 100%;
 }
-.main-content button {
+.verticalModel button {
     display: flex;
-    position: relative;
     background: #444;
     color: #fff;
     text-decoration: none;
     text-transform: uppercase;
     border: none;
-    letter-spacing: 0.1rem;
-    font-size: 1rem;
-    padding: 1rem 2rem;
+    padding: auto;
+    width: 100%;
     transition: 0.2s;
+    margin-top: 5px;
   }
   
-  .main-content button:hover {
-    letter-spacing: 0.2rem;
-    padding: 1.1rem 3.1rem;
-    background: var(--clr);
-    color: var(--clr);
-    /* box-shadow: 0 0 35px var(--clr); */
-    animation: box 3s infinite;
-  }
   
-  .main-content button:before {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    background: #272822;
-  }
-  
-  .main-content button span {
-    position: relative;
-    z-index: 1;
-  }
-  .main-content button i {
-    position: absolute;
-    inset: 0;
-    display: block;
-  }
-  
-  .main-content button i::before {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 2px;
-    left: 80%;
-    top: -2px;
-    border: 2px solid var(--clr);
-    background: #272822;
-    transition: 0.2s;
-  }
-  
-  .main-content button:hover i::before {
-    width: 15px;
-    left: 20%;
-    animation: move 3s infinite;
-  }
-  
-  .main-content button i::after {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 2px;
-    left: 20%;
-    bottom: -2px;
-    border: 2px solid var(--clr);
-    background: #272822;
-    transition: 0.2s;
-  }
-  
-  .main-content button:hover i::after {
-    width: 15px;
-    left: 80%;
-    animation: move 3s infinite;
-  }
-  
-  @keyframes move {
-    0% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(5px);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes box {
-    0% {
-      box-shadow: #27272c;
-    }
-    50% {
-      box-shadow: 0 0 25px var(--clr);
-    }
-    100% {
-      box-shadow: #27272c;
-    }
-  }
   
 .models{
-    width: 100%;
+    width: 78%;
+    margin: 2%;
     display: flex;
     justify-content: space-between;
         
@@ -129,40 +46,55 @@
 #LossChart {
     border: 1px solid #198d3a;
     width:49%;
+    position: sticky;
 }
 
 #featureMap {
     border: 1px solid #553087;
     width: 49%;
+    position: sticky;
 }
 
 /*DIAL PAD - INPUT*/
 
 .dialpad{
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  height: 256px;
-  width: 250px;
+  flex-direction: column;
+  justify-content: center;
+  width: 12%;
+  height: 100%;
   align-items: center;
-}
-.allrows{
- width: 100%;
- height: 100%;
- align-items: center;
-}
-.row {
-  display: flex;
-  flex-basis: 33.33333%;
-  justify-content: space-between;
-  align-items: center;
+  margin-right: 2%;
 }
 
-#row0 {
-  justify-content: center;
+.dialpad button{
+  background:  #272822;
+  text-decoration: none;
+  border: 1px solid #444;
+  color: white;
+  width: 25%;
+  height: 30px;
+  font-size: 16px;
 }
-.botrow{
+
+.dialpad button i{
+  margin: auto;
+}
+
+
+.row {
   display: flex;
-  flex-direction: row;
-  flex-basis: 33.33333%; 
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 2px;
+}
+
+.allrows{
+  justify-content: space-between;
+  width: 100%;
+}
+
+.displayNumber{
+  border: 1px solid blue;
+  width: 100%;
 }
