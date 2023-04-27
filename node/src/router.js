@@ -1,6 +1,6 @@
 import { FileResponse, JSONResponse, ErrorResponse } from "./server.js";
-import { LoadModel } from "./load_model.js";
-import { EvaluateModel } from "./evaluate_model.js";
+import LoadModel from "./load_model.js";
+import EvaluateModel from "./evaluate_model.js";
 
 /**
  * Routes a request
@@ -10,7 +10,7 @@ import { EvaluateModel } from "./evaluate_model.js";
  * 
  * @returns void 
  */
-async function RouteRequest(req, res) {
+export default async function RouteRequest(req, res) {
     console.log(`${req.method}: ${req.url}`);
   
     const baseURL = `http:\\${req.headers.host}/`; // See https://github.com/nodejs/node/issues/12682
@@ -59,6 +59,4 @@ async function RouteRequest(req, res) {
     }
 
     return;
-} 
-
-export { RouteRequest };
+}

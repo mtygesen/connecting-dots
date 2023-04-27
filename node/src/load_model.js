@@ -5,8 +5,6 @@
  * 
  * @returns a promise with the model object 
  */
-async function LoadModel(modelName) {
+export default async function LoadModel(modelName) {
     return (await import(`./trainer/models/${modelName}.json`, { assert: { type: 'json' }})).default;
 }
-
-export { LoadModel };

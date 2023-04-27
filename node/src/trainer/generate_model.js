@@ -1,8 +1,7 @@
 /**
  * Script that sets up, trains and tests a convolutional neural network on the MNIST dataset, and saves the model as a json file.
- * The configuration can be changed in model_settings.json
+ * The configuration of the model can be changed in model_settings.json
  */
-
 import fs from 'fs'; // Filesystem
 import mnist from 'easy-mnist'; // MNIST dataset
 
@@ -35,4 +34,4 @@ fs.writeFileSync(`models/${modelName}.json`, modelStr); // Save model
 
 PrintDone(modelName, accuracy); // Print done message
 
-process.exit(0);
+process.exit(0); // Exit process

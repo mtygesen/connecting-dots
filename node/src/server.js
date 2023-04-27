@@ -3,7 +3,7 @@ import fs from "fs";
 import path  from "path";
 import process from "process";
 
-import { RouteRequest } from "./router.js";
+import RouteRequest from "./router.js";
 
 /**
  * Secures the path to prevent directory traversal attacks
@@ -54,13 +54,53 @@ function FileResponse(res, fileName) {
 }
 
 /**
+ * Responds with a JSON object
+ * 
+ * @param res Response object 
+ * @param obj Object to send
+ * 
+ * @returns void
+ */
+function JSONResponse(res, obj) {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.write(JSON.stringify(obj));
+    res.end('\n');
+
+    return;
+}
+
+/**
+ * Responds with an error message
+ * 
+ * @param res Response object
+ * @param code Error code
+ * @param reason Reason for error
+ * 
+ * @returns void
+ */
+function ErrorResponse(res, code, reason) {
+    res.statusCode = code;
+    res.setHeader('Content-Type', 'text/txt');
+    res.write(`Error ${code}: ${reason}`);
+    res.end("\n");
+
+    return;
+}
+
+/**
  * Guesses the type of a file based on its extension
  * 
- * @param fileName The name of the file to guess the type of
- * @returns The type of the file
+ * @param fileName of the file to guess the type of
+ * 
+ * @returns type of the file
  */
 function GuessType(fileName) {
-    const fileExtension = fileName.split('.')[1].toLowerCase();
+    const fileNameArr = fileName.split('.');
+
+    if (fileNameArr.length < 2) return 'text/plain';
+
+    const fileExtension = fileNameArr[1].toLowerCase();
 
     const ext2Mime = {
         'txt': 'text/txt',
@@ -83,51 +123,16 @@ function GuessType(fileName) {
 }
 
 /**
- * Responds with an error message
- * 
- * @param res Response object
- * @param code Error code
- * @param reason Reason for error
- * 
- * @returns void
- */
-function ErrorResponse(res, code, reason) {
-    res.statusCode = code;
-    res.setHeader('Content-Type', 'text/txt');
-    res.write(`Error ${code}: ${reason}`);
-    res.end("\n");
-
-    return;
-}
-
-/**
- * Responds with a JSON object
- * 
- * @param res Response object 
- * @param obj Object to send
- * 
- * @returns void
- */
-function JSONResponse(res, obj) {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.write(JSON.stringify(obj));
-    res.end('\n');
-
-    return;
-}
-  
-/**
  * Handles a request
  * 
  * @param req Request object 
  * @param res Response object
  * 
- * @returns void
+ * @returns promise that resolves when the request is handled
  */
-function RequestHandler(req, res) {
+async function RequestHandler(req, res) {
     try {
-        RouteRequest(req, res);
+        await RouteRequest(req, res);
     }
     catch(err) {
         console.log(`Internal Error: ${err}`);
@@ -146,7 +151,7 @@ function RequestHandler(req, res) {
  * @returns void
  */
 function StartServer(port, hostname) {
-    server.listen(port, hostname, () => {
+    server.listen(port, hostname, async () => {
         console.log(`Server running at http:\\${hostname}:${port}/`);
     });
 
@@ -157,6 +162,7 @@ const server = http.createServer(RequestHandler);
 
 const port = 3000;
 const hostname = 'localhost';
+
 StartServer(port, hostname);
 
-export { StartServer, FileResponse, JSONResponse, ErrorResponse };
+export { SecurePath, FileResponse, JSONResponse,  ErrorResponse, GuessType };
