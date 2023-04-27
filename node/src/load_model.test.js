@@ -1,5 +1,5 @@
 import fs from 'fs';
-import LoadModel from "./load_model.js";
+import LoadModel from './load_model.js';
 
 test('Load model from file system and verify top level properties', async () => {
     // Get the name of the first model in the models folder without file extenstion

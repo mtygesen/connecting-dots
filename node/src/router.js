@@ -1,6 +1,6 @@
-import { FileResponse, JSONResponse, ErrorResponse } from "./server.js";
-import LoadModel from "./load_model.js";
-import EvaluateModel from "./evaluate_model.js";
+import { FileResponse, JSONResponse, ErrorResponse } from './server.js';
+import LoadModel from './load_model.js';
+import EvaluateModel from './evaluate_model.js';
 
 /**
  * Routes a request

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import mnist from 'easy-mnist';
-import EvaluateModel from "./evaluate_model.js";
+import EvaluateModel from './evaluate_model.js';
 
 test('Test a model on some input matrix', async () => {
     // Get the name of the first model in the models folder without file extenstion
