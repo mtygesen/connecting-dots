@@ -36,3 +36,5 @@ function GetPrediction(input, modelNavn) {
     })
     .catch(error => console.error(error))
 }
+
+export { GetModel };

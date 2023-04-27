@@ -6,7 +6,7 @@
  * 
  * @returns void
  */
-function PlotGraph(model, scale = 4) {
+export default function PlotGraph(model, scale = 4) {
 
     // Find and initialize the canvas
     const canvas = document.getElementById("LossChart");
