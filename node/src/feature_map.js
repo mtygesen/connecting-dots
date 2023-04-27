@@ -1,4 +1,5 @@
 import { LoadModel } from "./load_model.js";
+import mnist from "easy-mnist";
 
 function CalculateFeatures(model, input) {
     const layers = model.net.layers;
@@ -7,13 +8,53 @@ function CalculateFeatures(model, input) {
 
     const features = [];
 
-    // Convolution()
+    let data = mnist.makeData(1, 1);
+    let test = data.testdata;
+
+    Convolution(test[0].image, filters[0][0]);
 
     return features;
 }
 
 function Convolution(input, filter) {
+    const filterSize = Math.sqrt(filter.length);
+    const inputSize = Math.sqrt(input.length);
 
+    let input2d = [];
+
+    for (let i = 0; i < input.length; ++i) input2d.push(input.splice(0, inputSize));
+
+    const padSize = Math.floor((filterSize - 1) / 2);
+    
+    const paddedInput = PadInput(input2d, padSize);
+
+    const output = [];
+}
+
+/**
+ * Pads the input matrix with same padding
+ * 
+ * @param input 2d array
+ * @param padSize to pad the input
+ * 
+ * @returns padded input
+ */
+function PadInput(input, padSize) {
+    const paddedInput = [...input];
+
+    for (let i = 0; i < paddedInput.length; ++i) {
+        for (let j = 0; j < padSize; ++j) {
+            paddedInput[i].unshift(0);
+            paddedInput[i].push(0);
+        }
+    }
+
+    for (let i = 0; i < padSize; ++i) {
+        paddedInput.unshift(new Array(paddedInput[0].length).fill(0));
+        paddedInput.push(new Array(paddedInput[0].length).fill(0));
+    }
+
+    return paddedInput;
 }
 
 /**
