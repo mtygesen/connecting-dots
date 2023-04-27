@@ -1,4 +1,4 @@
-import { LoadModel } from "./load_model.js";
+import LoadModel from "./load_model.js";
 
 function CalculateFeatures(model, input) {
     const layers = model.net.layers;

@@ -3,7 +3,8 @@ import fs from "fs";
 import path  from "path";
 import process from "process";
 
-import { RouteRequest } from "./router.js";
+import RouteRequest from "./router.js";
+import GuessType from "./guess_type.js";
 
 /**
  * Secures the path to prevent directory traversal attacks
@@ -54,32 +55,20 @@ function FileResponse(res, fileName) {
 }
 
 /**
- * Guesses the type of a file based on its extension
+ * Responds with a JSON object
  * 
- * @param fileName The name of the file to guess the type of
- * @returns The type of the file
+ * @param res Response object 
+ * @param obj Object to send
+ * 
+ * @returns void
  */
-function GuessType(fileName) {
-    const fileExtension = fileName.split('.')[1].toLowerCase();
+function JSONResponse(res, obj) {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.write(JSON.stringify(obj));
+    res.end('\n');
 
-    const ext2Mime = {
-        'txt': 'text/txt',
-        'html': 'text/html',
-        'ico': 'image/ico', // CHECK x-icon vs image/vnd.microsoft.icon
-        'js': 'text/javascript',
-        'json': 'application/json', 
-        'css': 'text/css',
-        'png': 'image/png',
-        'jpg': 'image/jpeg',
-        'wav': 'audio/wav',
-        'mp3': 'audio/mpeg',
-        'svg': 'image/svg+xml',
-        'pdf': 'application/pdf',
-        'doc': 'application/msword',
-        'docx': 'application/msword'
-    };
-    
-    return (ext2Mime[fileExtension] || 'text/plain'); // default is text/plain
+    return;
 }
 
 /**
@@ -101,33 +90,16 @@ function ErrorResponse(res, code, reason) {
 }
 
 /**
- * Responds with a JSON object
- * 
- * @param res Response object 
- * @param obj Object to send
- * 
- * @returns void
- */
-function JSONResponse(res, obj) {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.write(JSON.stringify(obj));
-    res.end('\n');
-
-    return;
-}
-  
-/**
  * Handles a request
  * 
  * @param req Request object 
  * @param res Response object
  * 
- * @returns void
+ * @returns promise that resolves when the request is handled
  */
-function RequestHandler(req, res) {
+async function RequestHandler(req, res) {
     try {
-        RouteRequest(req, res);
+        await RouteRequest(req, res);
     }
     catch(err) {
         console.log(`Internal Error: ${err}`);
@@ -147,7 +119,7 @@ function RequestHandler(req, res) {
  */
 function StartServer(port, hostname) {
     server.listen(port, hostname, () => {
-        console.log(`Server running at http:\\${hostname}:${port}/`);
+        //console.log(`Server running at http:\\${hostname}:${port}/`);
     });
 
     return;
@@ -157,6 +129,7 @@ const server = http.createServer(RequestHandler);
 
 const port = 3000;
 const hostname = 'localhost';
+
 StartServer(port, hostname);
 
-export { StartServer, FileResponse, JSONResponse, ErrorResponse };
+export { SecurePath, FileResponse, JSONResponse,  ErrorResponse };

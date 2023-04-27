@@ -5,6 +5,16 @@
 
 This is a repository for our P2 project
 
-## Dependencies
+## Training New Models
+
+To train new models cd into the trainer/ folder.
+
+In model_settings.json you can setup the parameters that the model should be trained on.
+
+Then you run the following command to generate the model:
+
+```sh
+node generate_model.js
+```
 
 ## Install
