@@ -34,8 +34,8 @@ function PlotGraph(model, scale = 4) {
     grid.rows = 10;
     grid.maxColoumns = 12;
     grid.coloumns = 10;
-    grid.left = (canvas.width / grid.maxColoumns) * (maxColoumns - coloumns) / 2;
-    grid.top = (canvas.height / maxRows) * (maxRows - rows) / 2;
+    grid.left = (canvas.width / grid.maxColoumns) * (grid.maxColoumns - grid.coloumns) / 2;
+    grid.top = (canvas.height / grid.maxRows) * (grid.maxRows - grid.rows) / 2;
     grid.right = canvas.width - grid.left;
     grid.bottom = canvas.height - grid.top;
 
