@@ -25,11 +25,13 @@
 	<!-- JSDelivr -->
 	<link href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css" rel="stylesheet" />
 	<!--JS Scripts-->
-	<script src="../js/plot_graph.js"></script>
-	<script src="../js/fetch.js"></script>
+	<script type="module" src="../js/fetch.js"></script>
+	<script type="module" src="../js/plot_graph.js"></script>
+	<script type="module" src="../js/display.js"></script>
+	<script type="module" src="../js/main.js"></script>
 	<script>
 		function topNavbar() {
-			var x = document.getElementById("myTopnav");
+			let x = document.getElementById("myTopnav");
 			if (x.className === "topnav") {
 				x.className += " responsive";
 			} else {
@@ -64,7 +66,7 @@
 				<a href="#">Multi-layer perceptron</a>
 				<a href="#">Activation Functions</a>
 				<a href="#">Gradient Descent</a>
-				<a href="#">Backpropagation</a>
+				<a href="#Backpropagation">Backpropagation</a>
 			</div>
 		</div>
 		<a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="topNavbar()">&#9776;</a>
@@ -73,23 +75,91 @@
 	<div class="main-content">
 		<div class="visualization">
 			<div class="verticalModel">
-				<a href="#">Model 1</a>
-				<a href="#">model 2</a>
-				<a href="#">model 3</a>
+				<button onclick="PlotGraph(model)" class="" style="--clr: #39ff14">
+					<span>Model 1</span><i class="gg-plus"></i>
+				</button>
+				<button onclick="" class="" style="--clr: #a020f0">
+					<span>Model 2</span><i></i>
+				</button>
+				<button onclick="" class="" style="--clr: #ff0000">
+					<span>Model 3</span><i></i>
+				</button>
 			</div>
 			<div class="models">
 				<canvas id="featureMap"></canvas>
-				<canvas id="LossChart">
-
-				</canvas>
+				<canvas id="LossChart"> </canvas>
 			</div>
+			<div class="dialpad">
+				<div class="allrows">
+					<div class="row">
+						<button onclick="" class="">
+							<span>1</span>
+						</button>
+						<button onclick="" class="">
+							<span>2</span>
+						</button>
+						<button onclick="" class="">
+							<span>3</span>
+						</button>
+					</div>
+					<div class="row">
+						<button onclick="" class="" style="--clr: #ffffff">
+							<span>4</span>
+						</button>
+						<button onclick="" class="">
+							<span>5</span>
+						</button>
+						<button onclick="" class="">
+							<span>6</span>
+						</button>
+					</div>
+					<div class="row">
+						<button onclick="" class="">
+							<span>7</span>
+						</button>
+						<button onclick="" class="" style="--clr: #ffffff">
+							<span>8</span>
+						</button>
+						<button onclick="" class="" style="--clr: #ffffff">
+							<span>9</span>
+						</button>
+					</div>
+					<div class="row">
+						<button onclick="" class="Icon" style="--clr: #ffffff">
+							<i>+</i>
+						</button>
+						<button onclick="" class="" style="--clr: #ffffff">
+							<span>0</span>
+						</button>
+						<button onclick="" class="Icon" style="--clr: #ffffff">
+							<i class="gg-undo" title="reset input"></i>
+						</button>
+					</div>
 
-			<div class="verticalModel">
-				input
+					<div class="row">
+						<button onclick="" class="Icon" style="--clr: #ffffff">
+							<i class="gg-info" title="info"></i>
+						</button>
+					</div>
+				</div>
+				<div>
+					<canvas class="displayNumber">
+
+					</canvas>
+				</div>
 			</div>
 		</div>
-
-
+		<div style="display: flex; justify-content: space-evenly; margin-bottom: 50px;">
+			<span style="color:  #553087">
+				LILLA FEATURE MAP
+			</span>
+			<span style="color:  #198d3a">
+				GRØN LOSS CHART
+			</span>
+			<span style="color:blue;">
+				BLÅ SELECTED INPUT
+			</span>
+		</div>
 		<div id="Information">
 			<div id="description-box">
 				<h2 style="font-family: 'Electrolize', Courier, monospace">
@@ -112,14 +182,36 @@
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
 						modi sequi fuga fugiat suscipit quo voluptatibus quam adipisci
 						assumenda sed nobis, amet in nam nostrum neque iusto nisi eius
-						autem..
+						autem.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+						eius autem.
 					</p>
 					<br />
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<!--BACK TO TOP-->
+	<a id="back-to-top" href="#"><i class="gg-arrow-up-r"></i></a>
 	<!--FOOTER-->
 	<footer class="footer">
 		<div class="footer-container">
@@ -152,4 +244,5 @@
 		</div>
 	</footer>
 </body>
+
 </html>
