@@ -1,0 +1,41 @@
+.main-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#LossChart {
+    border: 1px solid #f71212;
+    width: 45%;
+}
+
+#featureMap {
+    border: 1px solid #553087;
+    width: 45%;
+}
+
+.visualization{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 400px;
+    padding-bottom: 20px;
+    border:1px solid #47d12c;
+    align-items: center;
+  
+}
+.verticalModel{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 1px solid white;
+    height: 100%;
+}
+
+.models{
+    border: 1px solid white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    flex: 0.5;
+}
