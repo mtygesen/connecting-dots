@@ -36,3 +36,5 @@ async function MakeImageDataFromImage(img) {
     pictureData = GrayScale(array.data)
     return pictureData
 }
+
+export { grayScale }
