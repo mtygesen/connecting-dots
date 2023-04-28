@@ -9,8 +9,8 @@ async function GetModel(modelName) {
     const response = await fetch(`/get-model/${modelName}`);
 
     if (response.ok) return response.json()
-    
-    throw new Error (`Unexpected response status ${response.status}`);
+
+    throw new Error(`Unexpected response status ${response.status}`);
 }
 
 /**
@@ -27,14 +27,14 @@ function GetPrediction(input, modelNavn) {
         },
         body: JSON.stringify(input)
     })
-    .then (response => {
-        if (response.ok) {
-            return response.json()
-        } else {
-            throw new Error (`Unexpected response status ${response.status}`)
-        }
-    })
-    .catch(error => console.error(error))
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                throw new Error(`Unexpected response status ${response.status}`)
+            }
+        })
+        .catch(error => console.error(error))
 }
 
-export { GetModel };
+export { GetModel, GetPrediction };

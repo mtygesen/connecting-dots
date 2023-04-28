@@ -1,17 +1,33 @@
-var currentPos = {x:0, y:0}
-var previousPos = {x:0, y:0}
+import { GrayScale } from "./image.js"
+import { GetPrediction } from "./fetch"
+
+var currentPos = { x: 0, y: 0 }
+var previousPos = { x: 0, y: 0 }
 var currentlyDrawing = false
 var drawingCanvas = false
 var ctx = false
+var clearButton = false
+var submitButton = false
+var currentModel = false
 
 function Load() {
-drawingCanvas = document.getElementById("drawingCanvas")
-ctx = drawingCanvas.getContext("2d")
-drawingCanvas.style.position = 'fixed';
+  currentModel = "?"
+  drawingCanvas = document.getElementById("drawingCanvas")
+  ctx = drawingCanvas.getContext("2d")
+  drawingCanvas.style.position = 'fixed'
 
-drawingCanvas.addEventListener("mousedown", StartDrawing)
-drawingCanvas.addEventListener("mousemove", Draw)
-drawingCanvas.addEventListener("mouseup", StopDrawing)
+  drawingCanvas.addEventListener("mousedown", StartDrawing)
+  drawingCanvas.addEventListener("mousemove", Draw)
+  drawingCanvas.addEventListener("mouseup", StopDrawing)
+
+  clearButton = document.getElementById("clearButton")
+  clearButton.addEventListener("click", ClearCanvas)
+
+  submitButton = document.getElementById("submitButton")
+  submitButton.addEventListener("click", () => {
+    data = ConvertToMatrix()
+    GetPrediction(data, currentModel)
+  })
 }
 
 function UpdatePos(event) {
@@ -27,7 +43,7 @@ function StartDrawing(event) {
 }
 
 function Draw(event) {
-  if(event.buttons === 1) {
+  if (event.buttons === 1) {
     UpdatePos(event)
     ctx.beginPath()
     ctx.moveTo(previousPos.x, previousPos.y)
@@ -43,11 +59,30 @@ function StopDrawing(event) {
   currentlyDrawing = false
 }
 
-/* Tilføj:
+function ConvertToMatrix() {
+  ctx.drawImage(img, 0, 0);
+  const array = ctx.getImageData(0, 0, 10, 10)
+  pictureData = GrayScale(array.data)
+  return pictureData
+}
 
-<canvas id="drawingCanvas" width="1000" height="1000"></canvas>
-<script src="Drawing.js", type="text/Javascript"></script>
+function ClearCanvas() {
+  ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height)
+}
+
+
+
+/*
+Tilføj:
+
+en knap med id=clearButton (som nulstiller canvas)
+
+en knap med id=submitButton (Som sender tegningen til serveren og returnerer en prediction)
+
+Et canvas med id=drawingCanvas
+Script med source=Drawing.js
+efterfulgt af
 <script> Load(); </script>
 
-til HTML dokumentet og dette burde virke
+til HTML dokumentet og funktionerne burde virke
 */
