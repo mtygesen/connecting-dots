@@ -17,19 +17,41 @@ function CalculateFeatures(model, input) {
 }
 
 function Convolution(input, filter) {
-    const filterSize = Math.sqrt(filter.length);
-    const inputSize = Math.sqrt(input.length);
+    //const filterSize = Math.sqrt(filter.length);
+    //const inputSize = Math.sqrt(input.length);
+    const filterSize = filter.length;
+    const inputSize = input.length;
+    const outputSize = 1 + inputSize - filterSize;
 
-    const input2d = [];
+    const padSize = Math.floor((inputSize - outputSize) / 2);
+    const paddedInput = PadInput(input, padSize);
+    const output = [];
 
-    for (let i = 0; i < input.length; ++i) input2d.push(input.splice(0, inputSize));
-    const padSize = Math.floor((filterSize - 1) / 2);
+    
+    for (let i = 0; i < outputSize; ++i) {
+        for (let j = 0; j < outputSize; ++j) {
+            let temp = [];
+            for (let k = 0; k < filterSize; ++k) {
+                for (let l = 0; l < filterSize; ++l) {
+                    temp[k][l] = input[i+k][j+l] * filter[k][l];
+                }
+            }
+            let sum = temp.reduce(function(a,b) { return a.concat(b) }).reduce(function(a,b) { return a + b }); //flatten 2d array and calculate sum
+            output[i][j] = sum;
+        }
+    }
 
-    const paddedInput = PadInput(input2d, padSize);
+
+
+    //for (let i = 0; i < input.length; ++i) input2d.push(input.splice(0, inputSize));
+    //const padSize = Math.floor((filterSize - 1) / 2);
+    
+    
+    
 
     console.log(paddedInput);
     
-    const output = [];
+    //const output = [];
 
     // Perform convolution
 
