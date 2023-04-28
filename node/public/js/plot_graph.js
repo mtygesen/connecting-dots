@@ -88,7 +88,7 @@ function DrawGrid(canvas, grid, color) {
     ctx.beginPath();
     ctx.strokeStyle = color;
 
-    const clmnSpacing = canvas.width / grid.maxColoumns;
+    const clmnSpacing = canvas.width / grid.maxColoumns,
           rowSpacing = canvas.height / grid.maxRows;
 
     // The grid will be centered on the canvas
