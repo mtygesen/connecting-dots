@@ -3,22 +3,22 @@ import { GetPrediction } from "./fetch"
 
 var currentPos = { x: 0, y: 0 }
 var previousPos = { x: 0, y: 0 }
-var currentlyDrawing = false
 var drawingCanvas = false
 var ctx = false
 var clearButton = false
 var submitButton = false
 var currentModel = false
 
+// Function to add eventlisteners to canvas and buttons
 function Load() {
   currentModel = "?"
   drawingCanvas = document.getElementById("drawingCanvas")
   ctx = drawingCanvas.getContext("2d")
   drawingCanvas.style.position = 'fixed'
 
-  drawingCanvas.addEventListener("mousedown", StartDrawing)
+  drawingCanvas.addEventListener("mousedown", UpdatePos)
   drawingCanvas.addEventListener("mousemove", Draw)
-  drawingCanvas.addEventListener("mouseup", StopDrawing)
+  drawingCanvas.addEventListener("mouseup", UpdatePos)
 
   clearButton = document.getElementById("clearButton")
   clearButton.addEventListener("click", ClearCanvas)
@@ -30,6 +30,7 @@ function Load() {
   })
 }
 
+// Updates the current and former x and y coordinates based on current mouse position
 function UpdatePos(event) {
   previousPos.x = currentPos.x
   previousPos.y = currentPos.y
@@ -37,11 +38,7 @@ function UpdatePos(event) {
   currentPos.y = event.clientY - drawingCanvas.offsetTop
 }
 
-function StartDrawing(event) {
-  UpdatePos(event)
-  currentlyDrawing = true
-}
-
+// Draws a line between former and current mouseposition when left click is held
 function Draw(event) {
   if (event.buttons === 1) {
     UpdatePos(event)
@@ -54,18 +51,15 @@ function Draw(event) {
     ctx.closePath();
   }
 }
-function StopDrawing(event) {
-  UpdatePos(event)
-  currentlyDrawing = false
-}
 
+// Converts the canvas into a grayscaled array
 function ConvertToMatrix() {
-  ctx.drawImage(img, 0, 0);
-  const array = ctx.getImageData(0, 0, 10, 10)
+  const array = ctx.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height)
   pictureData = GrayScale(array.data)
   return pictureData
 }
 
+// resets the canvas
 function ClearCanvas() {
   ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height)
 }

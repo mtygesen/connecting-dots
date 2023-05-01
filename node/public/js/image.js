@@ -6,7 +6,7 @@
 function GrayScale(array) {
     let grayScale = []
     for (let i = 0; i < array.length / 4; i++) {
-        avg = (array[i * 4] + array[i * 4 + 1] + array[u * 4 + 2]) / 3
+        avg = (array[i * 4] + array[i * 4 + 1] + array[i * 4 + 2]) / 3
         grayScale.push(avg)
     }
     return grayScale;
