@@ -8,7 +8,7 @@
 async function GetModel(modelName) {
     const response = await fetch(`/get-model/${modelName}`);
 
-    if (response.ok) return response.json()
+    if (response.ok) return response.json();
 
     throw new Error(`Unexpected response status ${response.status}`);
 }
@@ -19,8 +19,8 @@ async function GetModel(modelName) {
  * 
  * @returns prediction til billedet som blev inputtet
  */
-function GetPrediction(input, modelNavn) {
-    fetch(`localhost:3000/get-prediction/${modelNavn}`, {
+async function GetPrediction(input, modelName) {
+    const response = await fetch(`localhost:3000/get-prediction/${modelName}`, {
         method: "POST",
         headers: {
             "content-type": "picture/json"
