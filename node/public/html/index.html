@@ -75,15 +75,30 @@
 	<div class="main-content">
 		<div class="visualization">
 			<div class="verticalModel">
-				<button onclick="PlotGraph(model)" class="" style="--clr: #39ff14">
-					<span>Model 1</span><i class="gg-plus"></i>
-				</button>
-				<button onclick="" class="" style="--clr: #a020f0">
-					<span>Model 2</span><i></i>
-				</button>
-				<button onclick="" class="" style="--clr: #ff0000">
-					<span>Model 3</span><i></i>
-				</button>
+				<div class="modelRightBtn">
+					<button onclick="" class="">
+						<span>Model 1</span>
+						<div class="ModelRightBtnArrow">
+							<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+						</div>
+					</button>
+				</div>
+				<div class="modelRightBtn">
+					<button onclick="" class="">
+						<span>Model 2</span><i></i>
+						<div class="ModelRightBtnArrow">
+							<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+						</div>
+					</button>
+				</div>
+				<div class="modelRightBtn">
+					<button onclick="" class="">
+						<span>Model 3</span><i></i>
+						<div class="ModelRightBtnArrow">
+							<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+						</div>
+					</button>
+				</div>
 			</div>
 			<div class="models">
 				<canvas id="featureMap"></canvas>
@@ -126,7 +141,7 @@
 					</div>
 					<div class="row">
 						<button onclick="" class="Icon" style="--clr: #ffffff">
-							<i>+</i>
+							<i class="fa fa-pencil" aria-hidden="true"></i>
 						</button>
 						<button onclick="" class="" style="--clr: #ffffff">
 							<span>0</span>

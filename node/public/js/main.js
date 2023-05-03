@@ -1,5 +1,6 @@
 import { GetModel } from './fetch.js';
 import PlotGraph from './plot_graph.js';
+
 let model;
 
 try {
@@ -8,4 +9,5 @@ try {
 catch (err) {
     console.error(err);
 }
+
 PlotGraph(model);
