@@ -124,7 +124,8 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
     ctx.beginPath();
     ctx.textAlign = "center";
     ctx.fillStyle = color;
-    const titleSize = Math.min(grid.left / 4, grid.height / 4);
+    const titleSize = Math.min(grid.left / 3, grid.top / 3);
+    console.log(grid.left + " + " + grid.top);
     ctx.font = `${titleSize}px Arial`;
     
     let x, y;
@@ -169,7 +170,7 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
     ctx.fillStyle = color;
     const Δx = canvas.width / grid.maxColoumns,
           Δy = canvas.height / grid.maxRows;
-    const labelSize = Math.min(Δx/2, Δy/3); // Find a suitable fontsize
+    const labelSize = Math.min(Δx/2, Δy/2); // Find a suitable fontsize
     ctx.font = `${labelSize}px Arial`;
 
     let x, y;
@@ -233,8 +234,6 @@ function DrawGraph(canvas, grid, values, color) {
     for (let i = 1; i < values.length; i++) {
         x = grid.left + Δx * i;
         y = grid.bottom - values[i]/ max * (grid.bottom - grid.top);
-        
-        console.log(x,y);
 
         ctx.lineTo(x, y);
     }
