@@ -13,6 +13,18 @@
     align-items: center;
 }
 /* MODEL BUTTONS */
+
+.modelRightBtn{
+  position: relative; 
+
+}
+
+.ModelRightBtnArrow{
+  position:absolute;
+  right: 0;
+  background-color: #241f1f;
+
+}
 .verticalModel{
     display: flex;
     width: 10%;
