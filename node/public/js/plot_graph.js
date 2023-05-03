@@ -238,5 +238,3 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     }
     ctx.stroke();
 }
-
-export { PlotGraph, DrawBackground, DrawGrid, WriteLables, WriteValues, DrawGraph };

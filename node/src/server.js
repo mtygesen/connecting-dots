@@ -127,7 +127,7 @@ function StartServer(port, hostname) {
 
 const server = http.createServer(RequestHandler);
 
-const port = 3000;
+const port = 3040;
 const hostname = 'localhost';
 
 StartServer(port, hostname);
