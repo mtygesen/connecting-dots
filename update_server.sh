@@ -1,4 +1,5 @@
 #!/bin/sh
+# Gets github changes and restarts node application
 git pull
 echo "Got new changes from github!"
 
