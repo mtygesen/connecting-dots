@@ -10,8 +10,10 @@ function CalculateFeatures(model, input) {
 
     const features = [];
     
-    for (let i = 0; i < 1; ++i) { // j < filters[i].length
-        features.push(Convolution(test[0].image, filters[0][i]));
+    for (let i = 0; i < filters.length; ++i) {
+        for (let j = 0; j < filters.length[i]; ++j) {
+            features.push(Convolution(test[0].image, filters[i][j]));
+        } 
     }
 
     console.log(features);
