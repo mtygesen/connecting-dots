@@ -1,5 +1,5 @@
 
-import { LoadModel } from "./load_model.js";
+import LoadModel from "./load_model.js";
 import mnist from "easy-mnist";
 
 function CalculateFeatures(model, input) {
@@ -21,30 +21,41 @@ function Convolution(input, filter) {
     const filterSize = Math.sqrt(filter.length);
     const inputSize = Math.sqrt(input.length);
     const outputSize = 1 + inputSize - filterSize;
-    const filter2d = [];
-    while(filter.length) filter2d.push(filter.splice(0, filterSize));
-    const input2d = [];
-    while(input.length) input2d.push(input.splice(0, inputSize));
 
+    const filter2d = [];
+
+    while(filter.length) filter2d.push(filter.splice(0, filterSize));
+
+    const input2d = [];
+
+    while(input.length) input2d.push(input.splice(0, inputSize));
 
     const padSize = Math.floor((inputSize - outputSize) / 2);
     const paddedInput = PadInput(input2d, padSize);
     
     const output2d = [];
+
     for (let i = 0; i < outputSize; ++i) {
         const output1d = [];
+
         for (let j = 0; j < outputSize; ++j) {
             const temp2d = [];
+
             for (let k = 0; k < filterSize; ++k) {
                 const temp1d = [];
+
                 for (let l = 0; l < filterSize; ++l) {
                     temp1d[l] = paddedInput[i+k][j+l] * filter2d[k][l];
                 }
+
                 temp2d.push(temp1d);
             }
-            let sum = temp2d.reduce(function(a,b) { return a.concat(b) }).reduce(function(a,b) { return a + b }); //flatten 2d array and calculate sum
+
+            const sum = temp2d.reduce((a , b) => a.concat(b)).reduce((a, b) => a + b); // Flatten 2d array and calculate sum
+            
             output1d[j] = sum;
         }
+
         output2d.push(output1d);
     }
 
@@ -127,4 +138,4 @@ function GetMaxFilterSize(layers) {
     return maxFilterSize;
 }
 
-CalculateFeatures(await LoadModel('model1'), 1);
+CalculateFeatures(await LoadModel('model1'), 1)
