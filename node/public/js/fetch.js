@@ -8,9 +8,9 @@
 async function GetModel(modelName) {
     const response = await fetch(`/get-model/${modelName}`);
 
-    if (response.ok) return response.json()
-    
-    throw new Error (`Unexpected response status ${response.status}`);
+    if (response.ok) return response.json();
+
+    throw new Error(`Unexpected response status ${response.status}`);
 }
 
 /**
@@ -21,18 +21,22 @@ async function GetModel(modelName) {
  * 
  * @returns a promise with a prediction object or throws error
  */
-function GetPrediction(input, modelNavn) {
-    fetch(`localhost:3000/get-prediction/${modelNavn}`, {
+async function GetPrediction(input, modelName) {
+    const response = await fetch(`localhost:3000/get-prediction/${modelName}`, {
         method: "POST",
         headers: {
             "content-type": "picture/json"
         },
         body: JSON.stringify(input)
     })
-
-    if (response.ok) return response.json();
-
-    throw new Error (`Unexpected response status ${response.status}`);
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                throw new Error(`Unexpected response status ${response.status}`)
+            }
+        })
+        .catch(error => console.error(error))
 }
 
-export { GetModel };
+export { GetModel, GetPrediction };

@@ -1,5 +1,5 @@
 import convnetjs from 'convnetjs';
-import { LoadModel } from './load_model.js';
+import LoadModel from './load_model.js';
 
 /**
  * Async function that evaluates the result of a model given an input image
@@ -9,7 +9,7 @@ import { LoadModel } from './load_model.js';
  * 
  * @returns a promise with a prediction object
  */
-async function EvaluateModel(modelName, input) {
+export default async function EvaluateModel(modelName, input) {
     const model = await LoadModel(modelName);
 
     const digit = new convnetjs.Vol(28, 28, 1, 0.0);
@@ -22,5 +22,3 @@ async function EvaluateModel(modelName, input) {
 
     return net.forward(digit);
 }
-
-export { EvaluateModel };

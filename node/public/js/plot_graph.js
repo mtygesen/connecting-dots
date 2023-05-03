@@ -22,7 +22,7 @@ export default function PlotGraph(model, scale = 4) {
     // Upscale the properties by the scale
     canvas.width = canvas.clientWidth * scale;
     canvas.height = canvas.clientHeight * scale;
-    ctx.lineWidth = canvas.width / 250;
+    ctx.lineWidth = canvas.width / 500;
 
     // Find the max value of the loss and the accuracy from the samples which will be the peaks of the Y-coordinates
     const maxLoss = Math.max(...model.stats.map((stats) => stats.loss)),
