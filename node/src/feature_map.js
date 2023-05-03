@@ -17,45 +17,37 @@ function CalculateFeatures(model, input) {
 }
 
 function Convolution(input, filter) {
-    //const filterSize = Math.sqrt(filter.length);
-    //const inputSize = Math.sqrt(input.length);
-    const filterSize = filter.length;
-    const inputSize = input.length;
+    const filterSize = Math.sqrt(filter.length);
+    const inputSize = Math.sqrt(input.length);
     const outputSize = 1 + inputSize - filterSize;
+    const filter2d = [];
+    while(filter.length) filter2d.push(filter.splice(0, filterSize));
+    const input2d = [];
+    while(input.length) input2d.push(input.splice(0, inputSize));
+
 
     const padSize = Math.floor((inputSize - outputSize) / 2);
-    const paddedInput = PadInput(input, padSize);
-    const output = [];
-
+    const paddedInput = PadInput(input2d, padSize);
     
+    const output2d = [];
     for (let i = 0; i < outputSize; ++i) {
+        const output1d = [];
         for (let j = 0; j < outputSize; ++j) {
-            let temp = [];
+            const temp2d = [];
             for (let k = 0; k < filterSize; ++k) {
+                const temp1d = [];
                 for (let l = 0; l < filterSize; ++l) {
-                    temp[k][l] = input[i+k][j+l] * filter[k][l];
+                    temp1d[l] = paddedInput[i+k][j+l] * filter2d[k][l];
                 }
+                temp2d.push(temp1d);
             }
-            let sum = temp.reduce(function(a,b) { return a.concat(b) }).reduce(function(a,b) { return a + b }); //flatten 2d array and calculate sum
-            output[i][j] = sum;
+            let sum = temp2d.reduce(function(a,b) { return a.concat(b) }).reduce(function(a,b) { return a + b }); //flatten 2d array and calculate sum
+            output1d[j] = sum;
         }
+        output2d.push(output1d);
     }
 
-
-
-    //for (let i = 0; i < input.length; ++i) input2d.push(input.splice(0, inputSize));
-    //const padSize = Math.floor((filterSize - 1) / 2);
-    
-    
-    
-
-    console.log(paddedInput);
-    
-    //const output = [];
-
-    // Perform convolution
-
-    return output;
+    return output2d;
 }
 
 /**
