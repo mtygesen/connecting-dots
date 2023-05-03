@@ -31,7 +31,7 @@ function CalculateFeatures(model, input) {
  * @param input image matrix
  * @param filter matrix
  * 
- * @returns the output matrix
+ * @returns the output matrix of the convolution normalized in range [0, 1]
  */
 function Convolution(input, filter) {
     const filterSize = Math.sqrt(filter.length);
