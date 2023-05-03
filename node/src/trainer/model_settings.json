@@ -1,11 +1,11 @@
 {
     "network": {
-        "modelName": "model1",
+        "modelName": "model5",
         "activation": "relu",
         "trainingMethod": "adadelta",
         "inputSize": 24,
-        "trainingSize": 1000,
-        "testSize": 100,
+        "trainingSize": 60000,
+        "testSize": 10000,
         "batchSize": 10,
         "l2Decay": 0.001,
         "l1Decay": 0.001,
