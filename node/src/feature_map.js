@@ -9,7 +9,7 @@ import mnist from "easy-mnist";
  * 
  * @returns a tensor of features where the first dimension is the feature and the second and third dimension are x and y of the img
  */
-function CalculateFeatures(model, input) {
+export default function CalculateFeatures(model, input) {
     const layers = model.net.layers;
     const filters = GetFilters(layers);
 
