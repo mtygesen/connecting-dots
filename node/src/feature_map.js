@@ -1,6 +1,14 @@
 import LoadModel from "./load_model.js";
 import mnist from "easy-mnist";
 
+/**
+ * Calculates the features of the first convolution layer
+ * 
+ * @param model to get the filters from
+ * @param input to calculate the features of
+ * 
+ * @returns a tensor of features where the first dimension is the feature and the second and third dimension are x and y of the img
+ */
 function CalculateFeatures(model, input) {
     const layers = model.net.layers;
     const filters = GetFilters(layers);
@@ -17,6 +25,14 @@ function CalculateFeatures(model, input) {
     return features;
 }
 
+/**
+ * Performs convolution on the input matrix with the filter matrix. The input matrix is padded with same padding.
+ * 
+ * @param input image matrix
+ * @param filter matrix
+ * 
+ * @returns the output matrix
+ */
 function Convolution(input, filter) {
     const filterSize = Math.sqrt(filter.length);
     const inputSize = Math.sqrt(input.length);
@@ -136,4 +152,5 @@ function GetMaxFilterSize(layers) {
     return maxFilterSize;
 }
 
-CalculateFeatures(await LoadModel('model1'), 1);
+const features = CalculateFeatures(await LoadModel('model1'), 1);
+console.log(features);
