@@ -4,16 +4,16 @@
 <head>
 	<title>Visualization of machine learning</title>
 	<!--Fav-icon:-->
-	<link rel="shortcut icon" href="img/logo/title-bar-logo.ico" sizes="256x256" />
+	<link rel="shortcut icon" href="../img/logo/title-bar-logo.ico" sizes="256x256" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--languages-->
 	<meta name="language" content="English" />
 	<!--CSS Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="css/header.css" />
-	<link rel="stylesheet" type="text/css" href="css/footer.css" />
-	<link rel="stylesheet" type="text/css" href="css/main.css" />
-	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<link rel="stylesheet" type="text/css" href="../css/header.css" />
+	<link rel="stylesheet" type="text/css" href="../css/footer.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+	<link rel="stylesheet" type="text/css" href="../css/base.css" />
 	<!-- if no script:-->
 	<noscript>JavaScript is required for this website. Please allow JavaScript and
 		refresh the page.</noscript>
@@ -25,26 +25,32 @@
 	<!-- JSDelivr -->
 	<link href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css" rel="stylesheet" />
 	<!--JS Scripts-->
-	<script type="module" src="js/fetch.js"></script>
-	<script type="module" src="js/plot_graph.js"></script>
-	<script type="module" src="js/display.js"></script>
-	<script type="module" src="js/main.js"></script>
+	<script type="module" src="../js/fetch.js"></script>
+	<script type="module" src="../js/plot_graph.js"></script>
+	<script type="module" src="../js/display.js"></script>
+	<script type="module" src="../js/main.js"></script>
+	<script type="module" src="../js/drawing.js"></script>
 	<script>
-		function topNavbar() {
-			let x = document.getElementById("myTopnav");
-			if (x.className === "topnav") {
-				x.className += " responsive";
-			} else {
-				x.className = "topnav";
-			}
+		$ = function (id) {
+			return document.getElementById(id);
+		}
+		var show = function (id) {
+			$(id).style.display = 'block';
+		}
+		var hide = function (id) {
+			$(id).style.display = 'none';
 		}
 	</script>
+	<script> 
+	Load(); 
+	</script>
+
 </head>
 
 <body>
 	<!--HEADER-->
 	<div class="topnav" id="myTopnav">
-		<img href="#home" class="logo" src="img/logo/group-title-logo-white.png" />
+		<img href="#home" class="logo" src="../img/logo/group-title-logo-white.png" />
 		<div class="dropdown">
 			<button class="dropbtn">
 				Models
@@ -71,12 +77,20 @@
 		</div>
 		<a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="topNavbar()">&#9776;</a>
 	</div>
-	<!--MAIN CONTENT-->
+	<div class="popup" id="popup">
+		<canvas class="draw" id="drawingCanvas"></canvas>
+		<div class="close">
+		<button id="clearButton" onclick="hide('popup')">Close</button>
+		<button id="submitButton" onclick="hide('popup')">Confirm</button>
+		</div>
+	</div>
 	<div class="main-content">
+		<!--MAIN CONTENT-->
+
 		<div class="visualization">
 			<div class="verticalModel">
 				<div class="modelRightBtn">
-					<button onclick="" class="">
+					<button class="getModelButton" id="model1">
 						<span>Model 1</span>
 						<div class="ModelRightBtnArrow">
 							<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -84,7 +98,7 @@
 					</button>
 				</div>
 				<div class="modelRightBtn">
-					<button onclick="" class="">
+					<button class="getModelButton" id="model2">
 						<span>Model 2</span><i></i>
 						<div class="ModelRightBtnArrow">
 							<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -92,7 +106,7 @@
 					</button>
 				</div>
 				<div class="modelRightBtn">
-					<button onclick="" class="">
+					<button class="getModelButton" id="model3">
 						<span>Model 3</span><i></i>
 						<div class="ModelRightBtnArrow">
 							<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -139,8 +153,9 @@
 							<span>9</span>
 						</button>
 					</div>
+
 					<div class="row">
-						<button onclick="" class="Icon" style="--clr: #ffffff">
+						<button onclick="show('popup')" class="">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 						</button>
 						<button onclick="" class="" style="--clr: #ffffff">
@@ -253,7 +268,7 @@
 			<div class="footer-content">
 				<span class="footer-title">Reference:</span><br />
 				<a href="https://github.com/icecoldgold773/p2-project" target="_blank"><img
-						src="/img/logo/Github-logo.png" title="GitHub" alt="github" />
+						src="../img/logo/Github-logo.png" title="GitHub" alt="github" />
 					<span style="padding-left: 5px">GitHub</span></a>
 			</div>
 		</div>

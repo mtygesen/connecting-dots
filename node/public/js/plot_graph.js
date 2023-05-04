@@ -26,7 +26,7 @@ export default function PlotGraph(model, scale = 4) {
 
     // Find the max value of the loss and the accuracy from the samples which will be the peaks of the Y-coordinates
     const maxLoss = Math.max(...model.stats.map((stats) => stats.loss)),
-          maxAcc = Math.max(...model.stats.map((stats) => stats.acc));
+        maxAcc = Math.max(...model.stats.map((stats) => stats.acc));
 
     // initialize values for the grid
     const grid = {};
@@ -41,18 +41,18 @@ export default function PlotGraph(model, scale = 4) {
 
     /*   No background was wanted   */
     // DrawBackground(canvas, "#FFF");
-    
+
 
     DrawGrid(canvas, grid, "#000");
-    
+
     WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
-    
+
     WriteValues(canvas, grid, "#000", maxLoss, model.stats.length, 100);
 
     let loss = (model.stats.map((stats) => stats.loss));
     DrawGraph(canvas, grid, loss, "#AA0038");
 
-    let acc  = (model.stats.map((stats) => stats.acc));
+    let acc = (model.stats.map((stats) => stats.acc));
     DrawGraph(canvas, grid, acc, "#1978C8", 100);
 
     return;
@@ -89,15 +89,16 @@ function DrawGrid(canvas, grid, color) {
     ctx.strokeStyle = color;
 
     const clmnSpacing = canvas.width / grid.maxColoumns,
-          rowSpacing = canvas.height / grid.maxRows;
+        rowSpacing = canvas.height / grid.maxRows;
 
     // The grid will be centered on the canvas
+
     for (let i = 0; i <= grid.coloumns; i++) { // Coloumns
         let x = grid.left + clmnSpacing * i;
         ctx.moveTo(x, grid.top);
         ctx.lineTo(x, grid.bottom);
         ctx.stroke();
-    } 
+    }
 
     for (let i = 0; i <= grid.rows; i++) { // Rows
         let y = grid.top + rowSpacing * i;
@@ -105,6 +106,7 @@ function DrawGrid(canvas, grid, color) {
         ctx.lineTo(grid.right, y);
         ctx.stroke();
     }
+
 }
 
 /**
@@ -126,7 +128,7 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
     ctx.fillStyle = color;
     const titleSize = Math.min(grid.left / 3, grid.top / 3);
     ctx.font = `${titleSize}px Arial`;
-    
+
     let x, y;
 
     // Left label
@@ -139,13 +141,13 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
 
     // x-axis label
     x = canvas.width / 2;
-    y = grid.bottom + grid.top * 2/3;
+    y = grid.bottom + grid.top * 2 / 3;
     ctx.fillText(xLabel, x, y);
 
     // Potential right label
     ctx.rotate(rotation); // Rotate right
     x = canvas.height / 2;
-    y = -(grid.right + grid.left * 3/4);
+    y = -(grid.right + grid.left * 3 / 4);
     ctx.fillText(y2Label, x, y);
     ctx.rotate(-rotation); // Rotate back
 }
@@ -168,8 +170,8 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
     ctx.beginPath();
     ctx.fillStyle = color;
     const Δx = canvas.width / grid.maxColoumns,
-          Δy = canvas.height / grid.maxRows;
-    const labelSize = Math.min(Δx/2, Δy/2); // Find a suitable fontsize
+        Δy = canvas.height / grid.maxRows;
+    const labelSize = Math.min(Δx / 2, Δy / 2); // Find a suitable fontsize
     ctx.font = `${labelSize}px Arial`;
 
     let x, y;
@@ -191,7 +193,7 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
         let value = maxX / grid.coloumns * i;
         ctx.fillText(value, x, y);
     }
-    
+
     if (maxY2 == "") return; // Stop here if maxY2 is not defined
 
     // Right Y-axis
@@ -202,7 +204,7 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
         let value = (1 - i / grid.rows) * maxY2;
         ctx.fillText(value.toFixed(2), x, y);
     }
-    
+
 }
 
 /**
@@ -218,23 +220,30 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
  */
 function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     // Draw the actual graph
-    const ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.lineCap = "round";
-    ctx.lineJoin = 'round'
-    ctx.strokeStyle = color;
-    const Δx = (canvas.width - 2 * grid.left) / values.length;
-    
+    const id = setInterval(() => {
+        const ctx = canvas.getContext("2d");
+        ctx.beginPath();
+        ctx.lineCap = "round";
+        ctx.lineJoin = 'round'
+        ctx.strokeStyle = color;
+        const Δx = (canvas.width - 2 * grid.left) / values.length;
 
-    // Starting point
-    let x = grid.left;
-    let y = grid.bottom - values[0] / yMax * (grid.bottom - grid.top);
-    ctx.moveTo(x, y);
 
-    for (let i = 1; i < values.length; i++) {
-        x = grid.left + Δx * i;
-        y = grid.bottom - values[i]/ yMax * (grid.bottom - grid.top);
-        ctx.lineTo(x, y);
-    }
-    ctx.stroke();
+        // Starting point
+
+        let x = grid.left;
+        let y = grid.bottom - values[0] / yMax * (grid.bottom - grid.top);
+        ctx.moveTo(x, y);
+
+        for (let i = 1; i < values.length; i++) {
+            x = grid.left + Δx * i;
+            y = grid.bottom - values[i] / yMax * (grid.bottom - grid.top);
+            ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        if (x >= canvas.width) {
+            clearinterval(id);
+        }
+    }, 1000);
+
 }
