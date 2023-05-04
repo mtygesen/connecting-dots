@@ -1,5 +1,5 @@
 import { GrayScale } from "./image.js"
-import { GetPrediction } from "./fetch"
+import { GetPrediction } from "./fetch.js"
 
 var currentPos = { x: 0, y: 0 }
 var previousPos = { x: 0, y: 0 }

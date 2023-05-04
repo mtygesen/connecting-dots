@@ -20,7 +20,7 @@ async function GetModel(modelName) {
  * @returns prediction til billedet som blev inputtet
  */
 async function GetPrediction(input, modelName) {
-    const response = await fetch(`localhost:3000/get-prediction/${modelName}`, {
+    const response = await fetch(`/get-prediction/${modelName}`, {
         method: "POST",
         headers: {
             "content-type": "picture/json"

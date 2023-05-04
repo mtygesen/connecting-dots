@@ -47,13 +47,13 @@ export default function PlotGraph(model, scale = 4) {
     
     WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
     
-    WriteValues(canvas, grid, "#000", maxLoss, model.stats.length, maxAcc);
+    WriteValues(canvas, grid, "#000", maxLoss, model.stats.length, 100);
 
     let loss = (model.stats.map((stats) => stats.loss));
     DrawGraph(canvas, grid, loss, "#AA0038");
 
     let acc  = (model.stats.map((stats) => stats.acc));
-    DrawGraph(canvas, grid, acc, "#1978C8");
+    DrawGraph(canvas, grid, acc, "#1978C8", 100);
 
     return;
 }
@@ -125,7 +125,6 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
     ctx.textAlign = "center";
     ctx.fillStyle = color;
     const titleSize = Math.min(grid.left / 3, grid.top / 3);
-    console.log(grid.left + " + " + grid.top);
     ctx.font = `${titleSize}px Arial`;
     
     let x, y;
@@ -213,28 +212,28 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
  * @param grid object containing information about the grid.
  * @param values array of values to be plotted
  * @param color represented as a Hex-code in a string
+ * @param yMax highest point of the y-axis
  * 
  * @returns void
  */
-function DrawGraph(canvas, grid, values, color) {
+function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     // Draw the actual graph
     const ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.lineCap = "round";
+    ctx.lineJoin = 'round'
     ctx.strokeStyle = color;
     const Δx = (canvas.width - 2 * grid.left) / values.length;
-    const max = Math.max(...values);
     
 
     // Starting point
     let x = grid.left;
-    let y = grid.bottom - (values[0] / max) * (grid.bottom - grid.top);
+    let y = grid.bottom - values[0] / yMax * (grid.bottom - grid.top);
     ctx.moveTo(x, y);
 
     for (let i = 1; i < values.length; i++) {
         x = grid.left + Δx * i;
-        y = grid.bottom - values[i]/ max * (grid.bottom - grid.top);
-
+        y = grid.bottom - values[i]/ yMax * (grid.bottom - grid.top);
         ctx.lineTo(x, y);
     }
     ctx.stroke();
