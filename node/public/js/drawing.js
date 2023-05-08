@@ -25,7 +25,7 @@ function Load() {
 
   submitButton = document.getElementById("submitButton")
   submitButton.addEventListener("click", () => {
-    data = ConvertToMatrix()
+    const data = ConvertToMatrix()
     GetPrediction(data, currentModel)
   })
 }
@@ -34,8 +34,8 @@ function Load() {
 function UpdatePos(event) {
   previousPos.x = currentPos.x
   previousPos.y = currentPos.y
-  currentPos.x = event.clientX - drawingCanvas.offsetLeft
-  currentPos.y = event.clientY - drawingCanvas.offsetTop
+  currentPos.x = event.clientX - drawingCanvas.getBoundingClientRect().left
+  currentPos.y = event.clientY - drawingCanvas.getBoundingClientRect().top
 }
 
 // Draws a line between former and current mouseposition when left click is held
@@ -45,8 +45,8 @@ function Draw(event) {
     ctx.beginPath()
     ctx.moveTo(previousPos.x, previousPos.y)
     ctx.lineTo(currentPos.x, currentPos.y)
-    ctx.strokestyle = "black"
-    ctx.linewidth = "10"
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = "2"
     ctx.stroke()
     ctx.closePath();
   }
@@ -54,8 +54,8 @@ function Draw(event) {
 
 // Converts the canvas into a grayscaled array
 function ConvertToMatrix() {
-  const array = ctx.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height)
-  pictureData = GrayScale(array.data)
+  const array = ctx.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height, { colorspace: "srgb" })
+  const pictureData = GrayScale(array.data)
   return pictureData
 }
 
@@ -64,17 +64,4 @@ function ClearCanvas() {
   ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height)
 }
 
-/*
-Tilføj:
-
-en knap med id=clearButton (som nulstiller canvas)
-
-en knap med id=submitButton (Som sender tegningen til serveren og returnerer en prediction)
-
-Et canvas med id=drawingCanvas
-Script med source=Drawing.js
-efterfulgt af
-<script> Load(); </script>
-
-til HTML dokumentet og funktionerne burde virke
-*/
+export { Load };
