@@ -45,24 +45,7 @@ export default function PlotGraph(model, scale = 4) {
 
     let loss = (model.stats.map((stats) => stats.loss));
 
-    let smoothLoss = [];
-    let avgCount = Math.ceil(loss.length * 0.05);
-    let partitionCount = Math.ceil(loss.length / avgCount);
-
-    console.log(avgCount, partitionCount);
-
-    for (let i = 0; i < partitionCount; ++i) {
-        let avg = 0;
-
-        for (let j = 0; j < avgCount; ++j) {
-            avg += loss[i * avgCount + j];
-        }
-
-        avg /= avgCount;
-
-        smoothLoss.push(avg);
-    }
-
+    let smoothLoss = AverageValues(loss)
     let maxSmoothLoss = Math.max(...smoothLoss);
 
     WriteValues(canvas, grid, "#000", maxSmoothLoss, model.stats.length, 100);
@@ -70,10 +53,40 @@ export default function PlotGraph(model, scale = 4) {
     DrawGraph(canvas, grid, smoothLoss, "#AA0038");
 
     let acc = (model.stats.map((stats) => stats.acc));
+    let smoothAcc = AverageValues(acc);
 
-    DrawGraph(canvas, grid, acc, "#1978C8", 100);
+    DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
 
     return;
+}
+
+/**
+ * Averages the values in an array
+ * 
+ * @param arr array of numbers
+ * @param avgPercentage (optional) the size of the partition to be averaged in percentage of the array length
+ * 
+ * @returns smoothArr array of averaged values
+ */
+function AverageValues(arr, avgPercentage = 0.05) {
+    let avgCount = Math.ceil(arr.length * avgPercentage);
+    let partitionCount = Math.ceil(arr.length / avgCount);
+
+    let smoothArr = [];
+
+    for (let i = 0; i < partitionCount; ++i) {
+        let avg = 0;
+
+        for (let j = 0; j < avgCount; ++j) {
+            avg += arr[i * avgCount + j];
+        }
+
+        avg /= avgCount;
+
+        smoothArr.push(avg);
+    }
+
+    return smoothArr;
 }
 
 /**
