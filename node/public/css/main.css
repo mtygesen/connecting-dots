@@ -1,171 +1,193 @@
 .main-content {
-    padding-top: 20px;
-    padding-bottom: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
-
-.visualization{
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 400px;
-    padding-bottom: 20px;
-    align-items: center;
+.visualization {
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
+	height: 400px;
+	padding-bottom: 20px;
+	align-items: center;
 }
 /* MODEL BUTTONS */
 
-.modelRightBtn{
-  position: relative; 
-
+.modelRightBtn {
+	position: relative;
 }
 
-.ModelRightBtnArrow{
-  position:absolute;
-  right: 0;
-  background-color: #241f1f;
-
+.ModelRightBtnArrow {
+	position: absolute;
+	right: 0;
+	background-color: #241f1f;
 }
-.verticalModel{
-    display: flex;
-    width: 10%;
-    margin-left: 2%;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
+.verticalModel {
+	display: flex;
+	width: 10%;
+	margin-left: 2%;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
 }
 .verticalModel button {
-    display: flex;
-    background: #444;
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: none;
-    padding: auto;
-    width: 100%;
-    transition: 0.2s;
-    margin-top: 5px;
-  }
-  
-  
-  
-.models{
-    width: 78%;
-    margin: 2%;
-    display: flex;
-    justify-content: space-between;
-        
+	display: flex;
+	background: #444;
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+	border: none;
+	padding: auto;
+	width: 100%;
+	transition: 0.2s;
+	margin-top: 5px;
+}
+
+.models {
+	width: 78%;
+	margin: 2%;
+	display: flex;
+	justify-content: space-between;
 }
 #LossChart {
-    border: 1px solid #198d3a;
-    width:49%;
-    position: sticky;
-    border-radius: 2%;
+	border: 1px solid #198d3a;
+	width: 49%;
+	position: sticky;
+	border-radius: 2%;
 }
 
 #featureMap {
-    border: 1px solid #553087;
-    width: 49%;
-    position: sticky;
-    border-radius: 2%;
+	border: 1px solid #553087;
+	width: 49%;
+	position: sticky;
+	border-radius: 2%;
 }
 
 /*DIAL PAD - INPUT*/
 
-.dialpad{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 12%;
-  height: 100%;
-  align-items: center;
-  margin-right: 2%;
+.dialpad {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 12%;
+	height: 100%;
+	align-items: center;
+	margin-right: 2%;
 }
 
-.dialpad button{
-  background:  #272822;
-  text-decoration: none;
-  border: 1px solid #444;
-  color: white;
-  width: 25%;
-  height: 30px;
-  font-size: 16px;
+.dialpad button {
+	background: #272822;
+	text-decoration: none;
+	border: 1px solid #444;
+	color: white;
+	width: 25%;
+	height: 30px;
+	font-size: 16px;
 }
 
-.dialpad button i{
-  margin: auto;
+.dialpad button i {
+	margin: auto;
 }
-
 
 .row {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	margin: 2px;
 }
 
-.allrows{
-  justify-content: space-between;
-  width: 100%;
+.allrows {
+	justify-content: space-between;
+	width: 100%;
 }
 
-.displayNumber{
-  border: 1px solid blue;
-  width: 100%;
+.displayNumber {
+	border: 1px solid blue;
+	width: 100%;
+  background-color: white;
 }
 
 .popup {
-  display: none;
-  position: fixed;
-  width: 325px;
-  left: 50%;
-  margin-left: -150px;
-  height: 180px;
-  top: 50%;
-  margin-top: -100px;
-  background: none;
-  z-index: 20;
+	display: none;
+	position: fixed;
+	width: 350px;
+	left: 50%;
+	margin-left: -150px;
+	height: 180px;
+	top: 50%;
+  right: 50%;
+	margin-top: -100px;
+	z-index: 20;
 }
 
 #popup:after {
-  position: fixed;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: -2;
+	position: fixed;
+	content: "";
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -2;
 }
 
 #popup:before {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background:rgb(23, 23, 23);
-  z-index: -1;
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgb(23, 23, 23);
+	z-index: -1;
 }
-.popupflex{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  border: 1px solid red;
-  width: 100%;
-  height:100%
-}
-.draw{
-  cursor: pointer;
-  border: 1px solid rebeccapurple;
-  position: absolute;
-  background-color: white;
-  position: absolute;
+.popupflex {
+  margin-top: 5px;
+  margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	justify-content: space-between;
   align-items: center;
 }
-
-.close{
-  display: flex;
-  justify-content: space-between;
+.draw {
+  position: absolute;
+	cursor: pointer;
+	width: auto;
+  height: auto;
+  background-color: white;
 }
 
+.canvasflex{
+  display: flex;
+  width: 100%;
+  height: 100%; 
+  align-items: center;
+  justify-content: center;
+}
+.close {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+	height: 20%;
+	width: 100%;
+	align-items: center;
+}
+
+.canvas_button_close{
+  background: none;
+  border: none; 
+  color: red; 
+  scale: 2;
+}
+.canvas_button_submit{
+  background: none;
+  border: none; 
+  scale: 2;
+color: rgb(73, 213, 73);
+}
+.canvas_button i {
+scale: 2;
+color: green;
+}
