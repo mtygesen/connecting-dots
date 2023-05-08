@@ -13,11 +13,9 @@ test('Test a model on some input matrix', async () => {
     const prediction1 = await EvaluateModel(modelName, input); 
 
     expect(prediction1).toBeDefined();
-    expect(prediction1).toHaveProperty('sx');
-    expect(prediction1).toHaveProperty('sy');
-    expect(prediction1).toHaveProperty('depth');
-    expect(prediction1).toHaveProperty('w');
-    expect(prediction1).toHaveProperty('dw');
+    expect(prediction1).toHaveProperty('features');
+    expect(prediction1).toHaveProperty('result');
+    expect(prediction1).toHaveProperty('guess');
     
     // Test for nonexistent model with valid input
     try {
@@ -33,11 +31,9 @@ test('Test a model on some input matrix', async () => {
         const prediction3 = await EvaluateModel(modelName);
 
         expect(prediction3).toBeDefined();
-        expect(prediction3).not.toHaveProperty('sx');
-        expect(prediction3).not.toHaveProperty('sy');
-        expect(prediction3).not.toHaveProperty('depth');
-        expect(prediction3).not.toHaveProperty('w');
-        expect(prediction3).not.toHaveProperty('dw');
+        expect(prediction3).not.toHaveProperty('features');
+        expect(prediction3).not.toHaveProperty('result');
+        expect(prediction3).not.toHaveProperty('guess');
     }
     catch (err) {
         expect(err.message).toBe("Cannot read properties of undefined (reading '0')");
