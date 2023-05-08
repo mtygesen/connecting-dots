@@ -59,12 +59,14 @@
     border: 1px solid #198d3a;
     width:49%;
     position: sticky;
+    border-radius: 2%;
 }
 
 #featureMap {
     border: 1px solid #553087;
     width: 49%;
     position: sticky;
+    border-radius: 2%;
 }
 
 /*DIAL PAD - INPUT*/
@@ -114,15 +116,13 @@
 .popup {
   display: none;
   position: fixed;
-  padding: 10px;
-  width: 280px;
+  width: 325px;
   left: 50%;
   margin-left: -150px;
   height: 180px;
   top: 50%;
   margin-top: -100px;
   background: none;
-  border: 1px solid #F04A49;
   z-index: 20;
 }
 
@@ -147,15 +147,25 @@
   background:rgb(23, 23, 23);
   z-index: -1;
 }
-
-.draw{
-  border: 1px solid rebeccapurple;
-  margin: auto;
+.popupflex{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: 1px solid red;
   width: 100%;
+  height:100%
+}
+.draw{
+  cursor: pointer;
+  border: 1px solid rebeccapurple;
+  position: absolute;
   background-color: white;
+  position: absolute;
+  align-items: center;
 }
 
 .close{
   display: flex;
   justify-content: space-between;
 }
+
