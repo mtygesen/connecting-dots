@@ -15,8 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/main.css" />
 	<link rel="stylesheet" type="text/css" href="../css/base.css" />
 	<!-- if no script:-->
-	<noscript>JavaScript is required for this website. Please allow JavaScript and
-		refresh the page.</noscript>
+	<noscript>JavaScript is required for this website. Please allow JavaScript and refresh the page.</noscript>
 	<!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
 	<link href="https://css.gg/css" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -28,8 +27,6 @@
 	<script type="module" src="../js/fetch.js"></script>
 	<script type="module" src="../js/plot_graph.js"></script>
 	<script type="module" src="../js/display.js"></script>
-	<script type="module" src="../js/main.js"></script>
-	<script type="module" src="../js/drawing.js"></script>
 	<script>
 		$ = function (id) {
 			return document.getElementById(id);
@@ -41,9 +38,8 @@
 			$(id).style.display = 'none';
 		}
 	</script>
-	<script> 
-	Load(); 
-	</script>
+	<script type="module" src="../js/drawing.js"></script>
+	<script type="module" src="../js/main.js"></script>
 
 </head>
 
@@ -51,7 +47,11 @@
 	<!--HEADER-->
 	<div class="topnav" id="myTopnav">
 		<img href="#home" class="logo" src="../img/logo/group-title-logo-white.png" />
+		<button>
+			<i class="fa fa-home" aria-hidden="true"></i>
+		</button>
 		<div class="dropdown">
+			<!--
 			<button class="dropbtn">
 				Models
 				<i class="fa fa-caret-down"></i>
@@ -61,6 +61,7 @@
 				<a href="#">model 2</a>
 				<a href="#">model 3</a>
 			</div>
+			-->
 		</div>
 		<div class="dropdown">
 			<button class="dropbtn">
@@ -77,11 +78,16 @@
 		</div>
 		<a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="topNavbar()">&#9776;</a>
 	</div>
+	<!--POPUP DRAW-->
 	<div class="popup" id="popup">
-		<canvas class="draw" id="drawingCanvas"></canvas>
-		<div class="close">
-		<button id="clearButton" onclick="hide('popup')">Close</button>
-		<button id="submitButton" onclick="hide('popup')">Confirm</button>
+		<div class="popupflex">
+			<canvas class="draw" id="drawingCanvas" onload="Load()"></canvas>
+			<div class="close">
+				<div>
+					<button class="canvas_button" id="clearButton" onclick="hide('popup')">Close</button>
+					<button class="canvas_button" id="submitButton" onclick="hide('popup')">Confirm</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="main-content">
@@ -165,12 +171,13 @@
 							<i class="gg-undo" title="reset input"></i>
 						</button>
 					</div>
-
+					<!--
 					<div class="row">
 						<button onclick="" class="Icon" style="--clr: #ffffff">
 							<i class="gg-info" title="info"></i>
 						</button>
 					</div>
+					-->
 				</div>
 				<div>
 					<canvas class="displayNumber">
@@ -256,14 +263,8 @@
 				Bjarke Thonsgaard Koldsø
 			</div>
 			<div class="footer-content">
-				<span class="footer-title">Emails</span><br />
-				ovni22@student.aau.dk<br />
-				snro22@student.aau.dk<br />
-				rpeder22@student.aau.dk<br />
-				mtyges22@student.aau.dk<br />
-				mrenne22@student.aau.dk<br />
-				mguldb22@student.aau.dk<br />
-				bkolds20@student.aau.dk<br />
+				<span class="footer-title">Group Email</span><br />
+				<p>cs-23-dat-2-04@student.aau.dk</p>
 			</div>
 			<div class="footer-content">
 				<span class="footer-title">Reference:</span><br />
