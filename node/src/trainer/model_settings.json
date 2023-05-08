@@ -4,16 +4,15 @@
         "activation": "relu",
         "trainingMethod": "adadelta",
         "inputSize": 24,
-        "trainingSize": 60000,
-        "testSize": 10000,
+        "trainingSize": 1000,
+        "testSize": 1000,
         "batchSize": 10,
         "l2Decay": 0.001,
         "l1Decay": 0.001,
         "learningRate": 0.01,
         "momentum": 0.9,
         "epochs": 1,
-        "hiddenLayers": [],
-        "logInterval": 10
+        "hiddenLayers": []
     },
     "other": {
         "formattedOutput": true

@@ -59,8 +59,7 @@ function SetupNetwork(network) {
  * @returns stats object
  */
 function TrainNetwork(net, trainingSet, testSet, network) {
-    const logInterval = network.logInterval,
-          printInterval = 100;
+    const printInterval = 100;
 
     const trainingMethod = network.trainingMethod,
           batchSize = network.batchSize,
@@ -104,15 +103,10 @@ function TrainNetwork(net, trainingSet, testSet, network) {
             const digit = new convnetjs.Vol(28, 28, 1, 0.0);
             digit.w = trainingSet[j].image;
             
-            if (j % logInterval === 0) {
-                stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
-                stats[j / logInterval].acc = TestNetwork(net, testSet);
-            }
-            else {
-                trainer.train(digit, trainingSet[j].label.indexOf(1));
-            }
+            stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
+            stats[j].acc = TestNetwork(net, testSet);
 
-            if (j > 0 && j % printInterval === 0) {
+            if (j % printInterval === 1) {
                 PrintStatus(j, trainingSet, epochs, startTimer);
             }
         }
