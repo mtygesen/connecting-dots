@@ -64,8 +64,6 @@ function ClearCanvas() {
   ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height)
 }
 
-
-
 /*
 Tilføj:
 
