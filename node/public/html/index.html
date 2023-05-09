@@ -114,7 +114,7 @@
 		<div class="main-content">
 			<!--MAIN CONTENT-->
 
-			<div class="visualization">
+			<div class="visualizationTop">
 				<div class="verticalModel">
 					<div class="modelRightBtn">
 						<button class="getModelButton" id="model1">
@@ -142,9 +142,20 @@
 					</div>
 				</div>
 				<div class="models">
-					<canvas id="featureMap"></canvas>
 					<canvas id="LossChart"> </canvas>
 				</div>
+				<div class="infobox">
+					<div class="infoboxtitle">Model Information</div>
+					<div class="infoboxcontent">
+						<div class="">Accuracy:</div>
+						<div>Activation function:</div>
+						<div>loss chart:</div>
+						<div>loss chart:</div>
+						<div>loss chart:</div>
+					</div>
+				</div>
+			</div>
+			<div class="visualizationBottom">
 				<div class="dialpad">
 					<div class="allrows">
 						<div class="row">
@@ -176,7 +187,7 @@
 							<button onclick="" class="">
 								<span>8</span>
 							</button>
-							<button onclick="" class="" >
+							<button onclick="" class="">
 								<span>9</span>
 							</button>
 						</div>
@@ -185,24 +196,23 @@
 							<button onclick="show('popup')" class="">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</button>
-							<button onclick="" class="" >
+							<button onclick="" class="">
 								<span>0</span>
 							</button>
-							<button onclick="ResetInput()" class="reset_input" >
+							<button onclick="ResetInput()" class="reset_input">
 								<i class="gg-undo" title="reset input"></i>
 							</button>
 						</div>
-						<!--
-					<div class="row">
-						<button onclick="" class="Icon" style="--clr: #ffffff">
-							<i class="gg-info" title="info"></i>
-						</button>
-					</div>
-					-->
 					</div>
 					<div>
 						<canvas class="displayNumber" id="displayNumber"> </canvas>
 					</div>
+				</div>
+				<div class="models">
+					<canvas id="featureMap"></canvas>
+				</div>
+				<div class="infobox">
+					<div>Prediction Information</div>
 				</div>
 			</div>
 			<div id="Information">
