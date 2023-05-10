@@ -5,6 +5,7 @@ var currentPos = { x: 0, y: 0 }
 var previousPos = { x: 0, y: 0 }
 var drawingCanvas = false
 var ctx = false
+var copyctx = false 
 var clearButton = false
 var submitButton = false
 var currentModel = false
@@ -19,15 +20,20 @@ function Load() {
   drawingCanvas.addEventListener("mousedown", UpdatePos)
   drawingCanvas.addEventListener("mousemove", Draw)
   drawingCanvas.addEventListener("mouseup", UpdatePos)
-
+//clears the canvas
   clearButton = document.getElementById("clearButton")
-  clearButton.addEventListener("click", ClearCanvas)
-
+  clearButton.addEventListener("click", ClearCanvas, )
+  clearButton.addEventListener("click", ClearCopyCanvas, )
+//submits the canvas
   submitButton = document.getElementById("submitButton")
   submitButton.addEventListener("click", () => {
     const data = ConvertToMatrix()
     GetPrediction(data, currentModel)
   })
+  submitButton = document.getElementById("submitButton")
+  submitButton.addEventListener("click", CopyToCanvas)
+  
+
 }
 
 // Updates the current and former x and y coordinates based on current mouse position
@@ -62,6 +68,15 @@ function ConvertToMatrix() {
 // resets the canvas
 function ClearCanvas() {
   ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height)
+}
+function ClearCopyCanvas() {
+  copyctx.clearRect(0, 0, displayNumber.width, displayNumber.height)
+}
+
+// Copys the current canvas to the input canvas
+function CopyToCanvas(){
+  copyctx = displayNumber.getContext('2d');
+  copyctx.drawImage(drawingCanvas,0,0);
 }
 
 export { Load };

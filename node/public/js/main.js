@@ -14,5 +14,10 @@ for (const button of buttons) {
         }
     });
 }
-
 Load();
+
+function ResetInput(){
+    clearButton = document.getElementById("reset_input")
+    clearButton.addEventListener("click", ClearCanvas, )
+    clearButton.addEventListener("click", ClearCopyCanvas, )
+}

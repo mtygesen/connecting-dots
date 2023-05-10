@@ -64,7 +64,7 @@ export default function PlotGraph(model, scale = 4) {
  * Averages the values in an array
  * 
  * @param arr array of numbers
- * @param avgPercentage (optional) the size of the partition to be averaged in percentage of the array length
+ * @param avgCount (optional) the number of values to be averaged
  * 
  * @returns smoothArr array of averaged values
  */
