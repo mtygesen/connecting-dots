@@ -1,12 +1,24 @@
+.nav_top{
+	width: 100%;
+	background-color: rgb(55, 75, 84);
+	color: rgba(255, 255, 255, 0.788);
+	height: 100px;
+	text-align: center;
+	padding-top: 15px;
+	font-size: 1.8em;
+}
+
 .topnav {
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 80px;
   padding: 5px;
-  background-color: rgb(72, 107, 212);
+  background-color: white;
   justify-content: left;
   font-family: 'Courier New', Courier, monospace;
   color: white;
+  box-shadow: 0 3px 10px rgba(96, 96, 96, 0.2);
 
 }
 
@@ -20,9 +32,8 @@
 }
 
 .logo {
-  background-color:none;
-  color: white;
-  width: 100px;
+  background-color:black;
+  width: 75px;
 }
 
 .topnav .icon {
@@ -38,7 +49,7 @@
   font-size: 17px;    
   border: none;
   outline: none;
-  color: white;
+  color: black;
   padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;

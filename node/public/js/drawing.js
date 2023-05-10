@@ -24,6 +24,10 @@ function Load() {
   clearButton = document.getElementById("clearButton")
   clearButton.addEventListener("click", ClearCanvas, )
   clearButton.addEventListener("click", ClearCopyCanvas, )
+//clears the input canvas
+  clearButton = document.getElementById("reset_input")
+  clearButton.addEventListener("click", ClearCanvas, )
+  clearButton.addEventListener("click", ClearCopyCanvas, )
 //submits the canvas
   submitButton = document.getElementById("submitButton")
   submitButton.addEventListener("click", () => {
@@ -52,7 +56,7 @@ function Draw(event) {
     ctx.moveTo(previousPos.x, previousPos.y)
     ctx.lineTo(currentPos.x, currentPos.y)
     ctx.strokeStyle = "black"
-    ctx.lineWidth = "2"
+    ctx.lineWidth = "4"
     ctx.stroke()
     ctx.closePath();
   }
@@ -77,6 +81,11 @@ function ClearCopyCanvas() {
 function CopyToCanvas(){
   copyctx = displayNumber.getContext('2d');
   copyctx.drawImage(drawingCanvas,0,0);
+}
+function ResetInput(){
+  clearButton = document.getElementById("reset_input")
+  clearButton.addEventListener("click", ClearCanvas, )
+  clearButton.addEventListener("click", ClearCopyCanvas, )
 }
 
 export { Load };
