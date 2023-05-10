@@ -7,7 +7,8 @@ const buttons = document.querySelectorAll('.getModelButton');
 for (const button of buttons) {
     button.addEventListener('click', e => { 
         try {
-            GetModel(`${e.target.id}`).then(model => PlotGraph(model));
+            GetModel(`${e.target.classList[1]}`).then(model => PlotGraph(model));
+            console.log(e)
         }
         catch (err) {
             console.log(err);
@@ -16,8 +17,4 @@ for (const button of buttons) {
 }
 Load();
 
-function ResetInput(){
-    clearButton = document.getElementById("reset_input")
-    clearButton.addEventListener("click", ClearCanvas, )
-    clearButton.addEventListener("click", ClearCopyCanvas, )
-}
+
