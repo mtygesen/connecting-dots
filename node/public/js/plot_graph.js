@@ -11,7 +11,7 @@ export default function PlotGraph(model, scale = 4) {
     const canvas = document.getElementById("LossChart");
 
     if (canvas === null) {
-        console.log("Could not find a suitable canvas");
+        console.warn("Could not find a suitable canvas");
         return;
     }
 
@@ -68,13 +68,12 @@ export default function PlotGraph(model, scale = 4) {
  * 
  * @returns smoothArr array of averaged values
  */
-function AverageValues(arr, avgPercentage = 0.05) {
-    let avgCount = Math.ceil(arr.length * avgPercentage);
-    let partitionCount = Math.ceil(arr.length / avgCount);
+function AverageValues(arr, avgCount = 5) {
+    let partitions = Math.floor(arr.length / avgCount);
 
-    let smoothArr = [];
+    let smoothArr = [arr[0]];
 
-    for (let i = 0; i < partitionCount; ++i) {
+    for (let i = 0; i < partitions; ++i) {
         let avg = 0;
 
         for (let j = 0; j < avgCount; ++j) {
@@ -85,6 +84,10 @@ function AverageValues(arr, avgPercentage = 0.05) {
 
         smoothArr.push(avg);
     }
+
+    console.log(avgCount);
+    console.log(arr);
+    console.log(smoothArr);
 
     return smoothArr;
 }
@@ -120,10 +123,9 @@ function DrawGrid(canvas, grid, color) {
     ctx.strokeStyle = color;
 
     const clmnSpacing = canvas.width / grid.maxColoumns,
-        rowSpacing = canvas.height / grid.maxRows;
+          rowSpacing = canvas.height / grid.maxRows;
 
     // The grid will be centered on the canvas
-
     for (let i = 0; i <= grid.coloumns; i++) { // Coloumns
         let x = grid.left + clmnSpacing * i;
         ctx.moveTo(x, grid.top);
@@ -137,7 +139,6 @@ function DrawGrid(canvas, grid, color) {
         ctx.lineTo(grid.right, y);
         ctx.stroke();
     }
-
 }
 
 /**
@@ -222,7 +223,8 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
     for (let i = 0; i <= grid.coloumns; i++) {
         x = grid.left + Δx * i;
         let value = maxX / grid.coloumns * i;
-        ctx.fillText(value, x, y);
+
+        i ? ctx.fillText(value, x, y) : ctx.fillText(value + 1, x, y);
     }
 
     if (maxY2 == "") return; // Stop here if maxY2 is not defined
@@ -251,10 +253,10 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
  */
 function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     // Draw the actual graph
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.beginPath();
-    ctx.lineCap = "round";
-    ctx.lineJoin = 'round'
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.strokeStyle = color;
     const Δx = (canvas.width - 2 * grid.left) / (values.length - 1);
 
@@ -266,6 +268,7 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     for (let i = 1; i < values.length; i++) {
         x = grid.left + Δx * i;
         y = grid.bottom - values[i] / yMax * (grid.bottom - grid.top);
+        console.log(y);
         ctx.lineTo(x, y);
     }
 
