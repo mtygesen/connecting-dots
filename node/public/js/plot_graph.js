@@ -85,10 +85,6 @@ function AverageValues(arr, avgCount = 5) {
         smoothArr.push(avg);
     }
 
-    console.log(avgCount);
-    console.log(arr);
-    console.log(smoothArr);
-
     return smoothArr;
 }
 
@@ -268,7 +264,6 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     for (let i = 1; i < values.length; i++) {
         x = grid.left + Δx * i;
         y = grid.bottom - values[i] / yMax * (grid.bottom - grid.top);
-        console.log(y);
         ctx.lineTo(x, y);
     }
 
