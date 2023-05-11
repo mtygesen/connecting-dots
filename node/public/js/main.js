@@ -19,4 +19,5 @@ for (const button of buttons) {
         }
     });
 }
+
 Load();
