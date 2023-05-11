@@ -1,5 +1,5 @@
 import PlotGraph from './plot_graph.js';
-import { GetModel } from './fetch.js';
+import { GetModel, GetPrediction } from './fetch.js';
 import { Load } from './drawing.js';
 import { DisplayModelInfo } from './display.js'; 
 
@@ -23,7 +23,6 @@ for (const button of buttons) {
                 PlotGraph(model);
                 DisplayModelInfo(model);
             }); 
-            console.log(e)
         }
         catch (err) {
             console.log(err);
@@ -32,3 +31,5 @@ for (const button of buttons) {
 }
 
 Load();
+
+console.log(await GetPrediction([0], defaultModel));

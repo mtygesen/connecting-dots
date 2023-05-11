@@ -22,19 +22,15 @@ async function GetModel(modelName) {
 async function GetPrediction(input, modelName) {
     const response = await fetch(`/get-prediction/${modelName}`, {
         method: "POST",
-        headers: {
-            "content-type": "picture/json"
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify(input)
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json()
-            } else {
-                throw new Error(`Unexpected response status ${response.status}`)
-            }
-        })
-        .catch(error => console.error(error))
+    });
+        
+    if (response.ok) {
+        return response.json();
+    } 
+    
+    throw new Error(`Unexpected response status ${response.status}`);
 }
 
 export { GetModel, GetPrediction };
