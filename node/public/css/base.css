@@ -6,9 +6,6 @@
     box-sizing: border-box;
 }
 
-li {
-    list-style: none;
-}
 
 button{
   cursor: pointer;
@@ -34,7 +31,7 @@ html {
     font-size: 25px;
     max-width: 850px;
     position: relative;
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 #back-to-top {

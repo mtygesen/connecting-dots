@@ -8,7 +8,6 @@
 	justify-content: space-around;
 	width: 100%;
 	height: 400px;
-	border: #198d3a 1px solid;
 	margin-bottom: 20px;
 }
 .visualizationBottom{
@@ -17,7 +16,6 @@
 	justify-content: space-around;
 	width: 100%;
 	height: 400px;
-	border: #d11a1a 1px solid;
 	margin-bottom: 20px;
 }
 
@@ -42,7 +40,6 @@
 	outline: none;
 	border-radius: 5px;
 	overflow: hidden;
-	font-family: "Quicksand", sans-serif;
 	font-size: 16px;
 	font-weight: 500;
 	cursor: pointer;
@@ -86,7 +83,6 @@
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
-	border: solid 1px lightyellow;
 }
 
 /*.verticalModel button {
@@ -115,7 +111,35 @@
 	border-radius: 2%;
 }
 
+.infobox{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 15%;
+	background-image: linear-gradient(to right, black, rgb(0, 0, 36), darkblue);
+	color: rgb(186, 201, 210);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0,0,0,.6);
+	color: white;
+	font-weight: 700;
+	font-size: 15px;
+	font-family: "Courier New", Courier, monospace;
+	align-items: center;
+}
 
+
+.infoboxcontent{
+	display: flex;
+	flex-direction: column;
+}
+
+.infodisplay{
+	border: 1px lightpink solid;
+}
+.info{
+	display: flex;
+	flex-direction: row;
+}
 /*DIAL PAD - INPUT*/
 
 .dialpad {
@@ -208,7 +232,6 @@
 .draw {
   position: absolute;
   cursor: pointer;
-  width: auto;
   background-color: white;
   
 }
@@ -245,16 +268,4 @@ scale: 2;
 color: green;
 }
 
-.infobox{
-	width: 5%;
-	border: 1px solid red;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
 
-.infoboxcontent{
-	display: flex;
-	flex-direction: column;
-	border: #198d3a solid 1px;
-}
