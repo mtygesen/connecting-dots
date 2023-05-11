@@ -21,22 +21,22 @@ function DisplayModelInfo(model) {
     html.className = 'infoboxcontent';
     html.id = 'model_info';
 
-    const divModelName = document.createElement('div');
-    divModelName.append(`Model name: ${modelName}`);
+    const pModelName = document.createElement('div');
+    pModelName.append(`Model name: ${modelName}`);
 
-    const divActivation = document.createElement('div');
-    divActivation.append(`Activation function: ${activation}`);
+    const pActivation = document.createElement('div');
+    pActivation.append(`Activation function: ${activation}`);
 
-    const divTrainingSize = document.createElement('div');
-    divTrainingSize.append(`Training size: ${trainingSize}`);
+    const pTrainingSize = document.createElement('div');
+    pTrainingSize.append(`Training size: ${trainingSize}`);
 
-    const divEpochs = document.createElement('div');
-    divEpochs.append(`Epochs: ${epochs}`);
+    const pEpochs = document.createElement('div');
+    pEpochs.append(`Epochs: ${epochs}`);
 
-    const divAccuracy = document.createElement('div');
-    divAccuracy.append(`Accuracy: ${accuracy}`);
+    const pAccuracy = document.createElement('div');
+    pAccuracy.append(`Accuracy: ${accuracy}`);
 
-    html.append(divModelName, divActivation, divTrainingSize, divEpochs, divAccuracy);
+    html.append(pModelName, pActivation, pTrainingSize, pEpochs, pAccuracy);
 
     const modelInfo = document.querySelector('#model_info');
 
