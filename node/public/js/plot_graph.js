@@ -3,10 +3,11 @@
  * 
  * @param model object
  * @param scale (optional) which specifies the upscaling factor
+ * @param partitions (optional) oartitions to average the values over
  * 
  * @returns void
  */
-export default function PlotGraph(model, scale = 4) {
+export default function PlotGraph(model, scale = 4, partitions = 20) {
     // Find and initialize the canvas
     const canvas = document.getElementById("LossChart");
 
@@ -45,7 +46,7 @@ export default function PlotGraph(model, scale = 4) {
 
     let loss = (model.stats.map((stats) => stats.loss));
 
-    let smoothLoss = AverageValues(loss)
+    let smoothLoss = AverageValues(loss, partitions);
     let maxSmoothLoss = Math.max(...smoothLoss);
 
     WriteValues(canvas, grid, "#000", maxSmoothLoss, model.stats.length, 100);
@@ -53,7 +54,7 @@ export default function PlotGraph(model, scale = 4) {
     DrawGraph(canvas, grid, smoothLoss, "#AA0038");
 
     let acc = (model.stats.map((stats) => stats.acc));
-    let smoothAcc = AverageValues(acc);
+    let smoothAcc = AverageValues(acc, partitions);
 
     DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
 
@@ -64,12 +65,12 @@ export default function PlotGraph(model, scale = 4) {
  * Averages the values in an array
  * 
  * @param arr array of numbers
- * @param avgCount (optional) the number of values to be averaged
+ * @param partitions the number of partitions to be averaged
  * 
  * @returns smoothArr array of averaged values
  */
-function AverageValues(arr, avgCount = 5) {
-    let partitions = Math.floor(arr.length / avgCount);
+function AverageValues(arr, partitions) {
+    let avgCount = Math.floor(arr.length / partitions);
 
     let smoothArr = [arr[0]];
 
