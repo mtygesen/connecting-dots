@@ -1,282 +1,333 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Neural Networks</title>
+    <!--Fav-icon:-->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../img/logo/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../img/logo/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../img/logo/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <!--basic html stuff-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--languages-->
+    <meta name="language" content="English" />
+    <!--CSS Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../css/header.css" />
+    <link rel="stylesheet" type="text/css" href="../css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
+    <!-- if no script:-->
+    <noscript
+      >JavaScript is required for this website. Please allow JavaScript and
+      refresh the page.</noscript
+    >
+    <!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
+    <link href="https://css.gg/css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fontawesome.com/icons/arrow-down-to-line?f=classic&s=light"
+      rel="stylesheet"
+    />
+    <!--ANIMATED BACKGROUND-->
 
-<head>
-	<title>Visualization of machine learning</title>
-	<!--Fav-icon:-->
-	<link rel="shortcut icon" href="../img/logo/title-bar-logo.ico" sizes="256x256" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!--languages-->
-	<meta name="language" content="English" />
-	<!--CSS Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="../css/header.css" />
-	<link rel="stylesheet" type="text/css" href="../css/footer.css" />
-	<link rel="stylesheet" type="text/css" href="../css/main.css" />
-	<link rel="stylesheet" type="text/css" href="../css/base.css" />
-	<!-- if no script:-->
-	<noscript>JavaScript is required for this website. Please allow JavaScript and
-		refresh the page.</noscript>
-	<!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
-	<link href="https://css.gg/css" rel="stylesheet" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="https://fontawesome.com/icons/arrow-down-to-line?f=classic&s=light" rel="stylesheet" />
-	<script src="https://kit.fontawesome.com/8f6fbafd97.js" crossorigin="anonymous"></script>
-	<!-- UNPKG -->
-	<link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
-	<!-- JSDelivr -->
-	<link href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css" rel="stylesheet" />
-	<!--JS Scripts-->
-	<script type="module" src="../js/fetch.js"></script>
-	<script type="module" src="../js/plot_graph.js"></script>
-	<script type="module" src="../js/display.js"></script>
-	<script>
-		$ = function (id) {
-			return document.getElementById(id);
-		};
-		var show = function (id) {
-			$(id).style.display = "block";
-		};
-		var hide = function (id) {
-			$(id).style.display = "none";
-		};
-	</script>
-	<script></script>
-	<script type="module" src="../js/drawing.js"></script>
-	<script type="module" src="../js/main.js"></script>
-</head>
+    <script
+      src="https://kit.fontawesome.com/8f6fbafd97.js"
+      crossorigin="anonymous"
+    ></script>
 
-<body>
-	<!--HEADER-->
-	<div class="nav_top">
-		<p>
-			Experience the fascinating world of <b style="color: white;">Neural Networks</b> through our interactive
-			learning platform, enabling practical experimentation in a safe web-based environment.
-		</p>
-	</div>
-	<div class="topnav" id="myTopnav">
-		<img href="#home" class="logo" src="../img/logo/group-title-logo-white.png" />
-		<button>
-			<i class="fa fa-home" aria-hidden="true"></i>
-		</button>
-		<div class="dropdown">
-			<!--
-			<button class="dropbtn">
-				Models
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-content">
-				<a href="#">Model 1</a>
-				<a href="#">model 2</a>
-				<a href="#">model 3</a>
-			</div>
-			-->
-		</div>
-		<div class="dropdown">
-			<button class="dropbtn">
-				About
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-content">
-				<a href="#">Neural Networks</a>
-				<a href="#">Multi-layer perceptron</a>
-				<a href="#">Activation Functions</a>
-				<a href="#">Gradient Descent</a>
-				<a href="#Backpropagation">Backpropagation</a>
-			</div>
-		</div>
-		<a style="font-size: 15px" class="icon" onclick="topNavbar()">&#9776;</a>
-	</div>
-	<!--POPUP DRAW-->
-	<div class="popup" id="popup">
-		<div class="popupflex">
-			<div class="canvasflex">
-				<canvas class="draw" id="drawingCanvas" onload="Load()"></canvas>
-			</div>
-			<div class="close">
-				<button class="canvas_button_close" id="clearButton" onclick="hide('popup')">
-					<i class="fa fa-window-close-o" aria-hidden="true"></i>
-				</button>
-				<button class="canvas_button_submit" id="submitButton" onclick="hide('popup')">
-					<i class="fa fa-check-circle-o fa-0.5x" aria-hidden="true"></i>
-				</button>
-			</div>
-		</div>
-	</div>
-	<div class="main-content">
-		<!--MAIN CONTENT-->
+    <!-- UNPKG -->
+    <link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
+    <!-- JSDelivr -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css"
+      rel="stylesheet"
+    />
+    <!--JS Scripts-->
+    <script type="module" src="../js/fetch.js"></script>
+    <script type="module" src="../js/plot_graph.js"></script>
+    <script type="module" src="../js/display.js"></script>
+    <script>
+      $ = function (id) {
+        return document.getElementById(id);
+      };
+      var show = function (id) {
+        $(id).style.display = "block";
+      };
+      var hide = function (id) {
+        $(id).style.display = "none";
+      };
+    </script>
+    <script type="module" src="../js/drawing.js"></script>
+    <script type="module" src="../js/main.js"></script>
+  </head>
 
-		<div class="visualizationTop">
-			<div class="verticalModel">
-				<div class="modelRightBtn">
-					<button class="getModelButton model1" id="model1">
-						<span class="getModelButton_text model1">Model 1</span>
-						<span class="getModelButton_icon model1">
-							<i class="fa-solid fa-arrow-right-from-bracket"></i>
-						</span>
-					</button>
-				</div>
-				<div class="modelRightBtn">
-					<button class="getModelButton model2" id="model2">
-						<span class="getModelButton_text model2">Model 2</span><i></i>
-						<div class="getModelButton_icon model2">
-							<i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
-						</div>
-					</button>
-				</div>
-				<div class="modelRightBtn">
-					<button class="getModelButton model3" id="model3">
-						<span class="getModelButton_text model3">Model 3</span><i></i>
-						<div class="getModelButton_icon model3">
-							<i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
-						</div>
-					</button>
-				</div>
-			</div>
-			<div class="models">
-				<canvas id="LossChart"> </canvas>
-			</div>
-			<div class="infobox">
-				<div class="infoboxtitle">Model Information</div>
-				<div class="infoboxcontent" id="model_info"></div>
-			</div>
-		</div>
-		<div class="visualizationBottom">
-			<div class="dialpad">
-				<div class="allrows">
-					<div class="row">
-						<button onclick="" class="">
-							<span>1</span>
-						</button>
-						<button onclick="" class="">
-							<span>2</span>
-						</button>
-						<button onclick="" class="">
-							<span>3</span>
-						</button>
-					</div>
-					<div class="row">
-						<button onclick="" class="" style="--clr: #ffffff">
-							<span>4</span>
-						</button>
-						<button onclick="" class="">
-							<span>5</span>
-						</button>
-						<button onclick="" class="">
-							<span>6</span>
-						</button>
-					</div>
-					<div class="row">
-						<button onclick="" class="">
-							<span>7</span>
-						</button>
-						<button onclick="" class="">
-							<span>8</span>
-						</button>
-						<button onclick="" class="">
-							<span>9</span>
-						</button>
-					</div>
+  <body>
+    <!--HEADER-->
 
-					<div class="row">
-						<button onclick="show('popup')" class="">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
-						</button>
-						<button onclick="" class="">
-							<span>0</span>
-						</button>
-						<button onclick="" id="reset_input">
-							<i class="gg-undo" title="reset input"></i>
-						</button>
-					</div>
-				</div>
-				<div>
-					<canvas class="displayNumber" id="displayNumber"> </canvas>
-				</div>
-			</div>
-			<div class="models" id="featureMap"></div>
-			<div class="infobox">
-				<div>Prediction Information</div>
-			</div>
-		</div>
-		<div id="Information">
-			<div id="description-box">
-				<h2 style="font-family: 'Electrolize', Courier, monospace">
-					Machine Learning
-				</h2>
-				<div class="description-content">
-					<i class="fa-solid fa-arrow-right-from-bracket"></i>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-						laborum excepturi minima suscipit libero quas eveniet deleniti
-						sint illum, necessitatibus ex rerum non obcaecati itaque quos
-						repellat accusantium adipisci beatae!
-					</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-						nostrum quos corporis libero eos nesciunt, accusamus
-						necessitatibus tempore quis suscipit non neque? Aliquam nobis
-						deserunt voluptas reprehenderit facere libero eligendi.
-					</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-						modi sequi fuga fugiat suscipit quo voluptatibus quam adipisci
-						assumenda sed nobis, amet in nam nostrum neque iusto nisi eius
-						autem.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-						eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-						elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-						adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-						eius autem.
-					</p>
-					<br />
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--BACK TO TOP-->
-	<a id="back-to-top" href="#"><i class="gg-arrow-up-r"></i></a>
-	<!--FOOTER-->
-	<footer class="footer">
-		<div class="footer-container">
-			<div class="footer-content">
-				<span>Group Members </span><br />
-				Oliver Viller Nielsen<br />
-				Sandra Norre Rosenbeck<br />
-				Rasmus Præstegård Pedersen<br />
-				Mikkel Tygesen<br />
-				Magnus Lindholm Rennekamp<br />
-				Mads Rohde Guldbæk<br />
-				Bjarke Thonsgaard Koldsø
-			</div>
-			<div class="footer-content">
-				<span class="footer-title">Group Email</span><br />
-				<p>cs-23-dat-2-04@student.aau.dk</p>
-			</div>
-			<div class="footer-content">
-				<span class="footer-title">Reference:</span><br />
-				<a href="https://github.com/icecoldgold773/p2-project" target="_blank"><img
-						src="../img/logo/Github-logo.png" title="GitHub" alt="github" />
-					<span style="padding-left: 5px">GitHub</span></a>
-			</div>
-		</div>
-	</footer>
-</body>
+    <div id="large-header" class="large-header">
+      <canvas id="demo-canvas"></canvas>
+      <h1 class="main-title">Connecting <span class="thin">the dots</span></h1>
+    </div>
+    <!-- HEADER PACK FROM: https://tympanus.net/Development/AnimatedHeaderBackgrounds/ -->
+    <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/EasePack.min.js"></script>
+    <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/rAF.js"></script>
+    <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js"></script>
+    <script src="../js/animation.js"></script>
 
+    <div class="topnav" id="myTopnav">
+      <div class="divLogo">
+        <img href="#home" class="logo" src="../img/logo/NN.png" />
+      </div>
+      <div class="container">
+        <div class="navbar_title">
+          <li><a href="#">Neural Networks</a></li>
+        </div>
+        <div class="navbar_title">
+          <li><a href="#">Multi-layer perceptron</a></li>
+        </div>
+        <div class="navbar_title">
+          <li><a href="#">Activation Functions</a></li>
+        </div>
+        <div class="navbar_title">
+          <li><a href="#">Gradient Descent</a></li>
+        </div>
+        <div class="navbar_title">
+          <li><a href="#">Back-propagation</a></li>
+        </div>
+        <div class="navbar_title">
+          <li><a href="">About us</a></li>
+        </div>
+      </div>
+    </div>
+    <!--POPUP DRAW-->
+    <div class="popup" id="popup">
+      <div class="popupflex">
+        <div class="canvasflex">
+          <canvas class="draw" id="drawingCanvas" onload="Load()"></canvas>
+        </div>
+        <div class="close">
+          <button
+            class="canvas_button_close"
+            id="clearButton"
+            onclick="hide('popup')"
+          >
+            <i class="fa fa-window-close-o" aria-hidden="true"></i>
+          </button>
+          <button
+            class="canvas_button_submit"
+            id="submitButton"
+            onclick="hide('popup')"
+          >
+            <i class="fa fa-check-circle-o fa-0.5x" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <!--MAIN CONTENT-->
+
+      <div class="visualizationTop">
+        <div class="verticalModel">
+          <div class="modelRightBtn">
+            <button class="getModelButton model1" id="model1">
+              <span class="getModelButton_text model1">Model 1</span>
+              <span class="getModelButton_icon model1">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              </span>
+            </button>
+          </div>
+          <div class="modelRightBtn">
+            <button class="getModelButton model2" id="model2">
+              <span class="getModelButton_text model2">Model 2</span><i></i>
+              <div class="getModelButton_icon model2">
+                <i
+                  class="fa-solid fa-arrow-right-from-bracket"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </button>
+          </div>
+          <div class="modelRightBtn">
+            <button class="getModelButton model3" id="model3">
+              <span class="getModelButton_text model3">Model 3</span><i></i>
+              <div class="getModelButton_icon model3">
+                <i
+                  class="fa-solid fa-arrow-right-from-bracket"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="models">
+          <canvas id="LossChart"> </canvas>
+        </div>
+        <div class="infobox">
+          <div class="infoboxtitle">Model Information</div>
+          <div class="infoboxcontent">
+            <div class="">Accuracy:</div>
+            <div>Activation function:</div>
+            <div>loss chart:</div>
+            <div>loss chart:</div>
+            <div>loss chart:</div>
+          </div>
+        </div>
+      </div>
+      <div class="visualizationBottom">
+        <div class="dialpad">
+          <div class="allrows">
+            <div class="row">
+              <button onclick="" class="">
+                <span>1</span>
+              </button>
+              <button onclick="" class="">
+                <span>2</span>
+              </button>
+              <button onclick="" class="">
+                <span>3</span>
+              </button>
+
+              <button onclick="" class="" style="--clr: #ffffff">
+                <span>4</span>
+              </button>
+              <button onclick="" class="">
+                <span>5</span>
+              </button>
+              <button onclick="" class="">
+                <span>6</span>
+              </button>
+
+              <button onclick="" class="">
+                <span>7</span>
+              </button>
+              <button onclick="" class="">
+                <span>8</span>
+              </button>
+              <button onclick="" class="">
+                <span>9</span>
+              </button>
+              <button onclick="" class="">
+                <span>0</span>
+              </button>
+            </div>
+            <div>
+              <canvas class="displayNumber" id="displayNumber"> </canvas>
+            </div>
+            <div class="row">
+              <button onclick="" id="reset_input">
+                <i class="gg-undo" title="reset input"></i>
+              </button>
+              <button onclick="show('popup')" class="">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="models" id="featureMap"></div>
+        <div class="infobox">
+          <div>Prediction Information</div>
+        </div>
+      </div>
+      <div id="Information">
+        <div id="description-box">
+          <h2 style="font-family: 'Electrolize', Courier, monospace">
+            Machine Learning
+          </h2>
+          <div class="description-content">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+              laborum excepturi minima suscipit libero quas eveniet deleniti
+              sint illum, necessitatibus ex rerum non obcaecati itaque quos
+              repellat accusantium adipisci beatae!
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
+              nostrum quos corporis libero eos nesciunt, accusamus
+              necessitatibus tempore quis suscipit non neque? Aliquam nobis
+              deserunt voluptas reprehenderit facere libero eligendi.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+              modi sequi fuga fugiat suscipit quo voluptatibus quam adipisci
+              assumenda sed nobis, amet in nam nostrum neque iusto nisi eius
+              autem.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+              adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+              eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+              adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+              eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+              adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+              eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+              adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+              eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+              adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+              eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+              adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+              eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
+              adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
+              eius autem.
+            </p>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--BACK TO TOP-->
+    <a id="back-to-top" href="#"><i class="gg-arrow-up-r"></i></a>
+    <!--FOOTER-->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <span>Group Members </span><br />
+          Oliver Viller Nielsen<br />
+          Sandra Norre Rosenbeck<br />
+          Rasmus Præstegård Pedersen<br />
+          Mikkel Tygesen<br />
+          Magnus Lindholm Rennekamp<br />
+          Mads Rohde Guldbæk<br />
+          Bjarke Thonsgaard Koldsø
+        </div>
+        <div class="footer-content">
+          <span class="footer-title">Group Email</span><br />
+          <p>cs-23-dat-2-04@student.aau.dk</p>
+        </div>
+        <div class="footer-content">
+          <span class="footer-title">Reference:</span><br />
+          <a href="https://github.com/icecoldgold773/p2-project" target="_blank"
+            ><img
+              src="../img/logo/Github-logo.png"
+              title="GitHub"
+              alt="github"
+            />
+            <span style="padding-left: 5px">GitHub</span></a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
