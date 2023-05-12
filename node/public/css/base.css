@@ -79,7 +79,6 @@ html {
 
 .FM-row {
   width: 100%;
-  height: 50%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
