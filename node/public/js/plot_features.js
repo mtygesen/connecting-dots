@@ -24,7 +24,7 @@ function Plot2dMatrix(matrix, canvas) {
 function LightMap(matrix, max ="", min ="") {
     if (max == "") max = Math.max(...matrix.flat());
     if (min == "") min = Math.min(...matrix.flat());
-    const DarkMap = [];
+    const lightMap = [];
     for (let i = 0; i < matrix.length; ++i) {
         const temp = [];
 
@@ -32,10 +32,10 @@ function LightMap(matrix, max ="", min ="") {
             temp[j] = 255 - Math.floor((matrix[i][j] - min) / (max - min) * 255);
         }
 
-        DarkMap.push(temp);
+        lightMap.push(temp);
     }
 
-    return DarkMap
+    return lightMap
 }
 
 function DisplayFM(features) {
@@ -49,18 +49,19 @@ function DisplayFM(features) {
     const max = Math.max(...FM.flat());
     const min = Math.min(...FM.flat());
     console.log(max);
-    console.log(max);
+    console.log(min);
     const rows = 2;
+    const rowLength = Math.ceil(features.length / rows);
 
-    for (let i = 0; i < features.length; i += features.length / rows) {
+    for (let i = 0; i < features.length; i += rowLength) {
         let row = document.createElement("div");
         row.className = "FM-row";
         
-        let dimension = Math.min(parent.clientWidth / 5, parent.clientHeight / 3);
+        let dimension = Math.min(parent.clientWidth / (rowLength + 1), parent.clientHeight / (rows + 1));
         let canvasWidth = 100 * dimension / parent.clientWidth + "%";
-        let canvasHeight = 100 * dimension / parent.clientHeight * 2 + "%";
+        let canvasHeight = 100 * dimension / parent.clientHeight * rows + "%";
 
-        for (let j = 0; j < features.length / rows; ++j) {
+        for (let j = 0; j < rowLength; ++j) {
             let canvas = document.createElement("canvas");
             Plot2dMatrix(LightMap(features[i+j], max, min), canvas);
     
@@ -73,12 +74,6 @@ function DisplayFM(features) {
         parent.appendChild(row);
     }
 
-}
-
-function MakeDiv(className = "") {
-    let div = document.createElement("div");
-    div.className = className;
-    return div;
 }
 
 function DeleteChildNodes(parent) {
