@@ -6,16 +6,13 @@
     box-sizing: border-box;
 }
 
-li {
-    list-style: none;
-}
 
 button{
   cursor: pointer;
 }
 
 body {
-    background-color: #f1f1f2 ;
+    background-color: white ;
     background-position: left;
     background-size: cover;
     background-repeat: no-repeat;
@@ -34,7 +31,7 @@ html {
     font-size: 25px;
     max-width: 850px;
     position: relative;
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 #back-to-top {
