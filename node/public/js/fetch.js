@@ -28,9 +28,7 @@ async function GetPrediction(input, modelName) {
         body: JSON.stringify(input)
     });
         
-    if (response.ok) {
-        return response.json();
-    } 
+    if (response.ok) return response.json();
     
     throw new Error(`Unexpected response status ${response.status}`);
 }
