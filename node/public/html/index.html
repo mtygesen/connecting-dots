@@ -31,6 +31,93 @@
 	<script type="module" src="../js/plot_graph.js"></script>
 	<script type="module" src="../js/display.js"></script>
 	<script>
+	function Plot2dMatrix(matrix, canvas) {
+    const ctx = canvas.getContext("2d");
+    
+    let sizeX = canvas.width / matrix.length;
+    let sizeY = canvas.height / matrix[0].length;
+
+    let y = 0;
+    for (let i = 0; i < matrix.length; ++i) {
+        let x = 0;
+        
+        for (let j = 0; j < matrix[0].length; ++j) {
+            color = matrix[i][j];
+            ctx.fillStyle = `rgb(${color}, ${color}, ${color})`;
+            ctx.fillRect(x, y, sizeX + x, sizeY + y);
+
+            x += sizeX;
+        }
+
+        y += sizeY;
+    }
+}
+
+function LightMap(matrix, max ="", min ="") {
+    if (max == "") max = Math.max(...matrix.flat());
+    if (min == "") min = Math.min(...matrix.flat());
+    const DarkMap = [];
+    for (let i = 0; i < matrix.length; ++i) {
+        const temp = [];
+
+        for (let j = 0; j < matrix.length; ++j) {
+            temp[j] = 255 - Math.floor((matrix[i][j] - min) / (max - min) * 255);
+        }
+
+        DarkMap.push(temp);
+    }
+
+    return DarkMap
+}
+
+function DisplayFM(features) {
+    const parent = document.getElementById("featureMap");
+    DeleteChildNodes(parent);
+
+    const FM = [];
+    for (let i = 0; i < features.length; ++i) {
+        FM.push(features[i].flat());
+    }
+    const max = Math.max(...FM.flat());
+    const min = Math.min(...FM.flat());
+    console.log(max);
+    console.log(min);
+    const rows = 2;
+
+    for (let i = 0; i < features.length; i += features.length / rows) {
+        let row = document.createElement("div");
+        row.className = "FM-row";
+        
+        let dimension = Math.min(parent.clientWidth / 5, parent.clientHeight / 3);
+        let canvasWidth = 100 * dimension / parent.clientWidth + "%";
+        let canvasHeight = 100 * dimension / parent.clientHeight * 2 + "%";
+
+        for (let j = 0; j < features.length / rows; ++j) {
+            let canvas = document.createElement("canvas");
+            Plot2dMatrix(LightMap(features[i+j], max, min), canvas);
+    
+            //evt. give each FM a name
+            canvas = row.appendChild(canvas);
+            canvas.style.width = canvasWidth;
+            canvas.style.height = canvasHeight;
+        }
+
+        parent.appendChild(row);
+    }
+
+}
+
+function MakeDiv(className = "") {
+    let div = document.createElement("div");
+    div.className = className;
+    return div;
+}
+
+function DeleteChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 		$ = function (id) {
 			return document.getElementById(id);
 		};

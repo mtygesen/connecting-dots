@@ -74,10 +74,10 @@ function Convolution(input, filter) {
         output2d.push(output1d);
     }
 
-    const max = Math.max(...output2d.flat());
-    const min = Math.min(...output2d.flat());
+    //const max = Math.max(...output2d.flat());
+    //const min = Math.min(...output2d.flat());
 
-    for (let i = 0; i < output2d.length; ++i) output2d[i] = output2d[i].map(x => (x - min) / (max - min)); // Normalize output
+    //for (let i = 0; i < output2d.length; ++i) output2d[i] = output2d[i].map(x => (x - min) / (max - min)); // Normalize output
 
     return output2d;
 }
@@ -158,3 +158,4 @@ function GetMaxFilterSize(layers) {
 }
 
 const features = CalculateFeatures(await LoadModel('model1'), 1);
+console.log(features);
