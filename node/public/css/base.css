@@ -68,3 +68,15 @@ html {
   margin-top: 0px;
   margin-left: -25px;
 }
+
+#featureMap {
+  display: flex;
+  flex-direction: column;
+}
+
+.FM-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
