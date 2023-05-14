@@ -27,14 +27,11 @@ async function GetPrediction(input, modelName) {
         },
         body: JSON.stringify(input)
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json()
-            } else {
-                throw new Error(`Unexpected response status ${response.status}`)
-            }
-        })
-        .catch(error => console.error(error))
+    if (response.ok) {
+        return response.json()
+    } else {
+        throw new Error(`Unexpected response status ${response.status}`)
+    }
 }
 
 export { GetModel, GetPrediction };
