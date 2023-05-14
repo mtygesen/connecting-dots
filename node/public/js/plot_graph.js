@@ -3,15 +3,16 @@
  * 
  * @param model object
  * @param scale (optional) which specifies the upscaling factor
+ * @param partitions (optional) oartitions to average the values over
  * 
  * @returns void
  */
-export default function PlotGraph(model, scale = 4) {
+export default function PlotGraph(model, scale = 4, partitions = 20) {
     // Find and initialize the canvas
     const canvas = document.getElementById("LossChart");
 
     if (canvas === null) {
-        console.log("Could not find a suitable canvas");
+        console.warn("Could not find a suitable canvas");
         return;
     }
 
@@ -45,24 +46,7 @@ export default function PlotGraph(model, scale = 4) {
 
     let loss = (model.stats.map((stats) => stats.loss));
 
-    let smoothLoss = [];
-    let avgCount = Math.ceil(loss.length * 0.05);
-    let partitionCount = Math.ceil(loss.length / avgCount);
-
-    console.log(avgCount, partitionCount);
-
-    for (let i = 0; i < partitionCount; ++i) {
-        let avg = 0;
-
-        for (let j = 0; j < avgCount; ++j) {
-            avg += loss[i * avgCount + j];
-        }
-
-        avg /= avgCount;
-
-        smoothLoss.push(avg);
-    }
-
+    let smoothLoss = AverageValues(loss, partitions);
     let maxSmoothLoss = Math.max(...smoothLoss);
 
     WriteValues(canvas, grid, "#000", maxSmoothLoss, model.stats.length, 100);
@@ -70,10 +54,39 @@ export default function PlotGraph(model, scale = 4) {
     DrawGraph(canvas, grid, smoothLoss, "#AA0038");
 
     let acc = (model.stats.map((stats) => stats.acc));
+    let smoothAcc = AverageValues(acc, partitions);
 
-    DrawGraph(canvas, grid, acc, "#1978C8", 100);
+    DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
 
     return;
+}
+
+/**
+ * Averages the values in an array
+ * 
+ * @param arr array of numbers
+ * @param partitions the number of partitions to be averaged
+ * 
+ * @returns smoothArr array of averaged values
+ */
+function AverageValues(arr, partitions) {
+    let avgCount = Math.floor(arr.length / partitions);
+
+    let smoothArr = [arr[0]];
+
+    for (let i = 0; i < partitions; ++i) {
+        let avg = 0;
+
+        for (let j = 0; j < avgCount; ++j) {
+            avg += arr[i * avgCount + j];
+        }
+
+        avg /= avgCount;
+
+        smoothArr.push(avg);
+    }
+
+    return smoothArr;
 }
 
 /**
@@ -107,10 +120,9 @@ function DrawGrid(canvas, grid, color) {
     ctx.strokeStyle = color;
 
     const clmnSpacing = canvas.width / grid.maxColoumns,
-        rowSpacing = canvas.height / grid.maxRows;
+          rowSpacing = canvas.height / grid.maxRows;
 
     // The grid will be centered on the canvas
-
     for (let i = 0; i <= grid.coloumns; i++) { // Coloumns
         let x = grid.left + clmnSpacing * i;
         ctx.moveTo(x, grid.top);
@@ -124,7 +136,6 @@ function DrawGrid(canvas, grid, color) {
         ctx.lineTo(grid.right, y);
         ctx.stroke();
     }
-
 }
 
 /**
@@ -209,7 +220,8 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
     for (let i = 0; i <= grid.coloumns; i++) {
         x = grid.left + Δx * i;
         let value = maxX / grid.coloumns * i;
-        ctx.fillText(value, x, y);
+
+        i ? ctx.fillText(value, x, y) : ctx.fillText(value + 1, x, y);
     }
 
     if (maxY2 == "") return; // Stop here if maxY2 is not defined
@@ -238,10 +250,10 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
  */
 function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     // Draw the actual graph
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.beginPath();
-    ctx.lineCap = "round";
-    ctx.lineJoin = 'round'
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.strokeStyle = color;
     const Δx = (canvas.width - 2 * grid.left) / (values.length - 1);
 

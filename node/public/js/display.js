@@ -6,24 +6,41 @@
  * @returns void 
  */
 function DisplayModelInfo(model) {
-    const config = model.config,
-          accuracy = model.accuracy;
+    const config = model.config;
 
-    const activation = config.activation,
+    let accuracy = model.accuracy;
+
+    const modelName = config.modelName,
+          activation = config.activation,
           trainingSize = config.trainingSize,
           epochs = config.epochs;
 
-    const html = `<p>
-                    Model: ${modelName}<br>
-                    Activation function: ${activation}<br>
-                    Training size: ${trainingSize}<br>
-                    Epochs: ${epochs}<br>
-                    Accuracy: ${accuracy}
-                  </p>`;
+    accuracy = Math.round((accuracy + Number.EPSILON) * 100) / 100;
+
+    const html = document.createElement('div');
+    html.className = 'infoboxcontent';
+    html.id = 'model_info';
+
+    const pModelName = document.createElement('div');
+    pModelName.append(`Model name: ${modelName}`);
+
+    const pActivation = document.createElement('div');
+    pActivation.append(`Activation function: ${activation}`);
+
+    const pTrainingSize = document.createElement('div');
+    pTrainingSize.append(`Training size: ${trainingSize}`);
+
+    const pEpochs = document.createElement('div');
+    pEpochs.append(`Epochs: ${epochs}`);
+
+    const pAccuracy = document.createElement('div');
+    pAccuracy.append(`Accuracy: ${accuracy}`);
+
+    html.append(pModelName, pActivation, pTrainingSize, pEpochs, pAccuracy);
 
     const modelInfo = document.querySelector('#model_info');
 
-    modelInfo.append(html);
+    modelInfo.replaceWith(html);
 
     return;
 }
@@ -46,3 +63,6 @@ function DisplayPrediction(prediction) {
 
     return;
 }
+
+
+export { DisplayModelInfo, DisplayPrediction };

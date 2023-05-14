@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Visualization of machine learning</title>
+		<title>Neural Networks</title>
 		<!--Fav-icon:-->
 		<link
-			rel="shortcut icon"
-			href="../img/logo/title-bar-logo.ico"
-			sizes="256x256" />
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="../img/logo/apple-touch-icon.png" />
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="../img/logo/favicon-32x32.png" />
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="../img/logo/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<!--basic html stuff-->
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--languages-->
@@ -24,8 +36,17 @@
 		<!--icons: css.gg:https://github.com/astrit/css.gg#get-started -->
 		<link href="https://css.gg/css" rel="stylesheet" />
 		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+			rel="stylesheet" />
+		<link
+			href="https://fontawesome.com/icons/arrow-down-to-line?f=classic&s=light"
+			rel="stylesheet" />
+		<!--ANIMATED BACKGROUND-->
+
+		<script
+			src="https://kit.fontawesome.com/8f6fbafd97.js"
+			crossorigin="anonymous"></script>
+
 		<!-- UNPKG -->
 		<link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
 		<!-- JSDelivr -->
@@ -53,41 +74,41 @@
 
 	<body>
 		<!--HEADER-->
+
+		<div id="large-header" class="large-header">
+			<canvas id="demo-canvas"></canvas>
+			<h1 class="main-title">Connecting <span class="thin">the dots</span></h1>
+		</div>
+		<!-- HEADER PACK FROM: https://tympanus.net/Development/AnimatedHeaderBackgrounds/ -->
+		<script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/EasePack.min.js"></script>
+		<script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/rAF.js"></script>
+		<script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js"></script>
+		<script src="../js/animation.js"></script>
+		<!--Top nav bar -->
 		<div class="topnav" id="myTopnav">
-			<img
-				href="#home"
-				class="logo"
-				src="../img/logo/group-title-logo-white.png" />
-			<button>
-				<i class="fa fa-home" aria-hidden="true"></i>
-			</button>
-			<div class="dropdown">
-				<!--
-			<button class="dropbtn">
-				Models
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-content">
-				<a href="#">Model 1</a>
-				<a href="#">model 2</a>
-				<a href="#">model 3</a>
+			<div class="divLogo">
+				<img href="#home" class="logo" src="../img/logo/NN.png" />
 			</div>
-			-->
-			</div>
-			<div class="dropdown">
-				<button class="dropbtn">
-					About
-					<i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-content">
-					<a href="#">Neural Networks</a>
-					<a href="#">Multi-layer perceptron</a>
-					<a href="#">Activation Functions</a>
-					<a href="#">Gradient Descent</a>
-					<a href="#Backpropagation">Backpropagation</a>
+			<div class="container">
+				<div class="navbar_title">
+					<button class="navbar_button" href="#">Neural Networks</button>
+				</div>
+				<div class="navbar_title">
+					<button class="navbar_button">Multi-layer perceptron</button>
+				</div>
+				<div class="navbar_title">
+					<button class="navbar_button">Activation Functions</button>
+				</div>
+				<div class="navbar_title">
+					<button class="navbar_button">Gradient Descent</button>
+				</div>
+				<div class="navbar_title">
+					<button class="navbar_button">Back-propagation</button>
+				</div>
+				<div class="navbar_title">
+					<button class="navbar_button">About us</button>
 				</div>
 			</div>
-			<a style="font-size: 15px" class="icon" onclick="topNavbar()">&#9776;</a>
 		</div>
 		<!--POPUP DRAW-->
 		<div class="popup" id="popup">
@@ -114,95 +135,124 @@
 		<div class="main-content">
 			<!--MAIN CONTENT-->
 
-			<div class="visualization">
+			<div class="visualizationTop">
 				<div class="verticalModel">
 					<div class="modelRightBtn">
-						<button class="getModelButton" id="model1">
-							<span>Model 1</span>
-							<div class="ModelRightBtnArrow">
-								<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+						<button class="getModelButton model1" id="model1">
+							<span class="getModelButton_text model1">Model 1</span>
+							<span class="getModelButton_icon model1">
+								<i class="fa-solid fa-arrow-right-from-bracket"></i>
+							</span>
+						</button>
+					</div>
+					<div class="modelRightBtn">
+						<button class="getModelButton model2" id="model2">
+							<span class="getModelButton_text model2">Model 2</span><i></i>
+							<div class="getModelButton_icon model2">
+								<i
+									class="fa-solid fa-arrow-right-from-bracket"
+									aria-hidden="true"></i>
 							</div>
 						</button>
 					</div>
 					<div class="modelRightBtn">
-						<button class="getModelButton" id="model2">
-							<span>Model 2</span><i></i>
-							<div class="ModelRightBtnArrow">
-								<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-							</div>
-						</button>
-					</div>
-					<div class="modelRightBtn">
-						<button class="getModelButton" id="model3">
-							<span>Model 3</span><i></i>
-							<div class="ModelRightBtnArrow">
-								<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+						<button class="getModelButton model3" id="model3">
+							<span class="getModelButton_text model3">Model 3</span><i></i>
+							<div class="getModelButton_icon model3">
+								<i
+									class="fa-solid fa-arrow-right-from-bracket"
+									aria-hidden="true"></i>
 							</div>
 						</button>
 					</div>
 				</div>
 				<div class="models">
-					<canvas id="featureMap"></canvas>
 					<canvas id="LossChart"> </canvas>
 				</div>
+				<div class="infobox">
+					<div class="infoboxtitle">Model Information</div>
+					<div class="infoboxcontent" id="model_info">
+					
+					</div>
+				</div>
+			</div>
+			<div class="visualizationBottom">
 				<div class="dialpad">
-					<div class="allrows">
-						<div class="row">
-							<button onclick="" class="">
-								<span>1</span>
-							</button>
-							<button onclick="" class="">
-								<span>2</span>
-							</button>
-							<button onclick="" class="">
-								<span>3</span>
-							</button>
+					
+						<div>
+							<canvas class="displayNumber" id="displayNumber"> </canvas>
 						</div>
+						<div class="allrows">
+							<div class="row">
+								<button onclick="" class="">
+									<span>1</span>
+								</button>
+								<button onclick="" class="">
+									<span>2</span>
+								</button>
+								<button onclick="" class="">
+									<span>3</span>
+								</button>
+	
+								<button onclick="" class="" style="--clr: #ffffff">
+									<span>4</span>
+								</button>
+								<button onclick="" class="">
+									<span>5</span>
+								</button>
+								<button onclick="" class="">
+									<span>6</span>
+								</button>
+	
+								<button onclick="" class="">
+									<span>7</span>
+								</button>
+								<button onclick="" class="">
+									<span>8</span>
+								</button>
+								<button onclick="" class="">
+									<span>9</span>
+								</button>
+								<button onclick="" class="">
+									<span>0</span>
+								</button>
+							</div>
 						<div class="row">
-							<button onclick="" class="" style="--clr: #ffffff">
-								<span>4</span>
+							<button onclick="" id="reset_input">
+								<i class="gg-undo" title="reset input"></i>
 							</button>
-							<button onclick="" class="">
-								<span>5</span>
-							</button>
-							<button onclick="" class="">
-								<span>6</span>
-							</button>
-						</div>
-						<div class="row">
-							<button onclick="" class="">
-								<span>7</span>
-							</button>
-							<button onclick="" class="">
-								<span>8</span>
-							</button>
-							<button onclick="" class="" >
-								<span>9</span>
-							</button>
-						</div>
-
-						<div class="row">
 							<button onclick="show('popup')" class="">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</button>
-							<button onclick="" class="" >
-								<span>0</span>
-							</button>
-							<button onclick="ResetInput()" class="reset_input" >
-								<i class="gg-undo" title="reset input"></i>
-							</button>
 						</div>
-						<!--
-					<div class="row">
-						<button onclick="" class="Icon" style="--clr: #ffffff">
-							<i class="gg-info" title="info"></i>
-						</button>
 					</div>
-					-->
+				</div>
+				<div class="models" id="featureMap"></div>
+				<div class="infobox">
+					<div class="infoboxtitle">Prediction</div>
+					<div class="infoboxcontent">
+						<div class="info">
+							<div>Accuracy:</div>
+							<div class="infodisplay">X</div>
+						</div>
+						<div class="info">
+							<div>Activation function:</div>
+							<div class="infodisplay">X</div>
+						</div>
+						<div class="info">
+							<div>loss chart:</div>
+							<div class="infodisplay">X</div>
+						</div>
+						<div class="info">
+							<div>loss chart:</div>
+							<div class="infodisplay">X</div>
+						</div>
+						<div class="info">
+							<div>loss chart:</div>
+							<div class="infodisplay">X</div>
+						</div>
 					</div>
-					<div>
-						<canvas class="displayNumber" id="displayNumber"> </canvas>
-					</div>
+				</div>
 				</div>
 			</div>
 			<div id="Information">
@@ -211,6 +261,7 @@
 						Machine Learning
 					</h2>
 					<div class="description-content">
+						<i class="fa-solid fa-arrow-right-from-bracket"></i>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
 							laborum excepturi minima suscipit libero quas eveniet deleniti

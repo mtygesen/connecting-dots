@@ -1,4 +1,4 @@
-import { FileResponse, JSONResponse, ErrorResponse } from './server.js';
+import { FileResponse, JSONResponse, ErrorResponse, ExtractJSON } from './server.js';
 import LoadModel from './load_model.js';
 import EvaluateModel from './evaluate_model.js';
 import mnist from 'easy-mnist';
@@ -51,17 +51,21 @@ export default async function RouteRequest(req, res) {
         case 'POST':
             switch (pathElements[1]) {
                 case 'get-prediction':
+                    const input = await ExtractJSON(req);
+                    const obj = await EvaluateModel(pathElements[2], input);
+
                     try {
-                        JSONResponse(res, await EvaluateModel(pathElements[2], res.body)); // Get prediction object
+                        JSONResponse(res, obj); // Get prediction object
                     }
                     catch {
-                        ErrorResponse(res, 404, 'Model not found')
+                        ErrorResponse(res, 404, 'Model not found');
                     }
                     break;
                 default:
                     ErrorResponse(res, 404, 'Invalid URL');
                     break;
             }
+            break;
         default:
             ErrorResponse(res, 405, 'Method not allowed');
             break;
