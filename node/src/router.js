@@ -38,7 +38,7 @@ export default async function RouteRequest(req, res) {
                     let image = FindPicture(pathElements[3])
                     let object = {
                         array: image,
-                        prediction: EvaluateModel(pathElements[2], image)
+                        prediction: await EvaluateModel(pathElements[2], image)
                     }
                     JSONResponse(res, object);
                     break;
