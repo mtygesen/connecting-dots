@@ -14,7 +14,7 @@
   align-items: center;
   height: 100px;
   width: 100%;
-  background-color: white;
+  background-color: rgb(185, 181, 181);
   font-family: "Courier New", Courier, monospace;
   color: white;
   margin-bottom: 10px;
@@ -25,7 +25,7 @@
 }
 .logo {
   display: block;
-  width: 95px;
+  width: 200px;
 }
 
 .container{
@@ -88,7 +88,7 @@
 .navbar_button:after {
   content: "";
   position: absolute;
-  background: linear-gradient(to right, black, rgb(0, 0, 36), darkblue);
+  background:rgb(48,78,103);
   color:rgb(186, 201, 210);
   bottom: 0;
   left: 0;
