@@ -1,4 +1,4 @@
-import { GrayScale } from "./image.js"
+import { InvertgrayScale } from "./image.js"
 import { GetPrediction } from "./fetch.js"
 
 var currentPos = { x: 0, y: 0 }
@@ -44,16 +44,27 @@ function Load() {
         method: "GET"
       })
       if (response.ok) {
-        array = RGBScale(response.json().array)
+        let array = response.json().array
         // upscale image
-        let tempCanvas = document.createElement("canvas")
-        let tempCtx = tempCanvas.getContext("2d")
-        tempCtx.putImageData(array, 0, 0)
+        const tempCanvas = document.createElement("canvas")
+        tempCanvas.width = 28
+        tempCanvas.height = 28
+        const tempCtx = tempCanvas.getContext("2d")
+        const imageData = tempCtx.getImageData(0, 0, 28, 28)
+        var data = imageData.data;
+        // replace the imagedata from a blank canvas with the imagedata from the picture pulled from our dataset
+        for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+            data[i] = Math.floor(array[j] * 255); // red
+            data[i + 1] = Math.floor(array[j] * 255); // green
+            data[i + 2] = Math.floor(array[j] * 255); // blue
+            data[i+ 3] = 255
+        }
+        tempCtx.putImageData(imageData, 0, 0, 0, 0, 28, 28)
         let img = new Image()
         // draw upscaled image
         img.src = tempCanvas.toDataURL()
         copyctx = displayNumber.getContext("2d")
-        copyctx.drawImage(img, 0, 0, 300, 300)
+        copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height)
       } else {
         throw new Error(`Unexpected response status ${response.status}`)
       }
@@ -77,7 +88,7 @@ function Draw(event) {
     ctx.moveTo(previousPos.x, previousPos.y)
     ctx.lineTo(currentPos.x, currentPos.y)
     ctx.strokeStyle = "black"
-    ctx.lineWidth = "4"
+    ctx.lineWidth = "5"
     ctx.stroke()
     ctx.closePath();
   }
@@ -94,7 +105,7 @@ function ConvertToMatrix() {
   tempCtx.drawImage(img, 0, 0, 28, 28)
   // convert 28 x 28 img to matrix and grayscale
   const array = tempCtx.getImageData(0, 0, 28, 28, { colorspace: "srgb" })
-  const pictureData = GrayScale(array.data)
+  const pictureData = InvertgrayScale(array.data)
   return pictureData
 }
 
