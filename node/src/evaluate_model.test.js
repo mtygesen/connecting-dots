@@ -3,7 +3,7 @@ import mnist from 'easy-mnist';
 import EvaluateModel from './evaluate_model.js';
 
 test('Test a model on some input matrix', async () => {
-    // Get the name of the first model in the models folder without file extention
+    // Get the name of the first model in the models folder without file extension
     const modelName = fs.readdirSync('./node/src/trainer/models/')[0].split('.')[0];
 
     // Get a random input matrix from the MNIST dataset
