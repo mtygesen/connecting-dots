@@ -31,5 +31,3 @@ for (const button of buttons) {
 }
 
 Load();
-
-console.log(await GetPrediction([0], defaultModel));
