@@ -14,7 +14,7 @@ var currentModel = false
 
 // Function to add eventlisteners to canvas and buttons
 function Load() {
-  currentModel = "model2"
+  currentModel = "model1"
   drawingCanvas = document.getElementById("drawingCanvas")
   ctx = drawingCanvas.getContext("2d")
   drawingCanvas.style.position = 'fixed'
