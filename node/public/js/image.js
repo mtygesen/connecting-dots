@@ -3,14 +3,25 @@
  * 
  * @returns a grayscaled array
  */
-function GrayScale(array) {
+function InvertgrayScale(array) {
     let grayScale = []
     let avg = 0;
     for (let i = 0; i < array.length / 3; i++) {
         avg = (array[i * 3] + array[i * 3 + 1] + array[i * 3 + 2]) / 3
-        grayScale.push(avg/255)
+        grayScale.push((255 - avg) / 255)
     }
     return grayScale;
+}
+
+function RGBScale(array) {
+    let RGB = []
+    for (let i = 0; i < array.length; i++) {
+        RGB.push(Math.floor(array[i] * 255))
+        RGB.push(Math.floor(array[i] * 255))
+        RGB.push(Math.floor(array[i] * 255))
+        RGB.push(255)
+    }
+    return RGB
 }
 
 /**
@@ -38,4 +49,4 @@ async function MakeImageDataFromImage(img) {
     return pictureData
 }
 
-export { GrayScale }
+export { InvertgrayScale, RGBScale }
