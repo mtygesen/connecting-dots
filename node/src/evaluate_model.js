@@ -1,5 +1,6 @@
 import convnetjs from 'convnetjs';
 import LoadModel from './load_model.js';
+import CalculateFeatures from './feature_map.js';
 
 /**
  * Async function that evaluates the result of a model given an input image
@@ -20,5 +21,7 @@ export default async function EvaluateModel(modelName, input) {
 
     net.fromJSON(model.net);
 
-    return net.forward(digit);
+    const result = net.forward(digit);
+
+    return { features: CalculateFeatures(model, input), result: result.w, guess: result.w.indexOf(Math.max(...result.w)) };
 }

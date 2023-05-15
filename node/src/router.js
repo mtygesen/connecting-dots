@@ -1,6 +1,7 @@
-import { FileResponse, JSONResponse, ErrorResponse } from './server.js';
+import { FileResponse, JSONResponse, ErrorResponse, ExtractJSON } from './server.js';
 import LoadModel from './load_model.js';
 import EvaluateModel from './evaluate_model.js';
+import mnist from 'easy-mnist';
 
 /**
  * Routes a request
@@ -12,16 +13,16 @@ import EvaluateModel from './evaluate_model.js';
  */
 export default async function RouteRequest(req, res) {
     console.log(`${req.method}: ${req.url}`);
-  
+
     const baseURL = `http:\\${req.headers.host}/`; // See https://github.com/nodejs/node/issues/12682
-    const url = new URL(req.url,baseURL);
+    const url = new URL(req.url, baseURL);
     const queryPath = decodeURIComponent(url.pathname); // Convert uri encoded special letters (eg. æøå) to JS string
-    
+
     const pathElements = queryPath.split('/');
 
     switch (req.method) {
         case 'GET':
-            switch (pathElements[1]) {     
+            switch (pathElements[1]) {
                 case '':
                     FileResponse(res, '/html/index.html');
                     break;
@@ -32,7 +33,15 @@ export default async function RouteRequest(req, res) {
                     catch {
                         ErrorResponse(res, 404, 'Model not found');
                     }
-            
+                    break;
+                case 'get-prediction':
+                    // return prediction and the image data for a random number in the mnist dataset corresponding to the number in pathElements[3]
+                    let number = mnist(pathElements[3]).get()
+                    let object = {
+                        array: number,
+                        prediction: EvaluateModel(pathElements[2], number)
+                    }
+                    JSONResponse(res, object);
                     break;
                 default:
                     FileResponse(res, req.url);
@@ -42,17 +51,21 @@ export default async function RouteRequest(req, res) {
         case 'POST':
             switch (pathElements[1]) {
                 case 'get-prediction':
+                    const input = await ExtractJSON(req);
+                    const obj = await EvaluateModel(pathElements[2], input);
+
                     try {
-                        JSONResponse(res, await EvaluateModel(pathElements[2], res.body)); // Get prediction object
+                        JSONResponse(res, obj); // Get prediction object
                     }
                     catch {
-                        ErrorResponse(res, 404, 'Model not found')
+                        ErrorResponse(res, 404, 'Model not found');
                     }
                     break;
                 default:
                     ErrorResponse(res, 404, 'Invalid URL');
                     break;
             }
+            break;
         default:
             ErrorResponse(res, 405, 'Method not allowed');
             break;

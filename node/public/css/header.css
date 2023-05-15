@@ -1,79 +1,160 @@
+.nav_top {
+  width: 100%;
+  background-image: linear-gradient(to right, black, rgb(0, 0, 36), darkblue);
+  color: rgb(186, 201, 210);
+  text-align: center;
+  align-items: center;
+  display: flex;
+  height: 110px;
+}
+
 .topnav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 5px;
-  background-color: rgb(0, 0, 0);
-  justify-content: left;
-  font-family: 'Courier New', Courier, monospace;
+  height: 100px;
+  width: 100%;
+  background-color: white;
+  font-family: "Courier New", Courier, monospace;
   color: white;
-
+  margin-bottom: 10px;
 }
 
-.topnav a {
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+.divLogo {
+  width: 20%;
 }
-
 .logo {
-  background-color:none;
-  color: white;
-  width: 100px;
+  display: block;
+  width: 95px;
 }
 
-.topnav .icon {
-  display: none;
+.container{
+	display: flex;
+	flex-direction: row;
+	width: 80%;
+	height: 100px;
+	align-items: center;
+	right: 0px;
 }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
+.navbar_title{
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	font-size: smaller;
+	height: 100%;
+	width: 100%;
+	align-items: center;
+	padding: 1%;
 }
 
-.dropdown .dropbtn {
-  font-size: 17px;    
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+.navbar_button {
+  position: relative;
+  display:block;
+  height: 100%;
+  width: 100%;
+  margin: 10px 7px;
+  padding: 5px 5px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: #383736;
+  border-radius: 4px;
+  text-transform: uppercase;
+  outline: 0;
+  overflow:hidden;
+  background: none;
   z-index: 1;
+  transition:         0.08s ease-in;
+  -o-transition:      0.08s ease-in;
+  -ms-transition:     0.08s ease-in;
+  -moz-transition:    0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
 }
 
 
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
+.navbar_button:before{
+  position:absolute;  
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:-1;
+  opacity:0;
+  -webkit-transition: all 250ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
 }
 
-.topnav a:hover, .dropdown:hover .dropbtn {
-  background-color: #555;
-  color: white;
+.navbar_button:after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, black, rgb(0, 0, 36), darkblue);
+  color:rgb(186, 201, 210);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: -2;
+  -webkit-transition: all 250ms cubic-bezier(0.230, 1.000, 0.320, 1.000); 
+}
+.navbar_button:hover{
+  color:white;
+  border: 0px #d19b26 solid;
+}
+.navbar_button:hover:before {
+  opacity: .8;
+}
+:hover:after {
+  top: 0;
+}
+.navbar_button{
+  -webkit-transition: all 150ms cubic-bezier(0.445, 0.050, 0.550, 0.950); 
+}
+/* Header */
+.large-header {
+  position: relative;
+  width: 100%;
+  background: #333;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.dropdown-content a:hover {
-  background-color: #ddd;
-  color: black;
+#large-header {
+  background-image: linear-gradient(
+    to right,
+    black,
+    rgb(15, 23, 31),
+    rgb(55, 90, 118)
+  );
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
+.main-title {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  color: #f9f1e9;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.demo-1 .main-title {
+  text-transform: uppercase;
+  font-size: 4.2em;
+  letter-spacing: 0.1em;
+}
+
+.main-title .thin {
+  font-weight: 200;
+}
+
+@media only screen and (max-width: 768px) {
+  .demo-1 .main-title {
+    font-size: 3em;
+  }
 }

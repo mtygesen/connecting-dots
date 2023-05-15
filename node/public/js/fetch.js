@@ -8,33 +8,29 @@
 async function GetModel(modelName) {
     const response = await fetch(`/get-model/${modelName}`);
 
-    if (response.ok) return response.json()
-    
-    throw new Error (`Unexpected response status ${response.status}`);
+    if (response.ok) return response.json();
+
+    throw new Error(`Unexpected response status ${response.status}`);
 }
 
 /**
- * @param input matrice som svarer til billedet der skal evalueres
- * @param modelNavn string som svarer til modelnavn
+ * Gets a models prediction for a given input
  * 
- * @returns prediction til billedet som blev inputtet
+ * @param input matrix of the image for the model to predict
+ * @param modelName the model to use for prediction
+ * 
+ * @returns promise that resolves to the prediction object or throws error
  */
-function GetPrediction(input, modelNavn) {
-    fetch(`localhost:3000/get-prediction/${modelNavn}`, {
+async function GetPrediction(input, modelName) {
+    const response = await fetch(`/get-prediction/${modelName}`, {
         method: "POST",
-        headers: {
-            "content-type": "picture/json"
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify(input)
-    })
-    .then (response => {
-        if (response.ok) {
-            return response.json()
-        } else {
-            throw new Error (`Unexpected response status ${response.status}`)
-        }
-    })
-    .catch(error => console.error(error))
+    });
+        
+    if (response.ok) return response.json();
+    
+    throw new Error(`Unexpected response status ${response.status}`);
 }
 
-export { GetModel };
+export { GetModel, GetPrediction };

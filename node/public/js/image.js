@@ -1,15 +1,27 @@
 /**
- * @param array is an array containing the imagedata from a picture in the format {r,g,b,t}
+ * @param array is an array containing the imagedata from a picture in the format {r,g,b}
  * 
  * @returns a grayscaled array
  */
 function GrayScale(array) {
     let grayScale = []
-    for (let i = 0; i < array.length / 4; i++) {
-        avg = (array[i * 4] + array[i * 4 + 1] + array[u * 4 + 2]) / 3
-        grayScale.push(avg)
+    let avg = 0;
+    for (let i = 0; i < array.length / 3; i++) {
+        avg = (array[i * 3] + array[i * 3 + 1] + array[i * 3 + 2]) / 3
+        grayScale.push(avg / 255)
     }
     return grayScale;
+}
+
+function RGBScale(array) {
+    let RGB = []
+    for (let i = 0; i < array.length; i++) {
+        RGB.push(Math.floor(array[i] * 255))
+        RGB.push(Math.floor(array[i] * 255))
+        RGB.push(Math.floor(array[i] * 255))
+        RGB.push(255)
+    }
+    return RGB
 }
 
 /**
@@ -24,7 +36,7 @@ async function MakeImageDataFromSource(source) {
 }
 
 /**
- * @param img is an image objectf
+ * @param img is an image object
  * 
  * @returns a grayscaled array
  */
@@ -36,3 +48,5 @@ async function MakeImageDataFromImage(img) {
     pictureData = GrayScale(array.data)
     return pictureData
 }
+
+export { GrayScale, RGBScale }

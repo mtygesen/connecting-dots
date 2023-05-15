@@ -3,30 +3,28 @@
  * 
  * @param model object
  * @param scale (optional) which specifies the upscaling factor
+ * @param partitions (optional) oartitions to average the values over
  * 
  * @returns void
  */
-export default function PlotGraph(model, scale = 4) {
-
+export default function PlotGraph(model, scale = 4, partitions = 20) {
     // Find and initialize the canvas
     const canvas = document.getElementById("LossChart");
+
     if (canvas === null) {
-        console.log("Could not find a suitable canvas");
+        console.warn("Could not find a suitable canvas");
         return;
     }
-    const ctx = canvas.getContext("2d");
 
-    // Reset the canvas
-    ctx.reset();
+    const ctx = canvas.getContext("2d");
 
     // Upscale the properties by the scale
     canvas.width = canvas.clientWidth * scale;
     canvas.height = canvas.clientHeight * scale;
-    ctx.lineWidth = canvas.width / 250;
+    ctx.lineWidth = canvas.width / 500;
 
-    // Find the max value of the loss and the accuracy from the samples which will be the peaks of the Y-coordinates
-    const maxLoss = Math.max(...model.stats.map((stats) => stats.loss)),
-          maxAcc = Math.max(...model.stats.map((stats) => stats.acc));
+    // Clear the previous canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // initialize values for the grid
     const grid = {};
@@ -41,21 +39,54 @@ export default function PlotGraph(model, scale = 4) {
 
     /*   No background was wanted   */
     // DrawBackground(canvas, "#FFF");
-    
 
     DrawGrid(canvas, grid, "#000");
-    
+
     WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
-    
-    WriteValues(canvas, grid, "#000", maxLoss, model.stats.length, maxAcc);
 
     let loss = (model.stats.map((stats) => stats.loss));
-    DrawGraph(canvas, grid, loss, "#AA0038");
 
-    let acc  = (model.stats.map((stats) => stats.acc));
-    DrawGraph(canvas, grid, acc, "#1978C8");
+    let smoothLoss = AverageValues(loss, partitions);
+    let maxSmoothLoss = Math.max(...smoothLoss);
+
+    WriteValues(canvas, grid, "#000", maxSmoothLoss, model.stats.length, 100);
+
+    DrawGraph(canvas, grid, smoothLoss, "#AA0038");
+
+    let acc = (model.stats.map((stats) => stats.acc));
+    let smoothAcc = AverageValues(acc, partitions);
+
+    DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
 
     return;
+}
+
+/**
+ * Averages the values in an array
+ * 
+ * @param arr array of numbers
+ * @param partitions the number of partitions to be averaged
+ * 
+ * @returns smoothArr array of averaged values
+ */
+function AverageValues(arr, partitions) {
+    let avgCount = Math.floor(arr.length / partitions);
+
+    let smoothArr = [arr[0]];
+
+    for (let i = 0; i < partitions; ++i) {
+        let avg = 0;
+
+        for (let j = 0; j < avgCount; ++j) {
+            avg += arr[i * avgCount + j];
+        }
+
+        avg /= avgCount;
+
+        smoothArr.push(avg);
+    }
+
+    return smoothArr;
 }
 
 /**
@@ -88,7 +119,7 @@ function DrawGrid(canvas, grid, color) {
     ctx.beginPath();
     ctx.strokeStyle = color;
 
-    const clmnSpacing = canvas.width / grid.maxColoumns;
+    const clmnSpacing = canvas.width / grid.maxColoumns,
           rowSpacing = canvas.height / grid.maxRows;
 
     // The grid will be centered on the canvas
@@ -97,7 +128,7 @@ function DrawGrid(canvas, grid, color) {
         ctx.moveTo(x, grid.top);
         ctx.lineTo(x, grid.bottom);
         ctx.stroke();
-    } 
+    }
 
     for (let i = 0; i <= grid.rows; i++) { // Rows
         let y = grid.top + rowSpacing * i;
@@ -124,9 +155,9 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
     ctx.beginPath();
     ctx.textAlign = "center";
     ctx.fillStyle = color;
-    const titleSize = Math.min(grid.left / 4, grid.height / 4);
+    const titleSize = Math.min(grid.left / 3, grid.top / 3);
     ctx.font = `${titleSize}px Arial`;
-    
+
     let x, y;
 
     // Left label
@@ -139,13 +170,13 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
 
     // x-axis label
     x = canvas.width / 2;
-    y = grid.bottom + grid.top * 2/3;
+    y = grid.bottom + grid.top * 2 / 3;
     ctx.fillText(xLabel, x, y);
 
     // Potential right label
     ctx.rotate(rotation); // Rotate right
     x = canvas.height / 2;
-    y = -(grid.right + grid.left * 3/4);
+    y = -(grid.right + grid.left * 3 / 4);
     ctx.fillText(y2Label, x, y);
     ctx.rotate(-rotation); // Rotate back
 }
@@ -168,8 +199,8 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
     ctx.beginPath();
     ctx.fillStyle = color;
     const Δx = canvas.width / grid.maxColoumns,
-          Δy = canvas.height / grid.maxRows;
-    const labelSize = Math.min(Δx/2, Δy/3); // Find a suitable fontsize
+        Δy = canvas.height / grid.maxRows;
+    const labelSize = Math.min(Δx / 2, Δy / 2); // Find a suitable fontsize
     ctx.font = `${labelSize}px Arial`;
 
     let x, y;
@@ -189,9 +220,10 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
     for (let i = 0; i <= grid.coloumns; i++) {
         x = grid.left + Δx * i;
         let value = maxX / grid.coloumns * i;
-        ctx.fillText(value, x, y);
+
+        i ? ctx.fillText(value, x, y) : ctx.fillText(value + 1, x, y);
     }
-    
+
     if (maxY2 == "") return; // Stop here if maxY2 is not defined
 
     // Right Y-axis
@@ -202,7 +234,7 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
         let value = (1 - i / grid.rows) * maxY2;
         ctx.fillText(value.toFixed(2), x, y);
     }
-    
+
 }
 
 /**
@@ -212,31 +244,29 @@ function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
  * @param grid object containing information about the grid.
  * @param values array of values to be plotted
  * @param color represented as a Hex-code in a string
+ * @param yMax highest point of the y-axis
  * 
  * @returns void
  */
-function DrawGraph(canvas, grid, values, color) {
+function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     // Draw the actual graph
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.beginPath();
-    ctx.lineCap = "round";
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.strokeStyle = color;
-    const Δx = (canvas.width - 2 * grid.left) / values.length;
-    const max = Math.max(...values);
-    
+    const Δx = (canvas.width - 2 * grid.left) / (values.length - 1);
 
     // Starting point
     let x = grid.left;
-    let y = grid.bottom - values[0] / max * (grid.bottom - grid.top);
+    let y = grid.bottom - values[0] / yMax * (grid.bottom - grid.top);
     ctx.moveTo(x, y);
 
     for (let i = 1; i < values.length; i++) {
         x = grid.left + Δx * i;
-        y = grid.bottom - values[i]/ max * (grid.bottom - grid.top);
-        
-        console.log(x,y);
-
+        y = grid.bottom - values[i] / yMax * (grid.bottom - grid.top);
         ctx.lineTo(x, y);
     }
+
     ctx.stroke();
 }
