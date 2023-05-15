@@ -14,7 +14,7 @@ var currentModel = false
 
 // Function to add eventlisteners to canvas and buttons
 function Load() {
-  currentModel = "model1"
+  currentModel = "model2"
   drawingCanvas = document.getElementById("drawingCanvas")
   ctx = drawingCanvas.getContext("2d")
   drawingCanvas.style.position = 'fixed'
@@ -77,7 +77,6 @@ function Load() {
         }
         img.src = tempCanvas.toDataURL()
 
-        console.log(json)
         DisplayFM(json.prediction.features);
       } else {
         throw new Error(`Unexpected response status ${response.status}`)
