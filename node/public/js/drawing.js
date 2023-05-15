@@ -12,7 +12,7 @@ var currentModel = false
 
 // Function to add eventlisteners to canvas and buttons
 function Load() {
-  currentModel = "?"
+  currentModel = "model1"
   drawingCanvas = document.getElementById("drawingCanvas")
   ctx = drawingCanvas.getContext("2d")
   drawingCanvas.style.position = 'fixed'
@@ -40,31 +40,41 @@ function Load() {
   for (let i = 0; i < 10; i++) {
     let numpadButton = document.getElementById("numpadButton" + i)
     numpadButton.addEventListener("click", async () => {
-      const response = await fetch(`/get-prediction/${modelName}/` + i, {
+      const response = await fetch(`/get-prediction/${currentModel}/` + i, {
         method: "GET"
       })
       if (response.ok) {
-        let array = response.json().array
-        // upscale image
+        ClearCanvas()
+        copyctx = displayNumber.getContext('2d');
+        copyctx.clearRect(0, 0, displayNumber.width, displayNumber.height)
+        let json = await response.json()
+        let array = json.array
+        console.log(array)
+        // Create a temporary canvas
         const tempCanvas = document.createElement("canvas")
         tempCanvas.width = 28
         tempCanvas.height = 28
         const tempCtx = tempCanvas.getContext("2d")
+        // Get the imagedata from the temporary canvas
         const imageData = tempCtx.getImageData(0, 0, 28, 28)
         var data = imageData.data;
-        // replace the imagedata from a blank canvas with the imagedata from the picture pulled from our dataset
+        let rgb = 0
+        // replace the imagedata from the temporary canvas with the imagedata from the picture pulled from our dataset
         for (let i = 0, j = 0; i < data.length; i += 4, j++) {
-            data[i] = Math.floor(array[j] * 255); // red
-            data[i + 1] = Math.floor(array[j] * 255); // green
-            data[i + 2] = Math.floor(array[j] * 255); // blue
+            rgb = Math.floor(array[j] * 255)
+            data[i] = 255 - rgb; // red
+            data[i + 1] = 255 - rgb; // green
+            data[i + 2] = 255 - rgb; // blue
             data[i+ 3] = 255
         }
+        // puts the imagedata onto the temporary canvas
         tempCtx.putImageData(imageData, 0, 0, 0, 0, 28, 28)
-        let img = new Image()
         // draw upscaled image
+        let img = new Image()
+        img.onload = () =>{
+          copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height)
+        }
         img.src = tempCanvas.toDataURL()
-        copyctx = displayNumber.getContext("2d")
-        copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height)
       } else {
         throw new Error(`Unexpected response status ${response.status}`)
       }
@@ -104,7 +114,7 @@ function ConvertToMatrix() {
   let tempCtx = tempCanvas.getContext("2d")
   tempCtx.drawImage(img, 0, 0, 28, 28)
   // convert 28 x 28 img to matrix and grayscale
-  const array = tempCtx.getImageData(0, 0, 28, 28, { colorspace: "srgb" })
+  const array = tempCtx.getImageData(0, 0, 28, 28)
   const pictureData = InvertgrayScale(array.data)
   return pictureData
 }
@@ -128,5 +138,8 @@ function ResetInput(){
   clearButton.addEventListener("click", ClearCopyCanvas, )
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export { Load };

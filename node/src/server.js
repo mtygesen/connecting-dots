@@ -2,6 +2,7 @@ import http from 'http';
 import fs from "fs";
 import path  from "path";
 import process from "process";
+import mnist from "easy-mnist"
 
 import RouteRequest from "./router.js";
 import GuessType from "./guess_type.js";
@@ -184,6 +185,23 @@ async function ExtractJSON(req) {
     return Promise.reject(new Error('Validation error')); //create a rejected promise
 }
 
+/**
+ * Finds a random picture from the dataset corresponding to the input integer
+ * 
+ * @param number an integer between 0 and 9
+ * 
+ * @returns an array of 784 integers corresponding to the pixels in a random picture corresponding the the input integer
+ */
+
+function FindPicture(number) {
+    const dataset = mnist.makeData(70000, 0).traindata;
+    let i = 0
+    do {
+        i = Math.floor(Math.random() * 70000)
+    } while (dataset[i].label[number] !== 1)
+    return dataset[i].image
+}
+
 const server = http.createServer(RequestHandler);
 
 const port = 3040;
@@ -191,4 +209,4 @@ const hostname = 'localhost';
 
 StartServer(port, hostname);
 
-export { SecurePath, FileResponse, JSONResponse,  ErrorResponse, ExtractJSON };
+export { SecurePath, FileResponse, JSONResponse,  ErrorResponse, ExtractJSON, FindPicture };

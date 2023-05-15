@@ -1,7 +1,6 @@
-import { FileResponse, JSONResponse, ErrorResponse, ExtractJSON } from './server.js';
+import { FileResponse, JSONResponse, ErrorResponse, ExtractJSON, FindPicture } from './server.js';
 import LoadModel from './load_model.js';
 import EvaluateModel from './evaluate_model.js';
-import mnist from 'easy-mnist';
 
 /**
  * Routes a request
@@ -17,7 +16,6 @@ export default async function RouteRequest(req, res) {
     const baseURL = `http:\\${req.headers.host}/`; // See https://github.com/nodejs/node/issues/12682
     const url = new URL(req.url, baseURL);
     const queryPath = decodeURIComponent(url.pathname); // Convert uri encoded special letters (eg. æøå) to JS string
-
     const pathElements = queryPath.split('/');
 
     switch (req.method) {
@@ -36,10 +34,10 @@ export default async function RouteRequest(req, res) {
                     break;
                 case 'get-prediction':
                     // return prediction and the image data for a random number in the mnist dataset corresponding to the number in pathElements[3]
-                    let number = mnist(pathElements[3]).get()
+                    let image = FindPicture(pathElements[3])
                     let object = {
-                        array: number,
-                        prediction: EvaluateModel(pathElements[2], number)
+                        array: image,
+                        prediction: EvaluateModel(pathElements[2], image)
                     }
                     JSONResponse(res, object);
                     break;
