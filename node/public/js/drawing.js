@@ -133,6 +133,7 @@ function ClearCopyCanvas() {
 // Copys the current canvas to the input canvas
 function CopyToCanvas() {
   copyctx = displayNumber.getContext('2d');
+  ClearCopyCanvas()
   copyctx.drawImage(drawingCanvas, 0, 0);
 }
 function ResetInput(){
