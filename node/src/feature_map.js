@@ -13,13 +13,10 @@ export default function CalculateFeatures(model, input) {
     const layers = model.net.layers;
     const filters = GetFilters(layers);
 
-    let data = mnist.makeData(1, 1); // tmp
-    let test = data.testdata; // tmp
-
     const features = [];
     
     for (let j = 0; j < filters[0].length; ++j) {
-        features.push(Convolution(test[0].image, filters[0][j]));
+        features.push(Convolution(input, filters[0][j]));
     } 
 
     return features;
@@ -156,6 +153,3 @@ function GetMaxFilterSize(layers) {
 
     return maxFilterSize;
 }
-
-const features = CalculateFeatures(await LoadModel('model1'), 1);
-console.log(features);

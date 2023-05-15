@@ -10,7 +10,7 @@ function Plot2dMatrix(matrix, canvas) {
         let x = 0;
         
         for (let j = 0; j < matrix[0].length; ++j) {
-            color = matrix[i][j];
+            const color = matrix[i][j];
             ctx.fillStyle = `rgb(${color}, ${color}, ${color})`;
             ctx.fillRect(x, y, sizeX + x, sizeY + y);
 
@@ -38,7 +38,7 @@ function LightMap(matrix, max ="", min ="") {
     return lightMap
 }
 
-function DisplayFM(features, rows = 2) {
+export default function DisplayFM(features, rows = 2) {
     const parent = document.getElementById("featureMap");
     DeleteChildNodes(parent);
 

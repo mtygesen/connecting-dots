@@ -1,5 +1,7 @@
 import { InvertgrayScale } from "./image.js"
 import { GetPrediction } from "./fetch.js"
+import DisplayFM from "./plot_features.js"
+
 
 var currentPos = { x: 0, y: 0 }
 var previousPos = { x: 0, y: 0 }
@@ -49,7 +51,6 @@ function Load() {
         copyctx.clearRect(0, 0, displayNumber.width, displayNumber.height)
         let json = await response.json()
         let array = json.array
-        console.log(array)
         // Create a temporary canvas
         const tempCanvas = document.createElement("canvas")
         tempCanvas.width = 28
@@ -72,9 +73,12 @@ function Load() {
         // draw upscaled image
         let img = new Image()
         img.onload = () =>{
-          copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height)
+        copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height)
         }
         img.src = tempCanvas.toDataURL()
+
+        console.log(json)
+        DisplayFM(json.prediction.features);
       } else {
         throw new Error(`Unexpected response status ${response.status}`)
       }
