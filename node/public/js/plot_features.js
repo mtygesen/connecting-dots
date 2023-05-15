@@ -83,9 +83,3 @@ function DeleteChildNodes(parent) {
         parent.removeChild(parent.firstChild);
     }
 }
-
-
-const matrix = [[1,2,3],[1,2,3],[1,2,3]];
-const features = [];
-features.push(matrix);
-Plot2dMatrix(features);
