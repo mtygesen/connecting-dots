@@ -1,6 +1,7 @@
 import { FileResponse, JSONResponse, ErrorResponse, ExtractJSON, FindPicture } from './server.js';
 import LoadModel from './load_model.js';
 import EvaluateModel from './evaluate_model.js';
+import mnist from 'easy-mnist';
 
 /**
  * Routes a request

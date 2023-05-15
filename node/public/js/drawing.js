@@ -138,8 +138,4 @@ function ResetInput(){
   clearButton.addEventListener("click", ClearCopyCanvas, )
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 export { Load };
