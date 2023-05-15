@@ -6,8 +6,8 @@
 function InvertgrayScale(array) {
     let grayScale = []
     let avg = 0;
-    for (let i = 0; i < array.length / 3; i++) {
-        avg = (array[i * 3] + array[i * 3 + 1] + array[i * 3 + 2]) / 3
+    for (let i = 0; i < array.length; i += 4) {
+        avg = (array[i] + array[i + 1] + array[i + 2]) / 3
         grayScale.push((255 - avg) / 255)
     }
     return grayScale;
