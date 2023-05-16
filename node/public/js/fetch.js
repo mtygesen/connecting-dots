@@ -38,7 +38,7 @@ async function GetPrediction(modelName, number) {
  * @returns promise that resolves to the prediction object or throws error
  */
 async function PostInput(input, modelName) {
-    const response = await fetch(`/get-prediction/${modelName}`, {
+    const response = await fetch(`/post-input/${modelName}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(input)
