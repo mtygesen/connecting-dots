@@ -35,9 +35,7 @@ function Load() {
     const data = ConvertToMatrix()
     UpdateCurrentModel()
     let json = await GetPrediction(data, currentModel)
-    const prediction = json.guess
-    const accuracy = json.result[prediction]
-    DisplayStats(prediction, accuracy)
+    DisplayStats(json)
   })
   submitButton = document.getElementById("submitButton")
   submitButton.addEventListener("click", CopyToCanvas)
@@ -83,10 +81,9 @@ function Load() {
 
         DisplayFM(json.prediction.features);
 
-        const prediction = json.prediction.guess
-        const accuracy = json.prediction.result[prediction]
+        const prediction = json.prediction
 
-        DisplayStats(prediction, accuracy)
+        DisplayStats(prediction)
 
       } else {
         throw new Error(`Unexpected response status ${response.status}`)
@@ -147,11 +144,18 @@ function ResetInput(){
   clearButton.addEventListener("click", ClearCopyCanvas, )
 }
 
-function DisplayStats(prediction, accuracy) {
+function DisplayStats(prediction) {
   const predictionElement = document.getElementById("prediction")
-  predictionElement.innerHTML = "Prediction: " + prediction
+  const guess = prediction.guess
+  const resultArray = prediction.result
+  predictionElement.innerHTML = "Prediction: " + guess
+  const accuracy = resultArray[guess]
   const accuracyElement = document.getElementById("accuracy")
-  accuracyElement.innerHTML = " " + Math.round(accuracy * 100) / 100
+  accuracyElement.innerHTML = " " + Math.round(accuracy * 10000) / 100 + "%"
+  for (let i = 0; i < 10; i++) {
+    let element = document.getElementById("probability_" + i)
+    element.innerHTML = Math.round(resultArray[i] * 10000) / 100 + "%"
+  }
 }
 
 function UpdateCurrentModel() {
