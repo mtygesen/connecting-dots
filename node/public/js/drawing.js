@@ -35,6 +35,7 @@ function Load() {
     const data = ConvertToMatrix()
     UpdateCurrentModel()
     let json = await PostInput(data, currentModel)
+    DisplayFM(json.features)
     DisplayStats(json)
   })
   submitButton = document.getElementById("submitButton")
@@ -84,7 +85,7 @@ function Load() {
       }
       img.src = tempCanvas.toDataURL()
 
-      DisplayFM(json.prediction.features);
+      DisplayFM(json.prediction.features)
 
       const prediction = json.prediction
 
