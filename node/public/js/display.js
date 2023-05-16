@@ -22,6 +22,7 @@ function DisplayModelInfo(model) {
     html.id = 'model_info';
 
     const pModelName = document.createElement('div');
+    pModelName.id = "model_name"
     pModelName.append(`Model name: ${modelName}`);
 
     const pActivation = document.createElement('div');

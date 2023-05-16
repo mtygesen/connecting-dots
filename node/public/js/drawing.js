@@ -14,7 +14,6 @@ var currentModel = false
 
 // Function to add eventlisteners to canvas and buttons
 function Load() {
-  currentModel = "model1"
   drawingCanvas = document.getElementById("drawingCanvas")
   ctx = drawingCanvas.getContext("2d")
   drawingCanvas.style.position = 'fixed'
@@ -32,9 +31,14 @@ function Load() {
   clearButton.addEventListener("click", ClearCopyCanvas, )
 //submits the canvas
   submitButton = document.getElementById("submitButton")
-  submitButton.addEventListener("click", () => {
+  submitButton.addEventListener("click", async () => {
     const data = ConvertToMatrix()
-    GetPrediction(data, currentModel)
+    UpdateCurrentModel()
+    let json = await GetPrediction(data, currentModel)
+    console.log(json)
+    const prediction = json.guess
+    const accuracy = json.result[prediction]
+    DisplayPrediction(prediction, accuracy)
   })
   submitButton = document.getElementById("submitButton")
   submitButton.addEventListener("click", CopyToCanvas)
@@ -42,6 +46,7 @@ function Load() {
   for (let i = 0; i < 10; i++) {
     let numpadButton = document.getElementById("numpadButton" + i)
     numpadButton.addEventListener("click", async () => {
+      UpdateCurrentModel()
       const response = await fetch(`/get-prediction/${currentModel}/` + i, {
         method: "GET"
       })
@@ -78,6 +83,14 @@ function Load() {
         img.src = tempCanvas.toDataURL()
 
         DisplayFM(json.prediction.features);
+
+        console.log(json.prediction)
+
+        const prediction = json.prediction.guess
+        const accuracy = json.prediction.result[prediction]
+
+        DisplayStats(prediction, accuracy)
+
       } else {
         throw new Error(`Unexpected response status ${response.status}`)
       }
@@ -109,17 +122,12 @@ function Draw(event) {
 
 // Converts the canvas into a grayscaled array
 function ConvertToMatrix() {
-  // create image from canvas
-  let img = new Image()
-  Image.src = drawingCanvas.toDataURL()
-  // draw image on a 28 x 28 canvas
   let tempCanvas = document.createElement("canvas")
   let tempCtx = tempCanvas.getContext("2d")
-  tempCtx.drawImage(img, 0, 0, 28, 28)
-  // convert 28 x 28 img to matrix and grayscale
+  tempCtx.drawImage(drawingCanvas, 0, 0, 28, 28)
   const array = tempCtx.getImageData(0, 0, 28, 28)
-  const pictureData = InvertgrayScale(array.data)
-  return pictureData
+  const invertArray = InvertgrayScale(array.data)
+  return invertArray
 }
 
 // resets the canvas
@@ -140,6 +148,19 @@ function ResetInput(){
   clearButton = document.getElementById("reset_input")
   clearButton.addEventListener("click", ClearCanvas, )
   clearButton.addEventListener("click", ClearCopyCanvas, )
+}
+
+function DisplayStats(prediction, accuracy) {
+  const predictionElement = document.getElementById("prediction")
+  predictionElement.innerHTML = "Prediction: " + prediction
+  const accuracyElement = document.getElementById("accuracy")
+  accuracyElement.innerHTML = " " + Math.round(accuracy * 100) / 100
+}
+
+function UpdateCurrentModel() {
+  const modelName = document.getElementById("model_name").innerText
+  currentModel = modelName.split(" ")[2]
+  console.log(currentModel)
 }
 
 export { Load };
