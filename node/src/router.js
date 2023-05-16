@@ -49,7 +49,7 @@ export default async function RouteRequest(req, res) {
             break;
         case 'POST':
             switch (pathElements[1]) {
-                case 'get-prediction':
+                case 'post-input':
                     const input = await ExtractJSON(req);
                     const obj = await EvaluateModel(pathElements[2], input);
 

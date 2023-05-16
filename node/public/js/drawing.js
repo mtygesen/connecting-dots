@@ -1,5 +1,5 @@
 import { InvertgrayScale } from "./image.js"
-import { GetPrediction } from "./fetch.js"
+import { GetPrediction, PostInput } from "./fetch.js"
 import DisplayFM from "./plot_features.js"
 
 
@@ -34,7 +34,7 @@ function Load() {
   submitButton.addEventListener("click", async () => {
     const data = ConvertToMatrix()
     UpdateCurrentModel()
-    let json = await GetPrediction(data, currentModel)
+    let json = await PostInput(data, currentModel)
     DisplayStats(json)
   })
   submitButton = document.getElementById("submitButton")
@@ -44,50 +44,51 @@ function Load() {
     let numpadButton = document.getElementById("numpadButton" + i)
     numpadButton.addEventListener("click", async () => {
       UpdateCurrentModel()
-      const response = await fetch(`/get-prediction/${currentModel}/` + i, {
-        method: "GET"
-      })
-      if (response.ok) {
-        ClearCanvas()
-        copyctx = displayNumber.getContext('2d');
-        copyctx.clearRect(0, 0, displayNumber.width, displayNumber.height)
-        let json = await response.json()
-        let array = json.array
-        // Create a temporary canvas
-        const tempCanvas = document.createElement("canvas")
-        tempCanvas.width = 28
-        tempCanvas.height = 28
-        const tempCtx = tempCanvas.getContext("2d")
-        // Get the imagedata from the temporary canvas
-        const imageData = tempCtx.getImageData(0, 0, 28, 28)
-        var data = imageData.data;
-        let rgb = 0
-        // replace the imagedata from the temporary canvas with the imagedata from the picture pulled from our dataset
-        for (let i = 0, j = 0; i < data.length; i += 4, j++) {
-            rgb = Math.floor(array[j] * 255)
-            data[i] = 255 - rgb; // red
-            data[i + 1] = 255 - rgb; // green
-            data[i + 2] = 255 - rgb; // blue
-            data[i+ 3] = 255
-        }
-        // puts the imagedata onto the temporary canvas
-        tempCtx.putImageData(imageData, 0, 0, 0, 0, 28, 28)
-        // draw upscaled image
-        let img = new Image()
-        img.onload = () =>{
-        copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height)
-        }
-        img.src = tempCanvas.toDataURL()
 
-        DisplayFM(json.prediction.features);
+      let json;
 
-        const prediction = json.prediction
-
-        DisplayStats(prediction)
-
-      } else {
-        throw new Error(`Unexpected response status ${response.status}`)
+      try {
+        json = await GetPrediction(currentModel, i);
       }
+      catch (error) {
+        console.error(error);
+      }
+    
+      ClearCanvas()
+      copyctx = displayNumber.getContext('2d');
+      copyctx.clearRect(0, 0, displayNumber.width, displayNumber.height)
+      let array = json.array
+      // Create a temporary canvas
+      const tempCanvas = document.createElement("canvas")
+      tempCanvas.width = 28
+      tempCanvas.height = 28
+      const tempCtx = tempCanvas.getContext("2d")
+      // Get the imagedata from the temporary canvas
+      const imageData = tempCtx.getImageData(0, 0, 28, 28)
+      var data = imageData.data;
+      let rgb = 0
+      // replace the imagedata from the temporary canvas with the imagedata from the picture pulled from our dataset
+      for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+          rgb = Math.floor(array[j] * 255)
+          data[i] = 255 - rgb; // red
+          data[i + 1] = 255 - rgb; // green
+          data[i + 2] = 255 - rgb; // blue
+          data[i+ 3] = 255
+      }
+      // puts the imagedata onto the temporary canvas
+      tempCtx.putImageData(imageData, 0, 0, 0, 0, 28, 28)
+      // draw upscaled image
+      let img = new Image()
+      img.onload = () =>{
+      copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height)
+      }
+      img.src = tempCanvas.toDataURL()
+
+      DisplayFM(json.prediction.features);
+
+      const prediction = json.prediction
+
+      DisplayStats(prediction)
     })
   }
 }
