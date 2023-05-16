@@ -10,7 +10,7 @@
 	height: 400px;
 	margin-bottom: 20px;
 }
-.visualizationBottom{
+.visualizationBottom {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -19,18 +19,14 @@
 	margin-bottom: 20px;
 }
 
-
-
 /* MODEL BUTTONS */
-
 
 .modelRightBtn {
 	position: relative;
 	margin: 2%;
-
 }
 
-.getModelButton{
+.getModelButton {
 	height: 30px;
 	display: flex;
 	width: 100%;
@@ -45,7 +41,7 @@
 	cursor: pointer;
 }
 
-.getModelButton:hover{
+.getModelButton:hover {
 	background: #008168;
 }
 
@@ -53,29 +49,27 @@
 	background: #006e58;
 }
 
-
-.getModelButton_icon{
-		position: absolute;
-		display: flex;
-		justify-content: center;
-		padding-top: 8px;
-		overflow: hidden;
-		width:20%;
-		color: white;
-		height: 100%;
-		font-size: 1em;
-	    background: rgba(0, 0, 0, 0.08);
-		right:0;
+.getModelButton_icon {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	padding-top: 8px;
+	overflow: hidden;
+	width: 20%;
+	color: white;
+	height: 100%;
+	font-size: 1em;
+	background: rgba(0, 0, 0, 0.08);
+	right: 0;
 }
 
-.getModelButton_text{
-	    display: inline-flex;
-		align-items: center;
-		padding: 0 24px;
-		color: #fff;
-		height: 100%;
+.getModelButton_text {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 24px;
+	color: #fff;
+	height: 100%;
 }
-
 
 .verticalModel {
 	display: flex;
@@ -83,60 +77,64 @@
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
+	background-color: rgb(48, 78, 103);
+	box-sizing: border-box;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+		rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	border-radius: 7px;
 }
 
-/*.verticalModel button {
-	display: flex;
-	background: #444;
-	color: #fff;
-	text-decoration: none;
-	text-transform: uppercase;
-	border: none;
-	padding: auto;
-	width: 100%;
-	transition: 0.2s;
-	margin-top: 5px;
-}*/
 
-.models{
+.models {
 	display: flex;
 	justify-content: center;
 	width: 50%;
-	border: #006e58 1px solid;
-
 }
 
 #LossChart {
-	border: 1px solid #198d3a;
 	border-radius: 2%;
+	background-color: rgb(48, 78, 103);
+	box-sizing: border-box;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+		rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
-.infobox{
+#featureMap{
+	display: flex;
+	justify-content: center;
+	border-radius: 2%;
+	background-color: rgb(48, 78, 103);
+	box-sizing: border-box;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+		rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+}
+.infobox {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	width: 15%;
-	background-image: linear-gradient(to right, black, rgb(0, 0, 36), darkblue);
-	color: rgb(186, 201, 210);
+	background-color: rgb(48, 78, 103);
 	box-sizing: border-box;
-	box-shadow: 0 15px 25px rgba(0,0,0,.6);
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+		rgba(0, 0, 0, 0.22) 0px 15px 12px;
 	color: white;
 	font-weight: 700;
 	font-size: 15px;
 	font-family: "Courier New", Courier, monospace;
 	align-items: center;
+	border-radius: 7px;
 }
 
-
-.infoboxcontent{
+.infoboxcontent {
 	display: flex;
 	flex-direction: column;
 }
 
-.infodisplay{
+.infodisplay {
 	border: 1px lightpink solid;
 }
-.info{
+.info {
 	display: flex;
 	flex-direction: row;
 }
@@ -149,6 +147,11 @@
 	width: 10%;
 	height: 100%;
 	align-items: center;
+	background-color: rgb(48, 78, 103);
+	box-sizing: border-box;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+		rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	border-radius: 7px;
 }
 
 .dialpad button {
@@ -178,11 +181,11 @@
 }
 
 .displayNumber {
-	border: 1px solid blue;
 	width: 100%;
-  background-color: white;
-  width: 128px;
-  height: 128px;
+	background-color: white;
+	width: 128px;
+	height: 128px;
+	border-radius: 10px;
 }
 
 .popup {
@@ -191,9 +194,9 @@
 	width: 350px;
 	left: 50%;
 	margin-left: -150px;
-	height: 180px;
+	height: 200px;
 	top: 50%;
-  right: 50%;
+	right: 50%;
 	margin-top: -100px;
 	z-index: 20;
 }
@@ -220,28 +223,28 @@
 	z-index: -1;
 }
 .popupflex {
-  margin-top: 5px;
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
-	justify-content: space-between;
-  align-items: center;
+	justify-content: center;
+	background-color:rgb(48,78,103);
+	
 }
 .draw {
-  position: absolute;
-  cursor: pointer;
-  background-color: white;
-  
+	position: absolute;
+	cursor: pointer;
+	background-color: white;
+	border-radius: 10px;
+	
 }
 
-.canvasflex{
-  display: flex;
-  width: 100%;
-  height: 100%; 
-
-  justify-content: center;
+.canvasflex {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
 }
 .close {
 	display: flex;
@@ -251,21 +254,19 @@
 	width: 100%;
 }
 
-.canvas_button_close{
-  background: none;
-  border: none; 
-  color: red; 
-  scale: 2;
+.canvas_button_close {
+	background: none;
+	border: none;
+	color: red;
+	scale: 2;
 }
-.canvas_button_submit{
-  background: none;
-  border: none; 
-  scale: 2;
-color: rgb(73, 213, 73);
+.canvas_button_submit {
+	background: none;
+	border: none;
+	scale: 2;
+	color: rgb(73, 213, 73);
 }
 .canvas_button i {
-scale: 2;
-color: green;
+	scale: 2;
+	color: green;
 }
-
-
