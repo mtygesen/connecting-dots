@@ -37,7 +37,7 @@ function Load() {
     let json = await GetPrediction(data, currentModel)
     const prediction = json.guess
     const accuracy = json.result[prediction]
-    DisplayPrediction(prediction, accuracy)
+    DisplayStats(prediction, accuracy)
   })
   submitButton = document.getElementById("submitButton")
   submitButton.addEventListener("click", CopyToCanvas)
