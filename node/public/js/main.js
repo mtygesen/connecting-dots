@@ -1,5 +1,5 @@
 import PlotGraph from './plot_graph.js';
-import { GetModel, GetPrediction } from './fetch.js';
+import { GetModel } from './fetch.js';
 import { Load } from './drawing.js';
 import { DisplayModelInfo } from './display.js'; 
 

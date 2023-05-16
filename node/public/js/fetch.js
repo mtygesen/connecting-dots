@@ -14,6 +14,22 @@ async function GetModel(modelName) {
 }
 
 /**
+ * Gets a models prediction for a random MNIST image containing a specific number
+ * 
+ * @param modelName to use for prediction
+ * @param number to get prediction for
+ * 
+ * @returns promise that resolves to the prediction object or throws error
+ */
+async function GetPrediction(modelName, number) {
+    const response = await fetch(`/get-prediction/${modelName}/${number}`);
+
+    if (response.ok) return response.json();
+
+    throw new Error(`Unexpected response status ${response.status}`);
+}
+
+/**
  * Gets a models prediction for a given input
  * 
  * @param input matrix of the image for the model to predict
@@ -21,7 +37,7 @@ async function GetModel(modelName) {
  * 
  * @returns promise that resolves to the prediction object or throws error
  */
-async function GetPrediction(input, modelName) {
+async function PostInput(input, modelName) {
     const response = await fetch(`/get-prediction/${modelName}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -33,4 +49,4 @@ async function GetPrediction(input, modelName) {
     throw new Error(`Unexpected response status ${response.status}`);
 }
 
-export { GetModel, GetPrediction };
+export { GetModel, GetPrediction, PostInput };
