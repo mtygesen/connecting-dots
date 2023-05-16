@@ -35,7 +35,6 @@ function Load() {
     const data = ConvertToMatrix()
     UpdateCurrentModel()
     let json = await GetPrediction(data, currentModel)
-    console.log(json)
     const prediction = json.guess
     const accuracy = json.result[prediction]
     DisplayPrediction(prediction, accuracy)
@@ -83,8 +82,6 @@ function Load() {
         img.src = tempCanvas.toDataURL()
 
         DisplayFM(json.prediction.features);
-
-        console.log(json.prediction)
 
         const prediction = json.prediction.guess
         const accuracy = json.prediction.result[prediction]
@@ -160,7 +157,6 @@ function DisplayStats(prediction, accuracy) {
 function UpdateCurrentModel() {
   const modelName = document.getElementById("model_name").innerText
   currentModel = modelName.split(" ")[2]
-  console.log(currentModel)
 }
 
 export { Load };
