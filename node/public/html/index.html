@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Neural Networks</title>
+		<title>Connecting Dots</title>
 		<!--Fav-icon:-->
 		<link
 			rel="favcon"
@@ -66,6 +66,11 @@
 				$(id).style.display = "none";
 			};
 		</script>
+		<script>
+			function refreshPage(){
+			document.location.href="/";
+			}
+			</script>
 		<script type="module" src="../js/drawing.js"></script>
 		<script type="module" src="../js/main.js"></script>
 	</head>
@@ -83,9 +88,14 @@
 		<script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js"></script>
 		<script src="../js/animation.js"></script>
 		<!--Top nav bar -->
+		<a name="home-point"></a> 
 		<div class="topnav" id="myTopnav">
-			<div class="divLogo">
-				<img href="#home" class="logo" src="../img/logo/NN.png" />
+			<div href="./index.html" class="divLogo">
+				<button href="./index.html"  class="homebutton">
+				<a class="sub-nav-link is-active" href="./index.html">
+					<img href="./index.html"  class="logo" src="../img/logo/NN.png" />
+				</a>
+			</button>
 			</div>
 			<div class="container">
 				<div class="navbar_title">
@@ -112,7 +122,7 @@
 		<div class="popup" id="popup">
 			<div class="popupflex">
 				<div class="canvasflex">
-					<canvas class="draw" id="drawingCanvas" onload="Load()"></canvas>
+					<canvas class="draw" id="drawingCanvas" width="128" height="128" onload="Load()"></canvas>
 				</div>
 				<div class="close">
 					<button
@@ -121,6 +131,7 @@
 						onclick="hide('popup')">
 						<i class="fa fa-window-close-o" aria-hidden="true"></i>
 					</button>
+				
 					<button
 						class="canvas_button_submit"
 						id="submitButton"
@@ -177,7 +188,7 @@
 				<div class="dialpad">
 					
 						<div>
-							<canvas class="displayNumber" id="displayNumber"> </canvas>
+							<canvas class="displayNumber" id="displayNumber" width="128" height="128"> </canvas>
 						</div>
 						<div class="allrows">
 							<div class="row">
@@ -328,7 +339,7 @@
 			</div>
 		</div>
 		<!--BACK TO TOP-->
-		<a id="back-to-top" href="#"><i class="gg-arrow-up-r"></i></a>
+		<a id="back-to-top" href="#home-point"><i class="gg-arrow-up-r"></i></a>
 		<!--FOOTER-->
 		<footer class="footer">
 			<div class="footer-container">

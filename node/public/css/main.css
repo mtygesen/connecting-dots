@@ -131,9 +131,7 @@
 	flex-direction: column;
 }
 
-.infodisplay {
-	border: 1px lightpink solid;
-}
+
 .info {
 	display: flex;
 	flex-direction: row;
@@ -191,14 +189,16 @@
 .popup {
 	display: none;
 	position: fixed;
-	width: 350px;
+	width: 140px;
+	height: 200px;
 	left: 50%;
 	margin-left: -150px;
-	height: 200px;
 	top: 50%;
 	right: 50%;
 	margin-top: -100px;
 	z-index: 20;
+	border-radius: 10px;
+	
 }
 
 #popup:after {
@@ -210,10 +210,10 @@
 	right: 0;
 	background: rgba(0, 0, 0, 0.5);
 	z-index: -2;
+	border-radius: 10px;
 }
 
 #popup:before {
-	position: absolute;
 	content: "";
 	top: 0;
 	left: 0;
@@ -221,35 +221,30 @@
 	right: 0;
 	background: rgb(23, 23, 23);
 	z-index: -1;
+	border-radius: 10px;
 }
 .popupflex {
-	margin-bottom: 10px;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	width: 100%;
 	height: 100%;
-	justify-content: center;
 	background-color:rgb(48,78,103);
+	border-radius: 20px;
+	padding: 5%;
 	
 }
 .draw {
-	position: absolute;
+	display: flex;
+	justify-content:center;
 	cursor: pointer;
 	background-color: white;
 	border-radius: 10px;
-	
 }
 
-.canvasflex {
-	display: flex;
-	width: 100%;
-	height: 100%;
-	justify-content: center;
-}
 .close {
 	display: flex;
-	justify-content: space-around;
-	flex-direction: row;
+	justify-content: space-evenly;
 	height: 20%;
 	width: 100%;
 }
@@ -270,3 +265,17 @@
 	scale: 2;
 	color: green;
 }
+
+#featureMap {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .FM-row {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+  }
+  
