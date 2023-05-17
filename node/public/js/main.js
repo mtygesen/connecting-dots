@@ -16,18 +16,4 @@ catch (err) {
     console.error(err);
 }
 
-for (const button of buttons) {
-    button.addEventListener('click', e => { 
-        try {
-            GetModel(`${e.target.classList[1]}`).then(model => {
-                PlotGraph(model);
-                DisplayModelInfo(model);
-            }); 
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
-}
-
 Load();
