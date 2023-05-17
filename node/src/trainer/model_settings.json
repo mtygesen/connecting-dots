@@ -12,6 +12,7 @@
         "learningRate": 0.01,
         "momentum": 0.9,
         "epochs": 1,
+        "logInterval": 10,
         "hiddenLayers": []
     },
     "other": {
