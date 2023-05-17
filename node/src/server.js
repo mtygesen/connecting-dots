@@ -192,14 +192,16 @@ async function ExtractJSON(req) {
  * 
  * @returns an array of 784 integers corresponding to the pixels in a random picture corresponding the the input integer
  */
-
 function FindPicture(number) {
-    const dataset = mnist.makeData(70000, 0).traindata;
-    let i = 0
+    const dataset = mnist.makeData(0, 10000).testdata;
+    let i = 0;
+    
     do {
-        i = Math.floor(Math.random() * 70000)
-    } while (dataset[i].label[number] !== 1)
-    return dataset[i].image
+        i = Math.floor(Math.random() * 10000);
+    } 
+    while (dataset[i].label[number] !== 1);
+
+    return dataset[i].image;
 }
 
 const server = http.createServer(RequestHandler);

@@ -24,7 +24,7 @@ const trainingSet = dataset.traindata,
 
 const stats = TrainNetwork(net, trainingSet, testSet, network); // Train the network and return stats
 
-const accuracy = TestNetwork(net, testSet); // Test the network and return accuracy
+const accuracy = TestNetwork(net, testSet, network); // Test the network and return accuracy
 
 const model = { 'net': net, 'stats': stats, 'accuracy': accuracy, 'config': network }; // Format model object
 
