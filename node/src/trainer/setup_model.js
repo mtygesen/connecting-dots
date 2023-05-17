@@ -169,8 +169,9 @@ function TestNetwork(net, testSet, network) {
         if (augment) { // Crop the image to 24x24 and randomly translate it by -2 to 2 pixels
             const dx = Math.floor(Math.random() * 5 - 2);
             const dy = Math.floor(Math.random() * 5 - 2);
-            
-            digit = convnetjs.augment(digit, 24, dx, dy);
+            const flipImage = Math.random() < 0.5;
+
+            digit = convnetjs.augment(digit, 24, dx, dy, flipImage);
         }
 
         const prediction = net.forward(digit);
