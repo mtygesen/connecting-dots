@@ -139,7 +139,7 @@ function Draw(event) {
     ctx.moveTo(previousPos.x, previousPos.y)
     ctx.lineTo(currentPos.x, currentPos.y)
     ctx.strokeStyle = "black"
-    ctx.lineWidth = "5"
+    ctx.lineWidth = "9"
     ctx.stroke()
     ctx.closePath();
   }
