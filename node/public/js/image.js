@@ -11,6 +11,16 @@ function InvertgrayScale(array) {
     return grayScale;
 }
 
+function Convert(array) {
+    let newArray = []
+    let avg = 0
+    for (let i = 0; i < array.length; i += 4) {
+        avg = (array[i] + array[i + 1] + array[i + 2]) / 3
+        newArray.push((255 - avg) / 255)
+    }
+    return newArray
+}
+
 function RGBScale(array) {
     let RGB = []
     for (let i = 0; i < array.length; i++) {
@@ -47,4 +57,4 @@ async function MakeImageDataFromImage(img) {
     return pictureData
 }
 
-export { InvertgrayScale, RGBScale }
+export { InvertgrayScale, RGBScale, Convert }

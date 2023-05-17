@@ -1,6 +1,8 @@
-import { InvertgrayScale } from "./image.js"
-import { GetPrediction, PostInput } from "./fetch.js"
+import { InvertgrayScale, Convert } from "./image.js"
+import { GetPrediction, PostInput, GetModel } from "./fetch.js"
 import DisplayFM from "./plot_features.js"
+import PlotGraph from './plot_graph.js';
+import { DisplayModelInfo } from './display.js'; 
 
 
 var currentPos = { x: 0, y: 0 }
@@ -11,9 +13,11 @@ var copyctx = false
 var clearButton = false
 var submitButton = false
 var currentModel = false
+var displayNumber = false
 
 // Function to add eventlisteners to canvas and buttons
 function Load() {
+  displayNumber = document.getElementById("displayNumber")
   drawingCanvas = document.getElementById("drawingCanvas")
   ctx = drawingCanvas.getContext("2d")
   drawingCanvas.style.position = 'fixed'
@@ -31,15 +35,10 @@ function Load() {
   clearButton.addEventListener("click", ClearCopyCanvas, )
 //submits the canvas
   submitButton = document.getElementById("submitButton")
-  submitButton.addEventListener("click", async () => {
-    const data = ConvertToMatrix()
-    UpdateCurrentModel()
-    let json = await PostInput(data, currentModel)
-    DisplayFM(json.features)
-    DisplayStats(json)
+  submitButton.addEventListener("click", () => {
+    CopyToCanvas()
+    SubmitUserInput()
   })
-  submitButton = document.getElementById("submitButton")
-  submitButton.addEventListener("click", CopyToCanvas)
 
   for (let i = 0; i < 10; i++) {
     let numpadButton = document.getElementById("numpadButton" + i)
@@ -49,7 +48,7 @@ function Load() {
       let json;
 
       try {
-        json = await GetPrediction(currentModel, i);
+        json = await GetPrediction(currentModel, i)
       }
       catch (error) {
         console.error(error);
@@ -92,6 +91,36 @@ function Load() {
       DisplayStats(prediction)
     })
   }
+  const buttons = document.querySelectorAll('.getModelButton');
+  for (const button of buttons) {
+    button.addEventListener('click', async e => { 
+        try    {
+            GetModel(`${e.target.classList[1]}`).then(async model => {
+                PlotGraph(model);
+                DisplayModelInfo(model);
+                UpdateCurrentModel()
+                let tempCanvas = document.createElement("canvas")
+                let tempCtx = tempCanvas.getContext("2d")
+                tempCtx.drawImage(displayNumber, 0, 0, 28, 28)
+                const array = tempCtx.getImageData(0, 0, 28, 28).data
+                for (let i = 0; i < array.length; i += 4) {
+                  if (array[i] === 0) {
+                    array[i] = 255 - array[i + 3]
+                    array[i + 1] = 255 - array[i + 3]
+                    array[i + 2] = 255 - array[i + 3]
+                  }
+                }
+                const data = Convert(array)
+                let json = await PostInput(data, currentModel)
+                DisplayFM(json.features)
+                DisplayStats(json)
+            }); 
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
+}
 }
 
 // Updates the current and former x and y coordinates based on current mouse position
@@ -120,7 +149,7 @@ function Draw(event) {
 function ConvertToMatrix() {
   let tempCanvas = document.createElement("canvas")
   let tempCtx = tempCanvas.getContext("2d")
-  tempCtx.drawImage(drawingCanvas, 0, 0, 28, 28)
+  tempCtx.drawImage(displayNumber, 0, 0, 28, 28)
   const array = tempCtx.getImageData(0, 0, 28, 28)
   const invertArray = InvertgrayScale(array.data)
   return invertArray
@@ -163,6 +192,14 @@ function DisplayStats(prediction) {
 function UpdateCurrentModel() {
   const modelName = document.getElementById("model_name").innerText
   currentModel = modelName.split(" ")[2]
+}
+
+async function SubmitUserInput() {
+  const data = ConvertToMatrix()
+  UpdateCurrentModel()
+  let json = await PostInput(data, currentModel)
+  DisplayFM(json.features)
+  DisplayStats(json)
 }
 
 export { Load };
