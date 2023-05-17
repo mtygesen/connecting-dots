@@ -106,14 +106,14 @@ function TrainNetwork(net, trainingSet, testSet, network) {
             
             if (j % logInterval === 0) {
                 stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
-                stats[j / logInterval].acc = TestNetwork(net, testSet);
+                stats[j / logInterval].acc = TestNetwork(net, testSet, network);
             }
             else {
                 trainer.train(digit, trainingSet[j].label.indexOf(1));
             }
 
             if (j > 0 && j % printInterval === 0) {
-                PrintStatus(j, trainingSet, epochs, startTimer);
+                PrintStatus(j * (i + 1), trainingSet, epochs, startTimer);
             }
         }
     }
@@ -153,15 +153,25 @@ function PrintStatus(j, trainingSet, epochs, startTimer) {
  * 
  * @param net object
  * @param testSet to test the network
+ * @param network object
  * 
  * @returns accuracy of model
  */
-function TestNetwork(net, testSet) {
+function TestNetwork(net, testSet, network) {
     let correct = 0;
 
     for (let i = 0; i < testSet.length; ++i) {
-        const digit = new convnetjs.Vol(28, 28, 1, 0.0);
+        let digit = new convnetjs.Vol(28, 28, 1, 0.0);
         digit.w = testSet[i].image;
+
+        const augment = network.augment;
+        
+        if (augment) { // Crop the image to 24x24 and randomly translate it by -2 to 2 pixels
+            const dx = Math.floor(Math.random() * 5 - 2);
+            const dy = Math.floor(Math.random() * 5 - 2);
+            
+            digit = convnetjs.augment(digit, 24, dx, dy);
+        }
 
         const prediction = net.forward(digit);
         const predictionMax = Math.max(...prediction.w);
