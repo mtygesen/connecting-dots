@@ -1,0 +1,30 @@
+.container_main_content{
+    background-color: white;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.main_content{
+    padding-top: 30px;
+    width: 60%;
+    justify-content: center;
+    background-color: white;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    border: 1px solid white;
+    min-height: 500px;
+
+}
+
+.main_content h1{
+    text-align: center;
+    padding-bottom: 20px;
+    color: rgb(48,78,103);
+
+}
+
+.main_content p{
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+}
