@@ -41,7 +41,7 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
 
     WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
 
-    WriteLegend(canvas, grid, "Loss", "#AA0038", "Accuracy", "#1978C8");
+    WriteLegends(canvas, grid, "Loss", "#AA0038", "Accuracy", "#1978C8");
 
     const loss = (model.stats.map((stats) => stats.loss));
 
@@ -262,7 +262,19 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     ctx.stroke();
 }
 
-function WriteLegend(canvas, grid, legend1, color1, legend2, color2) {
+/**
+ * Draws the legends of a graph with the given colors
+ * 
+ * @param canvas the canvas to be drawn upon
+ * @param grid object containing information about the grid.
+ * @param legend1 the string to label the left y-axis
+ * @param color1 represented as a Hex-code in a string
+ * @param legend2 the string to label the right y-axis
+ * @param color2 represented as a Hex-code in a string
+ * 
+ * @returns void
+ */
+function WriteLegends(canvas, grid, legend1, color1, legend2, color2) {
     const ctx = canvas.getContext("2d");
 
     const x = canvas.width / 2;
@@ -296,4 +308,6 @@ function WriteLegend(canvas, grid, legend1, color1, legend2, color2) {
 
     ctx.fillStyle = "#000";
     ctx.fillText(legend2, x2, y);
+
+    return;
 }
