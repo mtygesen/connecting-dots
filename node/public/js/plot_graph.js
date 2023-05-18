@@ -56,11 +56,6 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
 
     const acc = (model.stats.map((stats) => stats.acc));
     const smoothAcc = AverageValues(acc, partitions);
-    
-    console.log(acc);
-    console.log(acc.length);
-    console.log(smoothAcc);
-    console.log(smoothAcc.length);
 
     DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
 

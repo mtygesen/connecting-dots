@@ -8,8 +8,6 @@
 function DisplayModelInfo(model) {
     const config = model.config;
 
-    console.log(config);
-
     const modelName = config.modelName,
           activation = config.activation,
           trainingSize = config.trainingSize,
