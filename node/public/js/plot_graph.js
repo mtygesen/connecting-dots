@@ -37,24 +37,28 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
     grid.right = canvas.width - grid.left;
     grid.bottom = canvas.height - grid.top;
 
-    /*   No background was wanted   */
-    // DrawBackground(canvas, "#FFF");
-
     DrawGrid(canvas, grid, "#000");
 
     WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
 
-    let loss = (model.stats.map((stats) => stats.loss));
+    const loss = (model.stats.map((stats) => stats.loss));
 
-    let smoothLoss = AverageValues(loss, partitions);
-    let maxSmoothLoss = Math.max(...smoothLoss);
+    const smoothLoss = AverageValues(loss, partitions);
+    const maxSmoothLoss = Math.max(...smoothLoss);
 
-    WriteValues(canvas, grid, "#000", maxSmoothLoss, model.stats.length, 100);
+    const totalIterations = model.config.trainingSize * model.config.epochs;
+
+    WriteValues(canvas, grid, "#000", totalIterations, maxSmoothLoss, 100);
 
     DrawGraph(canvas, grid, smoothLoss, "#AA0038");
 
-    let acc = (model.stats.map((stats) => stats.acc));
-    let smoothAcc = AverageValues(acc, partitions);
+    const acc = (model.stats.map((stats) => stats.acc));
+    const smoothAcc = AverageValues(acc, partitions);
+    
+    console.log(acc);
+    console.log(acc.length);
+    console.log(smoothAcc);
+    console.log(smoothAcc.length);
 
     DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
 
@@ -87,21 +91,6 @@ function AverageValues(arr, partitions) {
     }
 
     return smoothArr;
-}
-
-/**
- * Sets the background of the canvas
- * 
- * @param canvas the canvas to be drawn upon
- * @param color represented as a Hex-code in a string
- * 
- * @returns void
- */
-function DrawBackground(canvas, color) {
-    const ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.fillStyle = color;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 /**
@@ -188,13 +177,13 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
  * @param grid object containing information about the grid.
  * @param color represented as a Hex-code in a string
  * @param model object
- * @param maxY1 the highest values of the left y-axis
  * @param maxX the highest value of the x-axis
+ * @param maxY1 the highest values of the left y-axis
  * @param maxY2 (optional) the highest values of the right y-axis
  * 
  * @returns void
  */
-function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
+function WriteValues(canvas, grid, color, maxX, maxY1, maxY2) {
     const ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.fillStyle = color;
