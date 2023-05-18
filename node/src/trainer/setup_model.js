@@ -106,14 +106,14 @@ function TrainNetwork(net, trainingSet, testSet, network) {
             
             if (j % logInterval === 0) {
                 stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
-                stats[j / logInterval].acc = TestNetwork(net, testSet, network);
+                stats[(j + i * trainingSet.length) / logInterval].acc = TestNetwork(net, testSet, network);
             }
             else {
                 trainer.train(digit, trainingSet[j].label.indexOf(1));
             }
 
             if (j > 0 && j % printInterval === 0) {
-                PrintStatus(j * (i + 1), trainingSet, epochs, startTimer);
+                PrintStatus(j + i * trainingSet.length, trainingSet, epochs, startTimer);
             }
         }
     }
@@ -131,8 +131,8 @@ function TrainNetwork(net, trainingSet, testSet, network) {
  * 
  * @returns void
  */
-function PrintStatus(j, trainingSet, epochs, startTimer) {
-    const percentage = j / (trainingSet.length * epochs) * 100;
+function PrintStatus(i, trainingSet, epochs, startTimer) {
+    const percentage = i / (trainingSet.length * epochs) * 100;
 
     const endTimer = process.hrtime(startTimer);
 

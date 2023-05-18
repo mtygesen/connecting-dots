@@ -8,12 +8,15 @@
 function DisplayModelInfo(model) {
     const config = model.config;
 
-    let accuracy = model.accuracy;
-
     const modelName = config.modelName,
           activation = config.activation,
           trainingSize = config.trainingSize,
-          epochs = config.epochs;
+          batchSize = config.batchSize,
+          epochs = config.epochs,
+          augment = config.augment,
+          hiddenLayers = config.hiddenLayers;
+
+    let accuracy = model.accuracy;
 
     accuracy = Math.round((accuracy + Number.EPSILON) * 100) / 100;
 
@@ -31,13 +34,22 @@ function DisplayModelInfo(model) {
     const pTrainingSize = document.createElement('div');
     pTrainingSize.append(`Training size: ${trainingSize}`);
 
+    const pBatchSize = document.createElement('div');
+    pBatchSize.append(`BatchSize: ${batchSize}`);
+
     const pEpochs = document.createElement('div');
     pEpochs.append(`Epochs: ${epochs}`);
+
+    const pAugment = document.createElement('div');
+    pAugment.append(`Augment: ${augment}`);
+
+    const pHiddenLayers = document.createElement('div');
+    pHiddenLayers.append(`Hidden layers: [${hiddenLayers}]`);
 
     const pAccuracy = document.createElement('div');
     pAccuracy.append(`Accuracy: ${accuracy}`);
 
-    html.append(pModelName, pActivation, pTrainingSize, pEpochs, pAccuracy);
+    html.append(pModelName, pActivation, pTrainingSize, pBatchSize, pEpochs, pAugment, pHiddenLayers, pAccuracy);
 
     const modelInfo = document.querySelector('#model_info');
 

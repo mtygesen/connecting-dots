@@ -37,24 +37,25 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
     grid.right = canvas.width - grid.left;
     grid.bottom = canvas.height - grid.top;
 
-    /*   No background was wanted   */
-    // DrawBackground(canvas, "#FFF");
-
     DrawGrid(canvas, grid, "#000");
 
     WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
 
-    let loss = (model.stats.map((stats) => stats.loss));
+    WriteLegends(canvas, grid, "Loss", "#AA0038", "Accuracy", "#1978C8");
 
-    let smoothLoss = AverageValues(loss, partitions);
-    let maxSmoothLoss = Math.max(...smoothLoss);
+    const loss = (model.stats.map((stats) => stats.loss));
 
-    WriteValues(canvas, grid, "#000", maxSmoothLoss, model.stats.length, 100);
+    const smoothLoss = AverageValues(loss, partitions);
+    const maxSmoothLoss = Math.max(...smoothLoss);
+
+    const totalIterations = model.config.trainingSize * model.config.epochs;
+
+    WriteValues(canvas, grid, "#000", totalIterations, maxSmoothLoss, 100);
 
     DrawGraph(canvas, grid, smoothLoss, "#AA0038");
 
-    let acc = (model.stats.map((stats) => stats.acc));
-    let smoothAcc = AverageValues(acc, partitions);
+    const acc = (model.stats.map((stats) => stats.acc));
+    const smoothAcc = AverageValues(acc, partitions);
 
     DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
 
@@ -87,21 +88,6 @@ function AverageValues(arr, partitions) {
     }
 
     return smoothArr;
-}
-
-/**
- * Sets the background of the canvas
- * 
- * @param canvas the canvas to be drawn upon
- * @param color represented as a Hex-code in a string
- * 
- * @returns void
- */
-function DrawBackground(canvas, color) {
-    const ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.fillStyle = color;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 /**
@@ -188,13 +174,13 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
  * @param grid object containing information about the grid.
  * @param color represented as a Hex-code in a string
  * @param model object
- * @param maxY1 the highest values of the left y-axis
  * @param maxX the highest value of the x-axis
+ * @param maxY1 the highest values of the left y-axis
  * @param maxY2 (optional) the highest values of the right y-axis
  * 
  * @returns void
  */
-function WriteValues(canvas, grid, color, maxY1, maxX, maxY2) {
+function WriteValues(canvas, grid, color, maxX, maxY1, maxY2) {
     const ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.fillStyle = color;
@@ -269,4 +255,54 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     }
 
     ctx.stroke();
+}
+
+/**
+ * Draws the legends of a graph with the given colors
+ * 
+ * @param canvas the canvas to be drawn upon
+ * @param grid object containing information about the grid.
+ * @param legend1 the string to label the left y-axis
+ * @param color1 represented as a Hex-code in a string
+ * @param legend2 the string to label the right y-axis
+ * @param color2 represented as a Hex-code in a string
+ * 
+ * @returns void
+ */
+function WriteLegends(canvas, grid, legend1, color1, legend2, color2) {
+    const ctx = canvas.getContext("2d");
+
+    const x = canvas.width / 2;
+    const y = grid.top * 2 / 3;
+
+    const x1 = x * 0.85;
+
+    const legendColorSize = Math.min(grid.left / 5, grid.top / 5);
+    const colorOffset = 1.75;
+
+    const legend1ColorX = x1 - legendColorSize * colorOffset;
+    const legend1ColorY = y - legendColorSize;
+
+    ctx.fillStyle = color1;
+    ctx.fillRect(legend1ColorX, legend1ColorY, legendColorSize, legendColorSize);
+
+    const legendSize = Math.min(grid.left / 4, grid.top / 4);
+
+    ctx.fillStyle = "#000";
+    ctx.font = `${legendSize}px Arial`;
+    ctx.textAlign = "left";
+    ctx.fillText(legend1, x1, y);
+
+    const x2 = x - x1 + x;
+
+    const legend2ColorX = x2 - legendColorSize * colorOffset;
+    const legend2ColorY = y - legendColorSize;
+
+    ctx.fillStyle = color2;
+    ctx.fillRect(legend2ColorX, legend2ColorY, legendColorSize, legendColorSize);
+
+    ctx.fillStyle = "#000";
+    ctx.fillText(legend2, x2, y);
+
+    return;
 }
