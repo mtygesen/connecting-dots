@@ -41,6 +41,8 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
 
     WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
 
+    WriteLegend(canvas, grid, "Loss", "#AA0038", "Accuracy", "#1978C8");
+
     const loss = (model.stats.map((stats) => stats.loss));
 
     const smoothLoss = AverageValues(loss, partitions);
@@ -258,4 +260,40 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     }
 
     ctx.stroke();
+}
+
+function WriteLegend(canvas, grid, legend1, color1, legend2, color2) {
+    const ctx = canvas.getContext("2d");
+
+    const x = canvas.width / 2;
+    const y = grid.top * 2 / 3;
+
+    const x1 = x * 0.85;
+
+    const legendColorSize = Math.min(grid.left / 5, grid.top / 5);
+    const colorOffset = 1.75;
+
+    const legend1ColorX = x1 - legendColorSize * colorOffset;
+    const legend1ColorY = y - legendColorSize;
+
+    ctx.fillStyle = color1;
+    ctx.fillRect(legend1ColorX, legend1ColorY, legendColorSize, legendColorSize);
+
+    const legendSize = Math.min(grid.left / 4, grid.top / 4);
+
+    ctx.fillStyle = "#000";
+    ctx.font = `${legendSize}px Arial`;
+    ctx.textAlign = "left";
+    ctx.fillText(legend1, x1, y);
+
+    const x2 = x - x1 + x;
+
+    const legend2ColorX = x2 - legendColorSize * colorOffset;
+    const legend2ColorY = y - legendColorSize;
+
+    ctx.fillStyle = color2;
+    ctx.fillRect(legend2ColorX, legend2ColorY, legendColorSize, legendColorSize);
+
+    ctx.fillStyle = "#000";
+    ctx.fillText(legend2, x2, y);
 }
