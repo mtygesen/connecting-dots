@@ -25,7 +25,7 @@ When the dependencies are met, you can setup the project in a local environment 
 4) Now start the local server using: ```node server.js```.
 5) Open a browser and go to ```localhost:3040```.
 
-## Training new Models
+## Training New Models
 
 ### Steps
 
