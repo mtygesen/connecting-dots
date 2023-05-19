@@ -9,9 +9,26 @@ This repository houses a 2. semester project created by a group of computer scie
 
 ### Dependencies
 
+- ```Node.js v18+```
+- ```npm 9.x```
+
 ### Steps
 
-To install and use the project in a local environment follow the following steps:
+When the dependencies are met, you can setup the project in a local environment with the following steps:
 
-1) Install the zip archive from the main branch
-2)
+1) Install the zip archive from the main branch.
+2) Cd into the ```src``` folder using a terminal.
+3) Install libraries using: ```npm i```.
+4) Now start the local server using: ```node server.js```.
+5) Open a browser and go to ```localhost:3040```.
+
+## Training new Models
+
+### Steps
+
+Training new models using the trainer program takes quite a long time, even on a good CPU. However, if you would like to experiment with training your own models, it can be done with the following steps:
+
+1) Cd into the ```trainer``` folder using a terminal.
+2) Edit the parameters of the model in ```model_settings.json```.
+3) Run the ```node generate_model.js``` command.
+4) The model will be saved in the ```models/``` folder when done.
