@@ -32,3 +32,16 @@ Training new models using the trainer program takes quite a long time, even on a
 2) Edit the parameters of the model in ```model_settings.json```.
 3) Run the ```node generate_model.js``` command.
 4) The model will be saved in the ```models/``` folder when done.
+
+### Model Settings
+
+Inputting invalid settings could lead to ```undefined behavior``` since there isn't really any validation on most of the settings.
+
+ - The ```"activation"``` key has three different settings available: ```sigmoid```, ```tanh```, and ```relu```.
+
+ - The ```"trainingMethod"``` and the training-related settings: ```l2Decay```, ```l1Decay```, ```learningRate```, and ```momentum``` should generally not be changed unless you are already fairly acquainted with different machine learning training methods. If you are to change the training method the supported training methods are: ```adadelta```, ```adagrad```, ```sgd```.
+ - The max ```"trainingSize"``` is 60000, and the max ```testSize``` is 10000.
+ - The ```"augment"``` key determines if the training data should be augmented to improve generalization. This means that the images will be cropped to a ```24x24``` image with a random offset from ```-2``` to ```+2``` pixels. Additionally, there is a ```50%``` chance that the input image will be flipped horizontally. However, in our tests, this has not had any meaningful improvements. In fact, it has only caused the accuracy of models to go down.
+ - It is recommended to keep the ```"logInterval"``` to ```trainingSize / 100``` since logging the accuracy is a very expensive operation. To turn logging of completely one could set the ```"logInterval"``` to ```false```
+ - The ```"hiddenLayers"``` key determines an array that determines how many neurons there will be in the given layer, and the length of the array tells us how many layers there are in total e.g. ```"hiddenLayers": [10]``` will make 1 hidden layer of size 10 neurons.
+ - Setting the ```"formattedOutput"``` key to true is useful for experimenting since it makes the ```JSON``` easy to read.
