@@ -1,6 +1,6 @@
 ![Jest test](https://github.com/icecoldgold773/p2-project/actions/workflows/jest.yml/badge.svg?event=push) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-<img src="https://github.com/icecoldgold773/p2-project/blob/readme/node/public/img/NN.png?raw=true" alt="Connecting Dots Logo" width="250">
+<img src="https://github.com/icecoldgold773/connecting-dots/blob/readme/node/public/img/logo/NN.png?raw=true" alt="Connecting Dots Logo" width="250">
 
 # Connecting Dots 
 
