@@ -3,3 +3,4 @@
 **/*.png
 **/*.json
 load_model.js
+generate_model.js
