@@ -1,4 +1,4 @@
-![Jest test](https://github.com/icecoldgold773/p2-project/actions/workflows/jest.yml/badge.svg?event=push) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Jest test](https://github.com/icecoldgold773/connecting-dots/actions/workflows/jest.yml/badge.svg?event=push) ![ES Lint](https://github.com/icecoldgold773/connecting-dots/actions/workflows/lint.yml/badge.svg?event=push) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <img src="https://github.com/icecoldgold773/connecting-dots/blob/main/node/public/img/NN.png" alt="Connecting Dots Logo" width="250">
 
