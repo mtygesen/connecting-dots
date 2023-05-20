@@ -1,11 +1,11 @@
 /**
  * Makes a plot of the loss over iterations from the given training algorithm in the canvas with id "LossChart"
  *
- * @param model object
- * @param scale (optional) which specifies the upscaling factor
- * @param partitions (optional) oartitions to average the values over
+ * @param {object} model object
+ * @param {number} scale which specifies the upscaling factor
+ * @param {number} partitions to average the values over
  *
- * @return void
+ * @return {void} void
  */
 export default function PlotGraph(model, scale = 4, partitions = 20) {
     // Find and initialize the canvas
@@ -65,10 +65,10 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
 /**
  * Averages the values in an array
  *
- * @param arr array of numbers
- * @param partitions the number of partitions to be averaged
+ * @param {array} arr array of numbers
+ * @param {number} partitions the number of partitions to be averaged
  *
- * @return smoothArr array of averaged values
+ * @return {array} smoothArr array of averaged values
  */
 function AverageValues(arr, partitions) {
     const avgCount = Math.floor(arr.length / partitions);
@@ -93,12 +93,11 @@ function AverageValues(arr, partitions) {
 /**
  * Draws a centered grid in a canvas
  *
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} color represented as a hex-code in a string
  *
- * @param color represented as a Hex-code in a string
- *
- * @return void
+ * @return {void} void
  */
 function DrawGrid(canvas, grid, color) {
     const ctx = canvas.getContext('2d');
@@ -122,19 +121,21 @@ function DrawGrid(canvas, grid, color) {
         ctx.lineTo(grid.right, y);
         ctx.stroke();
     }
+
+    return;
 }
 
 /**
  * Writes the Lables of the y and x axes
  *
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param color represented as a Hex-code in a string
- * @param y1Label the string to label the left y-axis
- * @param xLabel the string to label the x-axis
- * @param y2Label (optional) the string to label the right y-axis
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} color represented as a Hex-code in a string
+ * @param {string} y1Label the string to label the left y-axis
+ * @param {string} xLabel the string to label the x-axis
+ * @param {string} y2Label (optional) the string to label the right y-axis
  *
- * @return void
+ * @return {void} void
  */
 function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = '') {
     const ctx = canvas.getContext('2d');
@@ -165,20 +166,21 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = '') {
     y = -(grid.right + grid.left * 3 / 4);
     ctx.fillText(y2Label, x, y);
     ctx.rotate(-rotation); // Rotate back
+
+    return;
 }
 
 /**
  * Writes the values of the y and x axes
  *
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param color represented as a Hex-code in a string
- * @param model object
- * @param maxX the highest value of the x-axis
- * @param maxY1 the highest values of the left y-axis
- * @param maxY2 (optional) the highest values of the right y-axis
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} color represented as a Hex-code in a string
+ * @param {number} maxX the highest value of the x-axis
+ * @param {number} maxY1 the highest values of the left y-axis
+ * @param {number} maxY2 the highest values of the right y-axis
  *
- * @return void
+ * @return {void} void
  */
 function WriteValues(canvas, grid, color, maxX, maxY1, maxY2) {
     const ctx = canvas.getContext('2d');
@@ -220,18 +222,20 @@ function WriteValues(canvas, grid, color, maxX, maxY1, maxY2) {
         const value = (1 - i / grid.rows) * maxY2;
         ctx.fillText(value.toFixed(2), x, y);
     }
+
+    return;
 }
 
 /**
  * Draws the lines of a graph
  *
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param values array of values to be plotted
- * @param color represented as a Hex-code in a string
- * @param yMax highest point of the y-axis
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {array} values array of values to be plotted
+ * @param {string} color represented as a Hex-code in a string
+ * @param {number} yMax highest point of the y-axis
  *
- * @return void
+ * @return {void} void
  */
 function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     // Draw the actual graph
@@ -254,19 +258,21 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     }
 
     ctx.stroke();
+
+    return;
 }
 
 /**
  * Draws the legends of a graph with the given colors
  *
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param legend1 the string to label the left y-axis
- * @param color1 represented as a Hex-code in a string
- * @param legend2 the string to label the right y-axis
- * @param color2 represented as a Hex-code in a string
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} legend1 the string to label the left y-axis
+ * @param {string} color1 represented as a Hex-code in a string
+ * @param {string} legend2 the string to label the right y-axis
+ * @param {string} color2 represented as a Hex-code in a string
  *
- * @return void
+ * @return {void} void
  */
 function WriteLegends(canvas, grid, legend1, color1, legend2, color2) {
     const ctx = canvas.getContext('2d');
