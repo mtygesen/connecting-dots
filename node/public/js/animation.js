@@ -101,7 +101,8 @@
         if (e.pageX || e.pageY) {
             posx = e.pageX;
             posy = e.pageY;
-        } else if (e.clientX || e.clientY) {
+        }
+        else if (e.clientX || e.clientY) {
             posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
             posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
         }
@@ -169,13 +170,16 @@
                     if (Math.abs(GetDistance(target, points[i])) < 4000) {
                         points[i].active = 0.3;
                         points[i].circle.active = 0.6;
-                    } else if (Math.abs(GetDistance(target, points[i])) < 20000) {
+                    }
+                    else if (Math.abs(GetDistance(target, points[i])) < 20000) {
                         points[i].active = 0.1;
                         points[i].circle.active = 0.3;
-                    } else if (Math.abs(GetDistance(target, points[i])) < 40000) {
+                    }
+                    else if (Math.abs(GetDistance(target, points[i])) < 40000) {
                         points[i].active = 0.02;
                         points[i].circle.active = 0.1;
-                    } else {
+                    }
+                    else {
                         points[i].active = 0;
                         points[i].circle.active = 0;
                     }

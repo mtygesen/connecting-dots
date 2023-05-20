@@ -15,7 +15,8 @@ test('Load model from file system and verify top level properties', async () => 
     try {
         const model2 = await LoadModel('nonexistent');
         expect(model2).toBeUndefined();
-    } catch (err) {
+    }
+    catch (err) {
         expect(err.code).toBe('MODULE_NOT_FOUND');
     }
 });

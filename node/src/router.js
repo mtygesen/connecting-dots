@@ -27,7 +27,8 @@ export default async function RouteRequest(req, res) {
         case 'get-model':
             try {
                 JSONResponse(res, await LoadModel(pathElements[2])); // Get model object
-            } catch {
+            }
+            catch {
                 ErrorResponse(res, 404, 'Model not found');
             }
             break;
@@ -53,7 +54,8 @@ export default async function RouteRequest(req, res) {
 
             try {
                 JSONResponse(res, obj); // Get prediction object
-            } catch {
+            }
+            catch {
                 ErrorResponse(res, 404, 'Model not found');
             }
             break;

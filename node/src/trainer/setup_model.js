@@ -19,7 +19,8 @@ function SetupNetwork(network) {
         default:
             throw new Error('Invalid activation function!');
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err);
         process.exit(1);
     }
@@ -87,7 +88,8 @@ function TrainNetwork(net, trainingSet, testSet, network) {
         default:
             throw new Error('Invalid training method!');
         }
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err);
         process.exit(1);
     }
@@ -106,7 +108,8 @@ function TrainNetwork(net, trainingSet, testSet, network) {
             if (j % logInterval === 0) {
                 stats.push(trainer.train(digit, trainingSet[j].label.indexOf(1)));
                 stats[(j + i * trainingSet.length) / logInterval].acc = TestNetwork(net, testSet, network);
-            } else {
+            }
+            else {
                 trainer.train(digit, trainingSet[j].label.indexOf(1));
             }
 

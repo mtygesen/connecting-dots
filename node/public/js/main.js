@@ -10,7 +10,8 @@ try {
         PlotGraph(model);
         DisplayModelInfo(model);
     });
-} catch (err) {
+}
+catch (err) {
     console.error(err);
 }
 

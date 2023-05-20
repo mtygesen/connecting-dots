@@ -52,7 +52,8 @@ function Load() {
 
             try {
                 json = await GetPrediction(currentModel, i);
-            } catch (error) {
+            }
+            catch (error) {
                 console.error(error);
             }
 
@@ -117,7 +118,8 @@ function Load() {
                     DisplayFM(json.features);
                     DisplayStats(json);
                 });
-            } catch (err) {
+            }
+            catch (err) {
                 console.log(err);
             }
         });

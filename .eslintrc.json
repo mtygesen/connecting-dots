@@ -16,7 +16,8 @@
         "new-cap": "off",
         "consistent-return": "error",
         "quotes": ["error", "single"],
-        "camelcase": ["error", { "properties": "always" }]
+        "camelcase": ["error", { "properties": "always" }],
+        "brace-style": ["error", "stroustrup"]
     },
     "overrides": [
         {

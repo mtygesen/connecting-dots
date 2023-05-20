@@ -123,7 +123,8 @@ function GetFilters(layers) {
             for (let j = 0; j < filters.length; ++j) {
                 filterArr[i - removed].push(Object.values(filters[j].w));
             }
-        } else filterArr.splice(i - removed++, 1);
+        }
+        else filterArr.splice(i - removed++, 1);
     }
 
     return filterArr;

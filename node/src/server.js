@@ -43,7 +43,8 @@ function FileResponse(res, fileName) {
         if (err) {
             console.error(err);
             ErrorResponse(res, 404, String(err));
-        } else {
+        }
+        else {
             res.statusCode = 200;
             res.setHeader('content-type', GuessType(fileName));
             res.write(data);
@@ -100,7 +101,8 @@ function ErrorResponse(res, code, reason) {
 async function RequestHandler(req, res) {
     try {
         await RouteRequest(req, res);
-    } catch (err) {
+    }
+    catch (err) {
         console.log(`Internal Error: ${err}`);
         ErrorResponse(res, 500, 'Internal Error');
     }
