@@ -1,5 +1,9 @@
+# Types
 **/*.html
 **/*.css
 **/*.png
 **/*.json
+
+# Specific files
 load_model.js
+generate_model.js

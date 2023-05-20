@@ -6,9 +6,7 @@ import fs from 'fs'; // Filesystem
 import mnist from 'easy-mnist'; // MNIST dataset
 
 import { SetupNetwork, TrainNetwork, TestNetwork, PrintDone } from './setup_model.js'; // Import helper functions
-
-const json = fs.readFileSync('./node/src/trainer/model_settings.json', 'utf8');
-const config = JSON.parse(json);
+import config from './model_settings.json' assert { type: 'json' }; // Model configuration
 
 const network = config.network;
 const other = config.other;
