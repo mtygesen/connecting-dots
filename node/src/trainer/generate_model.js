@@ -6,21 +6,23 @@ import fs from 'fs'; // Filesystem
 import mnist from 'easy-mnist'; // MNIST dataset
 
 import { SetupNetwork, TrainNetwork, TestNetwork, PrintDone } from './setup_model.js'; // Import helper functions
-import config from './model_settings.json' assert { type: 'json' }; // Model configuration
 
-const network = config.network,
-      other = config.other;
+const json = fs.readFileSync('./node/src/trainer/model_settings.json', 'utf8');
+const config = JSON.parse(json);
 
-const modelName = network.modelName,
-      trainingSize = network.trainingSize,
-      testSize = network.testSize;
+const network = config.network;
+const other = config.other;
+
+const modelName = network.modelName;
+const trainingSize = network.trainingSize;
+const testSize = network.testSize;
 
 const net = SetupNetwork(network); // Setup the network
 
 const dataset = mnist.makeData(trainingSize, testSize);
 
-const trainingSet = dataset.traindata,
-      testSet = dataset.testdata;
+const trainingSet = dataset.traindata;
+const testSet = dataset.testdata;
 
 const stats = TrainNetwork(net, trainingSet, testSet, network); // Train the network and return stats
 

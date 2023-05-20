@@ -1,22 +1,22 @@
 /**
  * Makes a plot of the loss over iterations from the given training algorithm in the canvas with id "LossChart"
- * 
- * @param model object
- * @param scale (optional) which specifies the upscaling factor
- * @param partitions (optional) oartitions to average the values over
- * 
- * @returns void
+ *
+ * @param {object} model object
+ * @param {number} scale which specifies the upscaling factor
+ * @param {number} partitions to average the values over
+ *
+ * @return {void} void
  */
 export default function PlotGraph(model, scale = 4, partitions = 20) {
     // Find and initialize the canvas
-    const canvas = document.getElementById("LossChart");
+    const canvas = document.getElementById('LossChart');
 
     if (canvas === null) {
-        console.warn("Could not find a suitable canvas");
+        console.warn('Could not find a suitable canvas');
         return;
     }
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     // Upscale the properties by the scale
     canvas.width = canvas.clientWidth * scale;
@@ -37,11 +37,11 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
     grid.right = canvas.width - grid.left;
     grid.bottom = canvas.height - grid.top;
 
-    DrawGrid(canvas, grid, "#000");
+    DrawGrid(canvas, grid, '#000');
 
-    WriteLables(canvas, grid, "#000", "Loss", "Iterations", "Accuracy");
+    WriteLables(canvas, grid, '#000', 'Loss', 'Iterations', 'Accuracy');
 
-    WriteLegends(canvas, grid, "Loss", "#AA0038", "Accuracy", "#1978C8");
+    WriteLegends(canvas, grid, 'Loss', '#AA0038', 'Accuracy', '#1978C8');
 
     const loss = (model.stats.map((stats) => stats.loss));
 
@@ -50,30 +50,30 @@ export default function PlotGraph(model, scale = 4, partitions = 20) {
 
     const totalIterations = model.config.trainingSize * model.config.epochs;
 
-    WriteValues(canvas, grid, "#000", totalIterations, maxSmoothLoss, 100);
+    WriteValues(canvas, grid, '#000', totalIterations, maxSmoothLoss, 100);
 
-    DrawGraph(canvas, grid, smoothLoss, "#AA0038");
+    DrawGraph(canvas, grid, smoothLoss, '#AA0038');
 
     const acc = (model.stats.map((stats) => stats.acc));
     const smoothAcc = AverageValues(acc, partitions);
 
-    DrawGraph(canvas, grid, smoothAcc, "#1978C8", 100);
+    DrawGraph(canvas, grid, smoothAcc, '#1978C8', 100);
 
     return;
 }
 
 /**
  * Averages the values in an array
- * 
- * @param arr array of numbers
- * @param partitions the number of partitions to be averaged
- * 
- * @returns smoothArr array of averaged values
+ *
+ * @param {array} arr array of numbers
+ * @param {number} partitions the number of partitions to be averaged
+ *
+ * @return {array} smoothArr array of averaged values
  */
 function AverageValues(arr, partitions) {
-    let avgCount = Math.floor(arr.length / partitions);
+    const avgCount = Math.floor(arr.length / partitions);
 
-    let smoothArr = [arr[0]];
+    const smoothArr = [arr[0]];
 
     for (let i = 0; i < partitions; ++i) {
         let avg = 0;
@@ -92,59 +92,60 @@ function AverageValues(arr, partitions) {
 
 /**
  * Draws a centered grid in a canvas
- * 
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * 
- * @param color represented as a Hex-code in a string
- * 
- * @returns void
+ *
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} color represented as a hex-code in a string
+ *
+ * @return {void} void
  */
 function DrawGrid(canvas, grid, color) {
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.strokeStyle = color;
 
-    const clmnSpacing = canvas.width / grid.maxColoumns,
-          rowSpacing = canvas.height / grid.maxRows;
+    const clmnSpacing = canvas.width / grid.maxColoumns;
+    const rowSpacing = canvas.height / grid.maxRows;
 
     // The grid will be centered on the canvas
     for (let i = 0; i <= grid.coloumns; i++) { // Coloumns
-        let x = grid.left + clmnSpacing * i;
+        const x = grid.left + clmnSpacing * i;
         ctx.moveTo(x, grid.top);
         ctx.lineTo(x, grid.bottom);
         ctx.stroke();
     }
 
     for (let i = 0; i <= grid.rows; i++) { // Rows
-        let y = grid.top + rowSpacing * i;
+        const y = grid.top + rowSpacing * i;
         ctx.moveTo(grid.left, y);
         ctx.lineTo(grid.right, y);
         ctx.stroke();
     }
+
+    return;
 }
 
 /**
  * Writes the Lables of the y and x axes
- * 
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param color represented as a Hex-code in a string
- * @param y1Label the string to label the left y-axis
- * @param xLabel the string to label the x-axis
- * @param y2Label (optional) the string to label the right y-axis
- * 
- * @returns void
+ *
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} color represented as a Hex-code in a string
+ * @param {string} y1Label the string to label the left y-axis
+ * @param {string} xLabel the string to label the x-axis
+ * @param {string} y2Label (optional) the string to label the right y-axis
+ *
+ * @return {void} void
  */
-function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
-    const ctx = canvas.getContext("2d");
+function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = '') {
+    const ctx = canvas.getContext('2d');
     ctx.beginPath();
-    ctx.textAlign = "center";
+    ctx.textAlign = 'center';
     ctx.fillStyle = color;
     const titleSize = Math.min(grid.left / 3, grid.top / 3);
     ctx.font = `${titleSize}px Arial`;
 
-    let x, y;
+    let x; let y;
 
     // Left label
     const rotation = Math.PI / 2; // 90 degrees
@@ -165,74 +166,76 @@ function WriteLables(canvas, grid, color, y1Label, xLabel, y2Label = "") {
     y = -(grid.right + grid.left * 3 / 4);
     ctx.fillText(y2Label, x, y);
     ctx.rotate(-rotation); // Rotate back
+
+    return;
 }
 
 /**
  * Writes the values of the y and x axes
- * 
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param color represented as a Hex-code in a string
- * @param model object
- * @param maxX the highest value of the x-axis
- * @param maxY1 the highest values of the left y-axis
- * @param maxY2 (optional) the highest values of the right y-axis
- * 
- * @returns void
+ *
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} color represented as a Hex-code in a string
+ * @param {number} maxX the highest value of the x-axis
+ * @param {number} maxY1 the highest values of the left y-axis
+ * @param {number} maxY2 the highest values of the right y-axis
+ *
+ * @return {void} void
  */
 function WriteValues(canvas, grid, color, maxX, maxY1, maxY2) {
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.fillStyle = color;
-    const Δx = canvas.width / grid.maxColoumns,
-        Δy = canvas.height / grid.maxRows;
+    const Δx = canvas.width / grid.maxColoumns;
+    const Δy = canvas.height / grid.maxRows;
     const labelSize = Math.min(Δx / 2, Δy / 2); // Find a suitable fontsize
     ctx.font = `${labelSize}px Arial`;
 
-    let x, y;
+    let x; let y;
 
     // Left Y-axis
-    ctx.textAlign = "right";
+    ctx.textAlign = 'right';
     x = grid.left * 0.9;
     for (let i = 0; i <= grid.rows; i++) {
         y = grid.top + Δy * i;
-        let value = (1 - i / grid.rows) * maxY1;
+        const value = (1 - i / grid.rows) * maxY1;
         ctx.fillText(value.toFixed(2), x, y);
     }
 
     // X-axis
-    ctx.textAlign = "center";
+    ctx.textAlign = 'center';
     y = grid.bottom + grid.top * 0.25;
     for (let i = 0; i <= grid.coloumns; i++) {
         x = grid.left + Δx * i;
-        let value = maxX / grid.coloumns * i;
+        const value = maxX / grid.coloumns * i;
 
         i ? ctx.fillText(value, x, y) : ctx.fillText(value + 1, x, y);
     }
 
-    if (maxY2 == "") return; // Stop here if maxY2 is not defined
+    if (maxY2 == '') return; // Stop here if maxY2 is not defined
 
     // Right Y-axis
-    ctx.textAlign = "left";
+    ctx.textAlign = 'left';
     x = grid.right + grid.left * 0.1;
     for (let i = 0; i <= grid.rows; i++) {
         y = grid.top + Δy * i;
-        let value = (1 - i / grid.rows) * maxY2;
+        const value = (1 - i / grid.rows) * maxY2;
         ctx.fillText(value.toFixed(2), x, y);
     }
 
+    return;
 }
 
 /**
  * Draws the lines of a graph
- * 
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param values array of values to be plotted
- * @param color represented as a Hex-code in a string
- * @param yMax highest point of the y-axis
- * 
- * @returns void
+ *
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {array} values array of values to be plotted
+ * @param {string} color represented as a Hex-code in a string
+ * @param {number} yMax highest point of the y-axis
+ *
+ * @return {void} void
  */
 function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     // Draw the actual graph
@@ -255,22 +258,24 @@ function DrawGraph(canvas, grid, values, color, yMax = Math.max(...values)) {
     }
 
     ctx.stroke();
+
+    return;
 }
 
 /**
  * Draws the legends of a graph with the given colors
- * 
- * @param canvas the canvas to be drawn upon
- * @param grid object containing information about the grid.
- * @param legend1 the string to label the left y-axis
- * @param color1 represented as a Hex-code in a string
- * @param legend2 the string to label the right y-axis
- * @param color2 represented as a Hex-code in a string
- * 
- * @returns void
+ *
+ * @param {object} canvas the canvas to be drawn upon
+ * @param {object} grid object containing information about the grid.
+ * @param {string} legend1 the string to label the left y-axis
+ * @param {string} color1 represented as a Hex-code in a string
+ * @param {string} legend2 the string to label the right y-axis
+ * @param {string} color2 represented as a Hex-code in a string
+ *
+ * @return {void} void
  */
 function WriteLegends(canvas, grid, legend1, color1, legend2, color2) {
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     const x = canvas.width / 2;
     const y = grid.top * 2 / 3;
@@ -288,9 +293,9 @@ function WriteLegends(canvas, grid, legend1, color1, legend2, color2) {
 
     const legendSize = Math.min(grid.left / 4, grid.top / 4);
 
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = '#000';
     ctx.font = `${legendSize}px Arial`;
-    ctx.textAlign = "left";
+    ctx.textAlign = 'left';
     ctx.fillText(legend1, x1, y);
 
     const x2 = x - x1 + x;
@@ -301,7 +306,7 @@ function WriteLegends(canvas, grid, legend1, color1, legend2, color2) {
     ctx.fillStyle = color2;
     ctx.fillRect(legend2ColorX, legend2ColorY, legendColorSize, legendColorSize);
 
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = '#000';
     ctx.fillText(legend2, x2, y);
 
     return;

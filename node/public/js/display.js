@@ -1,20 +1,20 @@
 /**
  * Appends model info to the DOM
- * 
- * @param model object 
- * 
- * @returns void 
+ *
+ * @param {object} model object
+ *
+ * @return {void} void
  */
 function DisplayModelInfo(model) {
     const config = model.config;
 
-    const modelName = config.modelName,
-          activation = config.activation,
-          trainingSize = config.trainingSize,
-          batchSize = config.batchSize,
-          epochs = config.epochs,
-          augment = config.augment,
-          hiddenLayers = config.hiddenLayers;
+    const modelName = config.modelName;
+    const activation = config.activation;
+    const trainingSize = config.trainingSize;
+    const batchSize = config.batchSize;
+    const epochs = config.epochs;
+    const augment = config.augment;
+    const hiddenLayers = config.hiddenLayers;
 
     let accuracy = model.accuracy;
 
@@ -25,7 +25,7 @@ function DisplayModelInfo(model) {
     html.id = 'model_info';
 
     const pModelName = document.createElement('div');
-    pModelName.id = "model_name"
+    pModelName.id = 'model_name';
     pModelName.append(`Model name: ${modelName}`);
 
     const pActivation = document.createElement('div');
@@ -59,23 +59,24 @@ function DisplayModelInfo(model) {
 }
 
 /**
- * Displays the prediction on the page
- * 
- * @param prediction object
- * 
- * @returns void
+ * Displays the prediction and the accuracy
+ *
+ * @param {object} prediction
+ *
+ * @return {void} void
  */
-function DisplayPrediction(prediction) {
-    const predictionInfo = document.querySelector('#prediction_info')
-
-    const html = `<p>
-                    Prediction: ${prediction}
-                  </p>`;
-
-    predictionInfo.append(html);
-
-    return;
+function DisplayStats(prediction) {
+    const predictionElement = document.getElementById('prediction');
+    const guess = prediction.guess;
+    const resultArray = prediction.result;
+    predictionElement.innerHTML = 'Prediction: ' + guess;
+    const accuracy = resultArray[guess];
+    const accuracyElement = document.getElementById('accuracy');
+    accuracyElement.innerHTML = ' ' + Math.round(accuracy * 10000) / 100 + '%';
+    for (let i = 0; i < 10; i++) {
+        const element = document.getElementById('probability_' + i);
+        element.innerHTML = Math.round(resultArray[i] * 10000) / 100 + '%';
+    }
 }
 
-
-export { DisplayModelInfo, DisplayPrediction };
+export { DisplayModelInfo, DisplayStats };

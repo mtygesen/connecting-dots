@@ -1,34 +1,31 @@
-import LoadModel from "./load_model.js";
-import mnist from "easy-mnist";
-
 /**
  * Calculates the features of the first convolution layer
- * 
- * @param model to get the filters from
- * @param input to calculate the features of
- * 
- * @returns a tensor of features where the first dimension is the feature and the second and third dimension are x and y of the img
+ *
+ * @param {object} model to get the filters from
+ * @param {array} input to calculate the features of
+ *
+ * @return {array} a tensor of features where the first dimension is the feature and the second and third dimension are x and y of the img
  */
 export default function CalculateFeatures(model, input) {
     const layers = model.net.layers;
     const filters = GetFilters(layers);
 
     const features = [];
-    
+
     for (let j = 0; j < filters[0].length; ++j) {
         features.push(Convolution(input, filters[0][j]));
-    } 
+    }
 
     return features;
 }
 
 /**
  * Performs convolution on the input matrix with the filter matrix. The input matrix is padded with same padding.
- * 
- * @param input image matrix
- * @param filter matrix
- * 
- * @returns the output matrix of the convolution normalized in range [0, 1]
+ *
+ * @param {array} input image matrix
+ * @param {array} filter matrix
+ *
+ * @return {array} the output matrix of the convolution normalized in range [0, 1]
  */
 function Convolution(input, filter) {
     const filterSize = Math.sqrt(filter.length);
@@ -37,7 +34,7 @@ function Convolution(input, filter) {
 
     const filter2d = [];
     const input2d = [];
-    
+
     while (filter.length) filter2d.push(filter.splice(0, filterSize));
 
     for (let i = 0; i * inputSize + inputSize <= input.length; ++i) {
@@ -46,7 +43,7 @@ function Convolution(input, filter) {
 
     const padSize = Math.floor((inputSize - outputSize) / 2);
     const paddedInput = PadInput(input2d, padSize);
-    
+
     const output2d = [];
 
     for (let i = 0; i < outputSize; ++i) {
@@ -71,21 +68,21 @@ function Convolution(input, filter) {
         output2d.push(output1d);
     }
 
-    //const max = Math.max(...output2d.flat());
-    //const min = Math.min(...output2d.flat());
+    // const max = Math.max(...output2d.flat());
+    // const min = Math.min(...output2d.flat());
 
-    //for (let i = 0; i < output2d.length; ++i) output2d[i] = output2d[i].map(x => (x - min) / (max - min)); // Normalize output
+    // for (let i = 0; i < output2d.length; ++i) output2d[i] = output2d[i].map(x => (x - min) / (max - min)); // Normalize output
 
     return output2d;
 }
 
 /**
  * Pads the input matrix with same padding
- * 
- * @param input 2d array
- * @param padSize to pad the input
- * 
- * @returns padded input
+ *
+ * @param {array} input 2d array
+ * @param {number} padSize to pad the input
+ *
+ * @return {array} padded input
  */
 function PadInput(input, padSize) {
     const paddedInput = [...input];
@@ -109,14 +106,14 @@ function PadInput(input, padSize) {
 
 /**
  * Gets the filters from a model
- * 
- * @param layers property of a model object
- * 
- * @returns a 2d array of filters where the first dimension is the layer and the second dimension is the filter
+ *
+ * @param {array} layers property of a model object
+ *
+ * @return {array} a 2d array of filters where the first dimension is the layer and the second dimension is the filter
  */
 function GetFilters(layers) {
     const filterArr = new Array(layers.length).fill(0).map(() => new Array(GetMaxFilterSize(layers)).fill(0));
-    
+
     let removed = 0;
 
     for (let i = 0; i < layers.length; ++i) {
@@ -135,10 +132,10 @@ function GetFilters(layers) {
 
 /**
  * Finds the maximum filter size in a model
- * 
- * @param layers property of a model object
- * 
- * @returns the maximum filter size
+ *
+ * @param {array} layers property of a model object
+ *
+ * @return {number} the maximum filter size
  */
 function GetMaxFilterSize(layers) {
     let maxFilterSize = 0;
@@ -146,7 +143,7 @@ function GetMaxFilterSize(layers) {
     for (let i = 0; i < layers.length; ++i) {
         if ('filters' in layers[i]) {
             const currentFilterSize = layers[i].sx * layers[i].sy * layers[i].depth;
-            
+
             if (currentFilterSize > maxFilterSize) maxFilterSize = currentFilterSize;
         }
     }
