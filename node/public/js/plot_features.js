@@ -1,4 +1,12 @@
 
+/**
+ * Plots a 2d matrix on a canvas.
+ *
+ * @param {array} matrix 2d array
+ * @param {canvas} canvas to plot on
+ *
+ * @return {void} void
+ */
 function Plot2dMatrix(matrix, canvas) {
     const ctx = canvas.getContext('2d');
 
@@ -19,8 +27,19 @@ function Plot2dMatrix(matrix, canvas) {
 
         y += sizeY;
     }
+
+    return;
 }
 
+/**
+ * Creates a "light map" of a matrix (higher values are a lighter color).
+ *
+ * @param {array} matrix to create a light map of
+ * @param {number} max value of the matrix
+ * @param {number} min value of the matrix
+ *
+ * @return {array} lightMap of the matrix
+ */
 function LightMap(matrix, max ='', min ='') {
     if (max == '') max = Math.max(...matrix.flat());
     if (min == '') min = Math.min(...matrix.flat());
@@ -38,6 +57,14 @@ function LightMap(matrix, max ='', min ='') {
     return lightMap;
 }
 
+/**
+ * Displays feature maps on the website
+ *
+ * @param {object} features to be displayed
+ * @param {number} rows to be displayed in
+ *
+ * @return {void} void
+ */
 export default function DisplayFM(features, rows = 2) {
     const parent = document.getElementById('featureMap');
     DeleteChildNodes(parent);
@@ -74,10 +101,21 @@ export default function DisplayFM(features, rows = 2) {
 
         parent.appendChild(row);
     }
+
+    return;
 }
 
+/**
+ * Deletes all child nodes of a parent node
+ *
+ * @param {object} parent
+ *
+ * @return {void} void
+ */
 function DeleteChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
+
+    return;
 }

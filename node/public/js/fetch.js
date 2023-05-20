@@ -1,9 +1,9 @@
 /**
  * Gets a specific model from the server
  *
- * @param modelName model to fetch from server
+ * @param {string} modelName model to fetch from server
  *
- * @return model object promise or throws error
+ * @return {object} model object promise or throws error
  */
 async function GetModel(modelName) {
     const response = await fetch(`/get-model/${modelName}`);
@@ -16,10 +16,10 @@ async function GetModel(modelName) {
 /**
  * Gets a models prediction for a random MNIST image containing a specific number
  *
- * @param modelName to use for prediction
- * @param number to get prediction for
+ * @param {string} modelName to use for prediction
+ * @param {number} number to get prediction for
  *
- * @return promise that resolves to the prediction object or throws error
+ * @return {promise} promise that resolves to the prediction object or throws error
  */
 async function GetPrediction(modelName, number) {
     const response = await fetch(`/get-prediction/${modelName}/${number}`);
@@ -32,10 +32,10 @@ async function GetPrediction(modelName, number) {
 /**
  * Gets a models prediction for a given input
  *
- * @param input matrix of the image for the model to predict
- * @param modelName the model to use for prediction
+ * @param {array} input matrix of the image for the model to predict
+ * @param {string} modelName the model to use for prediction
  *
- * @return promise that resolves to the prediction object or throws error
+ * @return {promise} promise that resolves to the prediction object or throws error
  */
 async function PostInput(input, modelName) {
     const response = await fetch(`/post-input/${modelName}`, {

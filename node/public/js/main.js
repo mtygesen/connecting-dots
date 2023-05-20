@@ -3,7 +3,6 @@ import { GetModel } from './fetch.js';
 import { Load } from './drawing.js';
 import { DisplayModelInfo } from './display.js';
 
-const buttons = document.querySelectorAll('.getModelButton');
 const defaultModel = 'model1';
 
 try {
