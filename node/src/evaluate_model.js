@@ -5,23 +5,24 @@ import CalculateFeatures from './feature_map.js';
 /**
  * Async function that evaluates the result of a model given an input image
  *
- * @param modelName name of the model to evaluate
- * @param input image to evaluate
+ * @param {string} modelName name of the model to evaluate
+ * @param {array} input image to evaluate
  *
- * @return a promise with a prediction object
+ * @return {promise} a promise with a prediction object
  */
 export default async function EvaluateModel(modelName, input) {
-  const model = await LoadModel(modelName);
+    const model = await LoadModel(modelName);
 
-  const digit = new convnetjs.Vol(28, 28, 1, 0.0);
+    const digit = new convnetjs.Vol(28, 28, 1, 0.0);
 
-  digit.w = input;
+    digit.w = input;
 
-  const net = new convnetjs.Net();
+    const net = new convnetjs.Net();
 
-  net.fromJSON(model.net);
+    net.fromJSON(model.net);
 
-  const result = net.forward(digit);
+    const result = net.forward(digit);
+    const guess = result.w.indexOf(Math.max(...result.w));
 
-  return {features: CalculateFeatures(model, input), result: result.w, guess: result.w.indexOf(Math.max(...result.w))};
+    return { features: CalculateFeatures(model, input), result: result.w, guess: guess };
 }
