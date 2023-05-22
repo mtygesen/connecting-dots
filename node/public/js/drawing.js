@@ -2,7 +2,7 @@ import { InvertgrayScale, Convert } from './image.js';
 import { GetPrediction, PostInput, GetModel } from './fetch.js';
 import DisplayFM from './plot_features.js';
 import PlotGraph from './plot_graph.js';
-import { DisplayModelInfo, DisplayStats } from './display.js';
+import { DisplayModelInfo, DisplayStats, ResetStats } from './display.js';
 
 const currentPos = { x: 0, y: 0 };
 const previousPos = { x: 0, y: 0 };
@@ -113,6 +113,7 @@ function Load() {
                         }
                     }
                     if (temp === array.length / 4) {
+                        ResetStats()
                         return
                     }
                     for (let i = 0; i < array.length; i += 4) {
