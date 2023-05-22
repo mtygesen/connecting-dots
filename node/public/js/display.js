@@ -75,8 +75,19 @@ function DisplayStats(prediction) {
     accuracyElement.innerHTML = ' ' + Math.round(accuracy * 10000) / 100 + '%';
     for (let i = 0; i < 10; i++) {
         const element = document.getElementById('probability_' + i);
-        element.innerHTML = Math.round(resultArray[i] * 10000) / 100 + '%';
+        element.innerHTML = ' ' + Math.round(resultArray[i] * 10000) / 100 + '%';
     }
 }
 
-export { DisplayModelInfo, DisplayStats };
+function ResetStats() {
+    const predictionElement = document.getElementById('prediction');
+    predictionElement.innerHTML = 'Prediction: X';
+    const accuracyElement = document.getElementById('accuracy');
+    accuracyElement.innerHTML = ' X%';
+    for (let i = 0; i < 10; i++) {
+        const element = document.getElementById('probability_' + i);
+        element.innerHTML = ' X%';
+    }
+}
+
+export { DisplayModelInfo, DisplayStats, ResetStats };
