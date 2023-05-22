@@ -30,12 +30,12 @@ function Load() {
     drawingCanvas.addEventListener('mouseup', UpdatePos);
     // clears the canvas
     clearButton = document.getElementById('clearButton');
-    clearButton.addEventListener('click', ClearCanvas );
-    clearButton.addEventListener('click', ClearCopyCanvas );
+    clearButton.addEventListener('click', ClearCanvas);
+    clearButton.addEventListener('click', ClearCopyCanvas);
     // clears the input canvas
     clearButton = document.getElementById('reset_input');
-    clearButton.addEventListener('click', ClearCanvas );
-    clearButton.addEventListener('click', ClearCopyCanvas );
+    clearButton.addEventListener('click', ClearCanvas);
+    clearButton.addEventListener('click', ClearCopyCanvas);
     // submits the canvas
     submitButton = document.getElementById('submitButton');
     submitButton.addEventListener('click', () => {
@@ -76,13 +76,13 @@ function Load() {
                 data[i] = 255 - rgb; // red
                 data[i + 1] = 255 - rgb; // green
                 data[i + 2] = 255 - rgb; // blue
-                data[i+ 3] = 255;
+                data[i + 3] = 255;
             }
             // puts the imagedata onto the temporary canvas
             tempCtx.putImageData(imageData, 0, 0, 0, 0, 28, 28);
             // draw upscaled image
             const img = new Image();
-            img.onload = () =>{
+            img.onload = () => {
                 copyctx.drawImage(img, 0, 0, displayNumber.width, displayNumber.height);
             };
             img.src = tempCanvas.toDataURL();
@@ -106,6 +106,15 @@ function Load() {
                     const tempCtx = tempCanvas.getContext('2d');
                     tempCtx.drawImage(displayNumber, 0, 0, 28, 28);
                     const array = tempCtx.getImageData(0, 0, 28, 28).data;
+                    let temp = 0;
+                    for (let i = 3; i < array.length; i += 4) {
+                        if (array[i] === 0) {
+                            temp += 1
+                        }
+                    }
+                    if (temp === array.length / 4) {
+                        return
+                    }
                     for (let i = 0; i < array.length; i += 4) {
                         if (array[i] === 0) {
                             array[i] = 255 - array[i + 3];
