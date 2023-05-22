@@ -107,8 +107,8 @@ function Load() {
                     tempCtx.drawImage(displayNumber, 0, 0, 28, 28);
                     const array = tempCtx.getImageData(0, 0, 28, 28).data;
                     let temp = 0;
-                    for (let i = 0; i < array.length; i += 4) {
-                        if (array[i + 3] === 0) {
+                    for (let i = 3; i < array.length; i += 4) {
+                        if (array[i] === 0) {
                             temp += 1
                         }
                     }
