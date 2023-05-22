@@ -77,8 +77,15 @@ function DisplayStats(prediction) {
         const element = document.getElementById('probability_' + i);
         element.innerHTML = ' ' + Math.round(resultArray[i] * 10000) / 100 + '%';
     }
+
+    return;
 }
 
+/**
+ * Reset prediction stats
+ *
+ * @return {void} void
+ */
 function ResetStats() {
     const predictionElement = document.getElementById('prediction');
     predictionElement.innerHTML = 'Prediction: X';
@@ -88,6 +95,8 @@ function ResetStats() {
         const element = document.getElementById('probability_' + i);
         element.innerHTML = ' X%';
     }
+
+    return;
 }
 
 export { DisplayModelInfo, DisplayStats, ResetStats };
