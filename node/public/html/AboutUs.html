@@ -44,7 +44,7 @@
 					<button class="navbar_button" onclick="javascript:window.location.href='./NeuralNetwork.html'">Neural Networks</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Multi-layer perceptron</button>
+					<button class="navbar_button" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Cost functions</button>
 				</div>
 				<div class="navbar_title">
 					<button class="navbar_button" onclick="javascript:window.location.href='./ActivationFunction.html'">Activation Functions</button>
@@ -56,15 +56,22 @@
 					<button class="navbar_button" onclick="javascript:window.location.href='./Backpropagation.html'">Back-propagation</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button_active" onclick="javascript:window.location.href='./AboutUs.html'">About us</button>
+					<button class="navbar_button_active" onclick="javascript:window.location.href='./AboutUs.html'">Feature maps</button>
 				</div>
 			</div>
 		</div>
 
 <!--Main COntent-->
+<div class="container_main_content">
 <div class="main_content">
-  <h1>What are neural networks?</h1>
-  <p>This is a paragraph.</p>
+  <h1>What are Feature Maps?</h1>
+  <p>The convolution of an image happens in the <b>convulutional layer</b> of a <b>convulutional neural network</b> (CNN), <a class="link" href="./NeuralNetwork.html">read about CNN here</a>. This can be visualized with a <b>feature map</b>, which is just the output matrices of the convolution layer drawn as images, where the value of each matrix entry determines the brightness of the corresponding pixel. The higher the value of an entry in the matrix, the brighter the corresponding pixel will often be displayed. A feature map can help visualize what features the model is detecting.</p>
+
+  <figure>
+  <img class="smallfigure" src="../img/logo/featuremaps.png"/>
+  <figcaption>Feature Maps</figcaption>
+  </figure><br>
+</div>
 </div>
 </body>
 

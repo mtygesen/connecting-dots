@@ -44,7 +44,7 @@
 					<button class="navbar_button" onclick="javascript:window.location.href='./NeuralNetwork.html'">Neural Networks</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button_active" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Multi-layer perceptron</button>
+					<button class="navbar_button_active" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Cost functions</button>
 				</div>
 				<div class="navbar_title">
 					<button class="navbar_button" onclick="javascript:window.location.href='./ActivationFunction.html'">Activation Functions</button>
@@ -56,15 +56,24 @@
 					<button class="navbar_button" onclick="javascript:window.location.href='./Backpropagation.html'">Back-propagation</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./AboutUs.html'">About us</button>
+					<button class="navbar_button" onclick="javascript:window.location.href='./AboutUs.html'">Feature maps</button>
 				</div>
 			</div>
 		</div>
 
 <!--Main COntent-->
+<div class="container_main_content">
 <div class="main_content">
-  <h1>What are Multi Layer Perceptron?</h1>
-  <p>This is a paragraph.</p>
+  <h1>What are Cost functions?</h1>
+  <p><b>A cost function</b> is used for measuring the difference between the expected output of our neural network and the actual output. The cost function does this by taking the actual and expected outputs as inputs, and returns a single number thats indicative of how close the actual output was to the expected output.</p><br>
+
+  <p>There are a lot of different cost functions that can be used, however there are two loss functions that are used more often than the rest. These two are <b>Mean Squared Error</b> (MSE) and <b>Cross Entropy</b> (CE)</p><br>
+
+  <p><b>The Mean Squared Error function</b> finds the difference between the expected output and the actual output, and squares this number. If there are multiple outputs, this function finds the average squared difference. Since the difference between the 2 outputs are squared, this number will always be positive which makes it easier to work with later on during the backpropagation, <a class="link" href="./Backpropagation.html">read about backpropagation here</a></p><br>
+
+  <p><b>CE</b> or "Logarithimic cost" is a cost function that is commonly used in classification problems. This cost function is ideal for classification problems as it always returns a value between 0 and 1, where the output represents the chance of the input belonging to a class. This function is run once for all classes, giving the probability of the input belonging to each class. The ideal output for this function is 1 for the correct class, and 0 for all others</p><br>
+
+</div>
 </div>
 </body>
 

@@ -44,7 +44,7 @@
 					<button class="navbar_button" onclick="javascript:window.location.href='./NeuralNetwork.html'">Neural Networks</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Multi-layer perceptron</button>
+					<button class="navbar_button" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Cost functions</button>
 				</div>
 				<div class="navbar_title">
 					<button class="navbar_button" onclick="javascript:window.location.href='./ActivationFunction.html'">Activation Functions</button>
@@ -62,9 +62,19 @@
 		</div>
 
 <!--Main COntent-->
+<div class="container_main_content">
 <div class="main_content">
-  <h1>What are Gradient Descent?</h1>
-  <p>This is a paragraph.</p>
+  <h1>What is Gradient Descent?</h1>
+  <p>The act of <b>optimizing the neural network</b> would be to <b>minimize error</b>, which are part of the cost function, leading to a <b>maximized accuracy</b> for the algorithm. This can be achieved through changes in the weights and biases connected to each neuron in the neural network.</p><br>
+
+  <p>The general idea of gradient descent is to find a set of weights and biases within the cost function such that the <b>local minimum</b> is reached, meaning that the error is minimal. This is done using multivariable calculus to find the derivative or the slope of the function and then changing the weigths and biases slighty in the direction of the local minimum. This action is then repeated over and over, until the changes become inconsequential, and a local minimum is reached. This is done in backpropagation, <a class="link" href="./Backpropagation.html">read about backpropagation here</a></p><br>
+  <p>This might seem a bit confusing, so a grafical representation might help.
+  </p>
+  <figure>
+	<img class="smallfigure" src="../img/logo/gradientdescent.png"/>
+	<figcaption>A function where gradient descent converges to the local minimum</figcaption>
+	</figure><br>
+</div>
 </div>
 </body>
 

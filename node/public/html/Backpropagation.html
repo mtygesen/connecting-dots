@@ -44,7 +44,7 @@
 					<button class="navbar_button" onclick="javascript:window.location.href='./NeuralNetwork.html'">Neural Networks</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Multi-layer perceptron</button>
+					<button class="navbar_button" onclick="javascript:window.location.href='./MultiLayerPerceptron.html'">Cost functions</button>
 				</div>
 				<div class="navbar_title">
 					<button class="navbar_button" onclick="javascript:window.location.href='./ActivationFunction.html'">Activation Functions</button>
@@ -56,15 +56,32 @@
 					<button class="navbar_button_active" onclick="javascript:window.location.href='./Backpropagation.html'">Back-propagation</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./AboutUs.html'">About us</button>
+					<button class="navbar_button" onclick="javascript:window.location.href='./AboutUs.html'">Feature maps</button>
 				</div>
 			</div>
 		</div>
 
 <!--Main COntent-->
+<div class="container_main_content">
 <div class="main_content">
-  <h1>What are Backpropagation?</h1>
-  <p>This is a paragraph.</p>
+  <h1>What is Backpropagation?</h1>
+  <p><b>Backpropagation</b> is a way of computing the gradient descent of the cost function by systematically using the chainrule. What the algorithm does, is that, after each forward pass though the network it performs a backwards pass while adjusting the models parameters (weights and biases). The level of adjustment is determined by the gradients of the cost function with respect to those parameters.</p><br>
+
+  <p>The reason for moving backwards through the network is that the cost function is a function of the outputs from the network. To understand how the cost varies with earlier weights and biases it is essential to start at the last layer of the network and by repeatedly using the chain rule the backpropagation algorithm can work its way backwards through the layer and obtain useful expressions</p><br>
+
+  <p><b>The chain rule</b> is differentiation of a composite function. You differentiate a composite function by differentiating the outer function with the inner function untouched, and then multiply it by the inner function differentiated.</p>
+
+  <p style="font-family: Noto Sans Math; text-align: center; font-size: larger;">g(f(x))' = g'(f(x)) ·	f'(x)</p><br>
+
+  <p>The backpropagation algorithm is mostly just an example of the chain rule. It gives a way of finding the influence of a certain input on systems that are composed of multiple functions, like the neural network. An example could be if u want to know the influence of x on the function g, we just multiple f on g by the influence of x on f</p>
+
+  <figure>
+    <img class="smallfigure" src="../img/logo/chainrule.png"/>
+    <figcaption>Example of chain rule to find influence of x on g</figcaption>
+    </figure><br>
+
+  
+</div>
 </div>
 </body>
 
