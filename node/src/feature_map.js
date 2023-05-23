@@ -30,7 +30,7 @@ export default function CalculateFeatures(model, input) {
 function Convolution(input, filter) {
     const filterSize = Math.sqrt(filter.length);
     const inputSize = Math.sqrt(input.length);
-    const outputSize = 1 + inputSize - filterSize;
+    const outputSize = inputSize;
 
     const filter2d = [];
     const input2d = [];
@@ -41,7 +41,7 @@ function Convolution(input, filter) {
         input2d.push(input.slice(i * inputSize, i * inputSize + inputSize));
     }
 
-    const padSize = Math.floor((inputSize - outputSize) / 2);
+    const padSize = Math.floor((filterSize - 1) / 2);
     const paddedInput = PadInput(input2d, padSize);
 
     const output2d = [];
