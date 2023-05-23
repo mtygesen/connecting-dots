@@ -8,11 +8,7 @@
 			type="image/png"
 			sizes="180x180"
 			href="../img/favcon.png" />
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="../img/favcon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="../img/favcon.png" />
 		<link
 			rel="icon"
 			type="image/png"
@@ -54,7 +50,7 @@
 		<script type="module" src="../js/fetch.js"></script>
 		<script type="module" src="../js/plot_graph.js"></script>
 		<script type="module" src="../js/display.js"></script>
-  	<script type="module" src="../js/plot_features.js"></script>
+		<script type="module" src="../js/plot_features.js"></script>
 		<script>
 			$ = function (id) {
 				return document.getElementById(id);
@@ -66,11 +62,7 @@
 				$(id).style.display = "none";
 			};
 		</script>
-		<script>
-			function refreshPage(){
-			document.location.href="/";
-			}
-			</script>
+		<script src="../js/model_info.js"></script>
 		<script type="module" src="../js/drawing.js"></script>
 		<script type="module" src="../js/main.js"></script>
 	</head>
@@ -88,30 +80,46 @@
 		<script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js"></script>
 		<script src="../js/animation.js"></script>
 		<!--Top nav bar -->
-		<a name="home-point"></a> 
+		<a name="home-point"></a>
 		<div class="topnav" id="myTopnav">
 			<div href="./index.html" class="divLogo">
-				<button href="./index.html"  class="homebutton">
-				<a class="sub-nav-link is-active" href="./index.html">
-					<img href="./index.html"  class="logo" src="../img/NN.png" />
-				</a>
-			</button>
+				<button href="./index.html" class="homebutton">
+					<a class="sub-nav-link is-active" href="./index.html">
+						<img href="./index.html" class="logo" src="../img/NN.png" />
+					</a>
+				</button>
 			</div>
 			<div class="container">
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./html/NeuralNetwork.html'">Neural Networks</button>
+					<button
+						class="navbar_button"
+						onclick="javascript:window.location.href='./html/NeuralNetwork.html'">
+						Neural Networks
+					</button>
 				</div>
 				<div class="navbar_title">
 					<button class="navbar_button" onclick="javascript:window.location.href='./html/MultiLayerPerceptron.html'">Cost functions</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./html/ActivationFunction.html'">Activation Functions</button>
+					<button
+						class="navbar_button"
+						onclick="javascript:window.location.href='./html/ActivationFunction.html'">
+						Activation Functions
+					</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./html/GradientDescent.html'">Gradient Descent</button>
+					<button
+						class="navbar_button"
+						onclick="javascript:window.location.href='./html/GradientDescent.html'">
+						Gradient Descent
+					</button>
 				</div>
 				<div class="navbar_title">
-					<button class="navbar_button" onclick="javascript:window.location.href='./html/Backpropagation.html'">Back-propagation</button>
+					<button
+						class="navbar_button"
+						onclick="javascript:window.location.href='./html/Backpropagation.html'">
+						Back-propagation
+					</button>
 				</div>
 				<div class="navbar_title">
 					<button class="navbar_button" onclick="javascript:window.location.href='./html/AboutUs.html'">Feature maps</button>
@@ -122,7 +130,12 @@
 		<div class="popup" id="popup">
 			<div class="popupflex">
 				<div class="canvasflex">
-					<canvas class="draw" id="drawingCanvas" width="128" height="128" onload="Load()"></canvas>
+					<canvas
+						class="draw"
+						id="drawingCanvas"
+						width="128"
+						height="128"
+						onload="Load()"></canvas>
 				</div>
 				<div class="close">
 					<button
@@ -131,7 +144,7 @@
 						onclick="hide('popup')">
 						<i class="fa fa-window-close-o" aria-hidden="true"></i>
 					</button>
-				
+
 					<button
 						class="canvas_button_submit"
 						id="submitButton"
@@ -142,18 +155,21 @@
 			</div>
 		</div>
 		<div class="main-content">
-			<!--MAIN CONTENT-->		  
+			<!--MAIN CONTENT-->
 			<div class="visualizationTop">
 				<div class="verticalModel">
 					<div class="modelRightBtn">
-						<button class="getModelButton model1" id="model1">
+						<button
+							onclick="changeText('model1')"
+							class="getModelButton model1"
+							id="model1">
 							<span class="getModelButton_text model1">Model 1</span>
 							<span class="getModelButton_icon model1">
 								<i class="fa-solid fa-arrow-right-from-bracket"></i>
 							</span>
 						</button>
 					</div>
-					<div class="modelRightBtn">
+					<div onclick="changeText('model2')" class="modelRightBtn">
 						<button class="getModelButton model2" id="model2">
 							<span class="getModelButton_text model2">Model 2</span><i></i>
 							<div class="getModelButton_icon model2">
@@ -163,7 +179,7 @@
 							</div>
 						</button>
 					</div>
-					<div class="modelRightBtn">
+					<div onclick="changeText('model3')" class="modelRightBtn">
 						<button class="getModelButton model3" id="model3">
 							<span class="getModelButton_text model3">Model 3</span><i></i>
 							<div class="getModelButton_icon model3">
@@ -173,7 +189,7 @@
 							</div>
 						</button>
 					</div>
-					<div class="modelRightBtn">
+					<div onclick="changeText('model4')" class="modelRightBtn">
 						<button class="getModelButton model4" id="model4">
 							<span class="getModelButton_text model4">Model 4</span><i></i>
 							<div class="getModelButton_icon model4">
@@ -183,7 +199,7 @@
 							</div>
 						</button>
 					</div>
-					<div class="modelRightBtn">
+					<div onclick="changeText('model5')" class="modelRightBtn">
 						<button class="getModelButton model5" id="model5">
 							<span class="getModelButton_text model5">Model 5</span><i></i>
 							<div class="getModelButton_icon model5">
@@ -193,7 +209,7 @@
 							</div>
 						</button>
 					</div>
-					<div class="modelRightBtn">
+					<div onclick="changeText('model6')" class="modelRightBtn">
 						<button class="getModelButton model6" id="model6">
 							<span class="getModelButton_text model6">Model 6</span><i></i>
 							<div class="getModelButton_icon model6">
@@ -203,7 +219,7 @@
 							</div>
 						</button>
 					</div>
-					<div class="modelRightBtn">
+					<div onclick="changeText('model7')" class="modelRightBtn">
 						<button class="getModelButton model7">
 							<span class="getModelButton_text model7">Model 7</span><i></i>
 							<div class="getModelButton_icon model7">
@@ -219,52 +235,58 @@
 				</div>
 				<div class="infobox">
 					<div class="infoboxtitle">Model Information</div>
-					<div class="infoboxcontent" id="model_info">
-					
-					</div>
+					<div class="infoboxcontent" id="model_info"></div>
 				</div>
 			</div>
 			<div class="visualizationBottom">
 				<div class="dialpad">
-					
-						<div>
-							<canvas class="displayNumber" id="displayNumber" width="128" height="128"> </canvas>
+					<div>
+						<canvas
+							class="displayNumber"
+							id="displayNumber"
+							width="128"
+							height="128">
+						</canvas>
+					</div>
+					<div class="allrows">
+						<div class="row">
+							<button onclick="" class="" id="numpadButton1">
+								<span>1</span>
+							</button>
+							<button onclick="" class="" id="numpadButton2">
+								<span>2</span>
+							</button>
+							<button onclick="" class="" id="numpadButton3">
+								<span>3</span>
+							</button>
+
+							<button
+								onclick=""
+								class=""
+								style="--clr: #ffffff"
+								id="numpadButton4">
+								<span>4</span>
+							</button>
+							<button onclick="" class="" id="numpadButton5">
+								<span>5</span>
+							</button>
+							<button onclick="" class="" id="numpadButton6">
+								<span>6</span>
+							</button>
+
+							<button onclick="" class="" id="numpadButton7">
+								<span>7</span>
+							</button>
+							<button onclick="" class="" id="numpadButton8">
+								<span>8</span>
+							</button>
+							<button onclick="" class="" id="numpadButton9">
+								<span>9</span>
+							</button>
+							<button onclick="" class="" id="numpadButton0">
+								<span>0</span>
+							</button>
 						</div>
-						<div class="allrows">
-							<div class="row">
-								<button onclick="" class="" id="numpadButton1">
-									<span>1</span>
-								</button>
-								<button onclick="" class="" id="numpadButton2">
-									<span>2</span>
-								</button>
-								<button onclick="" class="" id="numpadButton3">
-									<span>3</span>
-								</button>
-	
-								<button onclick="" class="" style="--clr: #ffffff" id="numpadButton4">
-									<span>4</span>
-								</button>
-								<button onclick="" class="" id="numpadButton5">
-									<span>5</span>
-								</button>
-								<button onclick="" class="" id="numpadButton6">
-									<span>6</span>
-								</button>
-	
-								<button onclick="" class="" id="numpadButton7">
-									<span>7</span>
-								</button>
-								<button onclick="" class="" id="numpadButton8">
-									<span>8</span>
-								</button>
-								<button onclick="" class="" id="numpadButton9">
-									<span>9</span>
-								</button>
-								<button onclick="" class="" id="numpadButton0">
-									<span>0</span>
-								</button>
-							</div>
 						<div class="row">
 							<button onclick="" id="reset_input">
 								<i class="gg-undo" title="reset input"></i>
@@ -283,6 +305,7 @@
 							<div>Certainty:</div>
 							<div class="infodisplay" id="accuracy">X</div>
 						</div>
+						<br />
 						<div class="info">
 							<div>Certainty 0:</div>
 							<div class="infodisplay" id="probability_0">X</div>
@@ -325,56 +348,58 @@
 						</div>
 					</div>
 				</div>
-				</div>
 			</div>
-			<div id="Information">
-				<div id="description-box">
-					<h2 style="font-family: 'Electrolize', Courier, monospace">
-						Machine Learning
-					</h2>
-					<div class="description-content">
-						<i class="fa-solid fa-arrow-right-from-bracket"></i>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-							laborum excepturi minima suscipit libero quas eveniet deleniti
-							sint illum, necessitatibus ex rerum non obcaecati itaque quos
-							repellat accusantium adipisci beatae!
-						</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-							nostrum quos corporis libero eos nesciunt, accusamus
-							necessitatibus tempore quis suscipit non neque? Aliquam nobis
-							deserunt voluptas reprehenderit facere libero eligendi.
-						</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-							modi sequi fuga fugiat suscipit quo voluptatibus quam adipisci
-							assumenda sed nobis, amet in nam nostrum neque iusto nisi eius
-							autem.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-							Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-							eius autem.Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Magni modi sequi fuga fugiat suscipit quo voluptatibus quam
-							adipisci assumenda sed nobis, amet in nam nostrum neque iusto nisi
-							eius autem.
-						</p>
-						<br />
-					</div>
+		</div>
+		<div id="Information">
+			<div id="description-box">
+				<h2 style="font-family: 'Electrolize', Courier, monospace">
+					Model Information
+				</h2>
+				<div class="description-content">
+					<p id="modelP">
+						The model1 neural network is trained using a sigmoid activation
+						function. The sigmoid function is a mathematical function that maps
+						any real value to a value between 0 and 1. It introduces
+						non-linearity to the network and is commonly used in the hidden
+						layers of neural networks. The training dataset used for model1
+						consists of 10,000 handwritten digits from the MNIST dataset. The
+						MNIST dataset is a widely used benchmark dataset in the field of
+						machine learning, consisting of 60,000 training images and 10,000
+						test images. Each image in the dataset represents a handwritten
+						digit from 0 to 9. By utilizing 10,000 images from the dataset,
+						model1 has access to a diverse set of handwritten digits to learn
+						from. During the training process, the data is divided into batches
+						of size 10. Dividing the data into smaller batches allows for more
+						efficient computation and memory usage. The network goes through
+						each batch one by one and updates its weights and biases based on
+						the gradients computed from that batch. This technique is known as
+						mini-batch gradient descent and strikes a balance between accuracy
+						and computational efficiency. Model1 goes through one epoch during
+						training, which means it processes the entire training dataset once.
+						In each epoch, the network goes through each batch of images,
+						calculates the loss (a measure of how different the predicted output
+						is from the true output), and adjusts its parameters (weights and
+						biases) based on the gradients of the loss with respect to those
+						parameters. This process is repeated for each batch until all the
+						batches have been processed, completing one epoch. The "Augment"
+						parameter being set to False indicates that no data augmentation
+						techniques were applied to the training dataset. Data augmentation
+						is a common strategy used to artificially increase the size and
+						diversity of the training dataset by applying various
+						transformations, such as rotation, scaling, or flipping, to the
+						images. These techniques help the model generalize better and reduce
+						overfitting. However, in the case of model1, no such augmentation
+						was used. Model1 does not have any hidden layers, suggesting a
+						simple architecture known as a single-layer perceptron or a fully
+						connected neural network. In this architecture, the input layer
+						directly connects to the output layer, with each input pixel
+						connected to every output neuron. Despite its simplicity, model1
+						achieves a reported accuracy of 90.4% on the MNIST dataset. This
+						accuracy indicates how well the model performs in correctly
+						categorizing handwritten digits, demonstrating its effectiveness
+						even with a straightforward architecture.
+					</p>
+					<br />
 				</div>
 			</div>
 		</div>
@@ -399,13 +424,12 @@
 				</div>
 				<div class="footer-content">
 					<span class="footer-title">Reference:</span><br />
-					<a href="https://github.com/icecoldgold773/p2-project" target="_blank"
-						><img
-							src="../img/Github-logo.png"
-							title="GitHub"
-							alt="github" />
-						<span style="padding-left: 5px">GitHub</span></a
-					>
+					<a
+						href="https://github.com/icecoldgold773/p2-project"
+						target="_blank">
+						<img src="../img/Github-logo.png" title="GitHub" alt="github" height="" />
+						
+					</a>
 				</div>
 			</div>
 		</footer>

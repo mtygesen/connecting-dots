@@ -7,3 +7,4 @@
 # Specific files
 load_model.js
 generate_model.js
+model_info.js
