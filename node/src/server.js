@@ -1,18 +1,18 @@
 import http from 'http';
-import fs from "fs";
-import path  from "path";
-import process from "process";
-import mnist from "easy-mnist"
+import fs from 'fs';
+import path from 'path';
+import process from 'process';
+import mnist from 'easy-mnist';
 
-import RouteRequest from "./router.js";
-import GuessType from "./guess_type.js";
+import RouteRequest from './router.js';
+import GuessType from './guess_type.js';
 
 /**
  * Secures the path to prevent directory traversal attacks
- * 
- * @param userPath Path to secure
- * @param publicFolder Public folder
- * @returns Secured path or undefined if null byte found
+ *
+ * @param {string} userPath Path to secure
+ * @param {string} publicFolder Public folder
+ * @return {string} Secured path or undefined if null byte found
  */
 function SecurePath(userPath) {
     if (userPath.indexOf('\0') !== -1) return undefined; // Return undefined if null byte found
@@ -22,17 +22,17 @@ function SecurePath(userPath) {
 
     userPath = path.normalize(userPath).replace(/^(\.\.(\/|\\|$))+/, ''); // Remove double backslashes and dots
     userPath = publicFolder + userPath; // Concatenate with public folder
-  
+
     return path.join(rootPath, path.normalize(userPath)); // Return path
 }
 
 /**
  * Sends a file to the client
- * 
- * @param res Response object 
- * @param fileName The name of the file to send
- * 
- * @returns void
+ *
+ * @param {object} res Response object
+ * @param {string} fileName The name of the file to send
+ *
+ * @return {void} void
  */
 function FileResponse(res, fileName) {
     const securePath = SecurePath(fileName);
@@ -57,11 +57,11 @@ function FileResponse(res, fileName) {
 
 /**
  * Responds with a JSON object
- * 
- * @param res Response object 
- * @param obj Object to send
- * 
- * @returns void
+ *
+ * @param {object} res Response object
+ * @param {object} obj Object to send
+ *
+ * @return {void} void
  */
 function JSONResponse(res, obj) {
     res.statusCode = 200;
@@ -74,12 +74,12 @@ function JSONResponse(res, obj) {
 
 /**
  * Responds with an error message
- * 
- * @param res Response object
- * @param code Error code
- * @param reason Reason for error
- * 
- * @returns void
+ *
+ * @param {object} res Response object
+ * @param {number} code Error code
+ * @param {string} reason Reason for error
+ *
+ * @return {void} void
  */
 function ErrorResponse(res, code, reason) {
     res.statusCode = code;
@@ -92,17 +92,17 @@ function ErrorResponse(res, code, reason) {
 
 /**
  * Handles a request
- * 
- * @param req Request object 
- * @param res Response object
- * 
- * @returns promise that resolves when the request is handled
+ *
+ * @param {object} req Request object
+ * @param {object} res Response object
+ *
+ * @return {promise} promise that resolves when the request is handled
  */
 async function RequestHandler(req, res) {
     try {
         await RouteRequest(req, res);
     }
-    catch(err) {
+    catch (err) {
         console.log(`Internal Error: ${err}`);
         ErrorResponse(res, 500, 'Internal Error');
     }
@@ -112,11 +112,11 @@ async function RequestHandler(req, res) {
 
 /**
  * Start the server
- * 
- * @param port Port to listen on 
- * @param hostname Hostname of the server
- * 
- * @returns void
+ *
+ * @param {number} port Port to listen on
+ * @param {string} hostname Hostname of the server
+ *
+ * @return {void} void
  */
 function StartServer(port, hostname) {
     server.listen(port, hostname, () => {
@@ -128,41 +128,51 @@ function StartServer(port, hostname) {
 
 /**
  * Checks if the content type is JSON
- * 
- * @param contentType of the request
- * 
- * @returns true if the content type is JSON
+ *
+ * @param {string} contentType of the request
+ *
+ * @return {boolean} true if the content type is JSON
  */
-function IsJsonEncoded(contentType){
-    let cType = contentType.split(";")[0];
+function IsJsonEncoded(contentType) {
+    let cType = contentType.split(';')[0];
     cType = contentType.trim();
 
-    return (cType === "application/json"); 
+    return (cType === 'application/json');
 }
 
 /**
  * Collects the body of a POST request
- * 
- * @param req object
- *  
- * @returns promise that resolves to the body of the request
+ *
+ * @param {object} req object
+ *
+ * @return {promise} promise that resolves to the body of the request
  */
 function CollectPostBody(req) {
+    /**
+     * Executor for the CollectPostBody promise
+     *
+     * @param {*} resolve
+     * @param {*} reject
+     *
+     * @return {void} void
+     */
     function CollectPostBodyExecutor(resolve, reject) {
         let bodyData = [];
         let length = 0;
         req.on('data', (chunk) => {
             bodyData.push(chunk);
-            length += chunk.length; 
-   
+            length += chunk.length;
+
             if (length > 10000000) { // 10 MB limit!
                 req.connection.destroy();
                 reject(new Error('Too much data'));
             }
         }).on('end', () => {
             bodyData = Buffer.concat(bodyData).toString(); // By default, Buffers use UTF8
-            resolve(bodyData); 
-         });
+            resolve(bodyData);
+        });
+
+        return;
     }
 
     return new Promise(CollectPostBodyExecutor);
@@ -170,10 +180,10 @@ function CollectPostBody(req) {
 
 /**
  * Extracts JSON from a request
- * 
- * @param request object 
- * 
- * @returns promise that resolves to a JSON object
+ *
+ * @param {object} req object
+ *
+ * @return {promise} promise that resolves to a JSON object
  */
 async function ExtractJSON(req) {
     if (IsJsonEncoded(req.headers['content-type'])) {
@@ -181,24 +191,24 @@ async function ExtractJSON(req) {
 
         return JSON.parse(body);
     }
-    
-    return Promise.reject(new Error('Validation error')); //create a rejected promise
+
+    return Promise.reject(new Error('Validation error')); // create a rejected promise
 }
 
 /**
  * Finds a random picture from the dataset corresponding to the input integer
- * 
- * @param number an integer between 0 and 9
- * 
- * @returns an array of 784 integers corresponding to the pixels in a random picture corresponding the the input integer
+ *
+ * @param {number} number an integer between 0 and 9
+ *
+ * @return {array} an array of 784 integers corresponding to the pixels in a random picture corresponding the the input integer
  */
 function FindPicture(number) {
     const dataset = mnist.makeData(0, 10000).testdata;
     let i = 0;
-    
+
     do {
         i = Math.floor(Math.random() * 10000);
-    } 
+    }
     while (dataset[i].label[number] !== 1);
 
     return dataset[i].image;
@@ -211,4 +221,4 @@ const hostname = 'localhost';
 
 StartServer(port, hostname);
 
-export { SecurePath, FileResponse, JSONResponse,  ErrorResponse, ExtractJSON, FindPicture };
+export { SecurePath, FileResponse, JSONResponse, ErrorResponse, ExtractJSON, FindPicture };

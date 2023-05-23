@@ -10,16 +10,16 @@ test('Test a model on some input matrix', async () => {
     const input = mnist.makeData(1).traindata[0].image;
 
     // Check that the model returns the expected properties for a valid model and input
-    const prediction1 = await EvaluateModel(modelName, input); 
+    const prediction1 = await EvaluateModel(modelName, input);
 
     expect(prediction1).toBeDefined();
     expect(prediction1).toHaveProperty('features');
     expect(prediction1).toHaveProperty('result');
     expect(prediction1).toHaveProperty('guess');
-    
+
     // Test for nonexistent model with valid input
     try {
-        const prediction2 = await EvaluateModel('nonexistent', input)
+        const prediction2 = await EvaluateModel('nonexistent', input);
         expect(prediction2).toBeUndefined();
     }
     catch (err) {
@@ -36,6 +36,6 @@ test('Test a model on some input matrix', async () => {
         expect(prediction3).not.toHaveProperty('guess');
     }
     catch (err) {
-        expect(err.message).toBe("Cannot read properties of undefined (reading '0')");
+        expect(err.message).toBe('Cannot read properties of undefined (reading \'0\')');
     }
 });

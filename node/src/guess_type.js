@@ -1,9 +1,9 @@
 /**
  * Guesses the type of a file based on its extension
- * 
- * @param fileName of the file to guess the type of
- * 
- * @returns type of the file
+ *
+ * @param {string} fileName of the file to guess the type of
+ *
+ * @return {string} type of the file
  */
 export default function GuessType(fileName) {
     const fileNameArr = fileName.split('.');
@@ -17,7 +17,7 @@ export default function GuessType(fileName) {
         'html': 'text/html',
         'ico': 'image/ico', // CHECK x-icon vs image/vnd.microsoft.icon
         'js': 'text/javascript',
-        'json': 'application/json', 
+        'json': 'application/json',
         'css': 'text/css',
         'png': 'image/png',
         'jpg': 'image/jpeg',
@@ -26,8 +26,8 @@ export default function GuessType(fileName) {
         'svg': 'image/svg+xml',
         'pdf': 'application/pdf',
         'doc': 'application/msword',
-        'docx': 'application/msword'
+        'docx': 'application/msword',
     };
-    
+
     return (ext2Mime[fileExtension] || 'text/plain'); // default is text/plain
 }
