@@ -13,7 +13,7 @@ import EvaluateModel from './evaluate_model.js';
 export default async function RouteRequest(req, res) {
     console.log(`${req.method}: ${req.url}`);
 
-    const baseURL = `http:\\${req.headers.host}/`; // See https://github.com/nodejs/node/issues/12682
+    const baseURL = `http:\\${req.headers.host}/`;
     const url = new URL(req.url, baseURL);
     const queryPath = decodeURIComponent(url.pathname); // Convert uri encoded special letters (eg. æøå) to JS string
     const pathElements = queryPath.split('/');
