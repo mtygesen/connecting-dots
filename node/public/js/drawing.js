@@ -109,12 +109,12 @@ function Load() {
                     let temp = 0;
                     for (let i = 3; i < array.length; i += 4) {
                         if (array[i] === 0) {
-                            temp += 1
+                            temp += 1;
                         }
                     }
                     if (temp === array.length / 4) {
-                        ResetStats()
-                        return
+                        ResetStats();
+                        return;
                     }
                     for (let i = 0; i < array.length; i += 4) {
                         if (array[i] === 0) {
