@@ -6,6 +6,7 @@
 
 .main_content{
     padding-top: 30px;
+    padding-bottom: 30px;
     width: 60%;
     justify-content: center;
     background-color: white;
@@ -21,10 +22,53 @@
     text-align: center;
     padding-bottom: 20px;
     color: rgb(48,78,103);
-
 }
 
 .main_content p{
     text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+.link{
+    color: darkblue;
+}
+
+.figure{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 75%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.smallfigure{
+    padding-top: 20px;
+    width: 35%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top_bar{
+    border-top: 2px ridge rgb(169, 169, 169);
+    margin-top: 25px;
+}
+
+.top_bar h2{
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    color: rgb(48,78,103);
+}
+
+.top_bar p{
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+figcaption{
+    text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
