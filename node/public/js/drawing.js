@@ -169,6 +169,7 @@ function Draw(event) {
         ctx.lineTo(currentPos.x, currentPos.y);
         ctx.strokeStyle = 'black';
         ctx.lineWidth = '9';
+        ctx.lineCap = 'round';
         ctx.stroke();
         ctx.closePath();
     }
