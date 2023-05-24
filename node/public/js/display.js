@@ -53,7 +53,8 @@ function DisplayModelInfo(model) {
     const pAccuracy = document.createElement('p');
     pAccuracy.append(`Accuracy: ${accuracy}`);
 
-    html.append(pModelName, pActivation, pTrainingMethod, pTrainingSize, pBatchSize, pEpochs, pAugment, pHiddenLayers, pAccuracy);
+    html.append(pModelName, pActivation, pTrainingMethod, pTrainingSize);
+    html.append(pBatchSize, pEpochs, pAugment, pHiddenLayers, pAccuracy);
 
     const modelInfo = document.querySelector('#model_info');
 
