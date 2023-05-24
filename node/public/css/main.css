@@ -129,7 +129,10 @@
 .infoboxcontent {
 	display: flex;
 	flex-direction: column;
-    align-items: center;
+}
+
+#predictionInfo {
+	align-items: center;
 }
 
 
