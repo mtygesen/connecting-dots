@@ -10,6 +10,7 @@ function DisplayModelInfo(model) {
 
     const modelName = config.modelName;
     const activation = config.activation;
+    const trainingMethod = config.trainingMethod;
     const trainingSize = config.trainingSize;
     const batchSize = config.batchSize;
     const epochs = config.epochs;
@@ -20,36 +21,39 @@ function DisplayModelInfo(model) {
 
     accuracy = Math.round((accuracy + Number.EPSILON) * 100) / 100;
 
-    const html = document.createElement('div');
+    const html = document.createElement('p');
     html.className = 'infoboxcontent';
     html.id = 'model_info';
 
-    const pModelName = document.createElement('div');
+    const pModelName = document.createElement('p');
     pModelName.id = 'model_name';
     pModelName.append(`Model name: ${modelName}`);
 
-    const pActivation = document.createElement('div');
+    const pActivation = document.createElement('p');
     pActivation.append(`Activation function: ${activation}`);
 
-    const pTrainingSize = document.createElement('div');
+    const pTrainingMethod = document.createElement('p');
+    pTrainingMethod.append(`Training method: ${trainingMethod}`);
+
+    const pTrainingSize = document.createElement('p');
     pTrainingSize.append(`Training size: ${trainingSize}`);
 
-    const pBatchSize = document.createElement('div');
+    const pBatchSize = document.createElement('p');
     pBatchSize.append(`BatchSize: ${batchSize}`);
 
-    const pEpochs = document.createElement('div');
+    const pEpochs = document.createElement('p');
     pEpochs.append(`Epochs: ${epochs}`);
 
-    const pAugment = document.createElement('div');
+    const pAugment = document.createElement('p');
     pAugment.append(`Augment: ${augment}`);
 
-    const pHiddenLayers = document.createElement('div');
+    const pHiddenLayers = document.createElement('p');
     pHiddenLayers.append(`Hidden layers: [${hiddenLayers}]`);
 
-    const pAccuracy = document.createElement('div');
+    const pAccuracy = document.createElement('p');
     pAccuracy.append(`Accuracy: ${accuracy}`);
 
-    html.append(pModelName, pActivation, pTrainingSize, pBatchSize, pEpochs, pAugment, pHiddenLayers, pAccuracy);
+    html.append(pModelName, pActivation, pTrainingMethod, pTrainingSize, pBatchSize, pEpochs, pAugment, pHiddenLayers, pAccuracy);
 
     const modelInfo = document.querySelector('#model_info');
 
