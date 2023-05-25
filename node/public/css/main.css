@@ -281,4 +281,8 @@
 	justify-content: space-around;
 	align-items: center;
   }
-  
+
+#fm-title{
+	text-align: center;
+	padding-top: 15px;
+}

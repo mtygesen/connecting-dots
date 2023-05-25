@@ -84,8 +84,12 @@
 	<p> CNN is a type of feed-forward NN that classifies images by detecting different features in an image. A CNN is generally made up of three types of
 	layers: <b>Convolutional layers</b>, <b>pooling layers</b>, and <b>fully connected layers</b>. Depending on the complexity of the classification problem, there can be multiple convolutional layers and pooling layers, but there is only one fully connected layer.</p>
 
+	<figure>
 	<img class="figure" src="../img/CNN.png"/>
-	
+	<figcaption><a class="link" href="https://www.mdpi.com/1424-8220/19/22/4933" target="_blank">Convulutional neural network</a></figcaption>
+	</figure><br>	
+
+
 	<p>In <b>the convolution layer</b> patterns in the image are detected. The convolution layer consists of several filters (also referred to as kernels). Each filter is a matrix of weights that is applied by sliding the filter over the image and then taking the weighted sum of the pixel. The value of each weight in a filter is typically initialized randomly, and then adjusted during the training phase (backpropagation) to detect the important features to correctly classify the image, <a class="link" href="./Backpropagation.html">read about backpropagation here</a></p><br>
 
 	<p>After the convolution layer, the output is passed through an activation function which is typically the Rectified Linear Unit (ReLu) function, <a class="link" href="./ActivationFunction.html">read about activation functions here</a></p><br>

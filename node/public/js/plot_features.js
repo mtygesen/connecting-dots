@@ -69,6 +69,12 @@ export default function DisplayFM(features, rows = 2) {
     const parent = document.getElementById('featureMap');
     DeleteChildNodes(parent);
 
+    const title = document.createElement('h2');
+    title.id = 'fm-title';
+    title.append('Feature Maps');
+
+    parent.append(title);
+
     const FM = [];
     for (let i = 0; i < features.length; ++i) {
         FM.push(features[i].flat());
