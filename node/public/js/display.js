@@ -80,7 +80,7 @@ function DisplayStats(prediction) {
     accuracyElement.innerHTML = ' ' + Math.round(accuracy * 10000) / 100 + '%';
     for (let i = 0; i < 10; i++) {
         const element = document.getElementById('probability_' + i);
-        let text = Math.round(resultArray[i] * 10000) / 100
+        const text = Math.round(resultArray[i] * 10000) / 100;
         element.innerHTML = ' ' + text.toFixed(2) + '%';
     }
 
